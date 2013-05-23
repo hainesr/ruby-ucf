@@ -35,6 +35,13 @@ require 'zip/zipfilesystem'
 
 module UCF
 
+  # This class represents a UCF file in PK Zip format. See
+  # https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format
+  # for more details.
+  #
+  # This class mostly provides all the facilities of the <tt>Zip::ZipFile</tt>
+  # class in the rubyzip gem. Please also consult the rubyzip documentation:
+  # http://rubydoc.info/gems/rubyzip/0.9.9/frames
   class Container
 
     extend Forwardable
@@ -44,6 +51,8 @@ module UCF
 
     private_class_method :new
 
+    # The mime-type of this UCF file. By default this is
+    # "application/epub+zip".
     attr_reader :mimetype
 
     # :stopdoc:
@@ -61,6 +70,11 @@ module UCF
     end
     # :startdoc:
 
+    # :call-seq:
+    #   Container.create(filename, mimetype = "application/epub+zip") -> container
+    #   Container.create(filename, mimetype = "application/epub+zip") {|container| ...}
+    #
+    # Create a new UCF file on disk with the specified mimetype.
     def Container.create(filename, mimetype = DEFAULT_MIMETYPE, &block)
       ::Zip::ZipOutputStream.open(filename) do |stream|
         stream.put_next_entry(MIMETYPE_FILE, nil, nil, ::Zip::ZipEntry::STORED)
@@ -70,6 +84,12 @@ module UCF
       Container.open(filename, &block)
     end
 
+    # :call-seq:
+    #   Container.open(filename) -> container
+    #   Container.open(filename) {|container| ...}
+    #
+    # Open an existing UCF file from disk. It will be checked for conformance
+    # to the UCF specification upon first access.
     def Container.open(filename, &block)
       c = new(filename)
 
@@ -111,21 +131,42 @@ module UCF
       nil
     end
 
+    # :call-seq:
+    #   remove(entry)
+    #
+    # Removes the specified entry. If asked to remove the special mimetype
+    # header file this method will do nothing.
     def remove(entry)
       return if mimetype_entry?(entry)
       @zipfile.remove(entry)
     end
 
-    def rename(entry, newName, &continueOnExistsProc)
+    # :call-seq:
+    #   rename(entry, new_name, &continueOnExistsProc)
+    #
+    # Renames the specified entry. If asked to rename the special mimetype
+    # header file this method will do nothing. See the rubyzip documentation
+    # for details of the +continue_on_exists_proc+ parameter.
+    def rename(entry, new_name, &continue_on_exists_proc)
       return if mimetype_entry?(entry)
-      @zipfile.rename(entry, newName, continueOnExistsProc)
+      @zipfile.rename(entry, new_name, continue_on_exists_proc)
     end
 
-    def replace(entry, srcPath)
+    # :call-seq:
+    #   replace(entry, src_path)
+    #
+    # Replaces the specified entry with the contents of +src_path+ (from the
+    # file system). If asked to replace the special mimetype header file this
+    # method will do nothing.
+    def replace(entry, src_path)
       return if mimetype_entry?(entry)
-      @zipfile.replace(entry, srcPath)
+      @zipfile.replace(entry, src_path)
     end
 
+    # :call-seq:
+    #   to_s -> String
+    #
+    # Return a String representation of this UCF file.
     def to_s
       @zipfile.to_s + " - #{@mimetype}"
     end
