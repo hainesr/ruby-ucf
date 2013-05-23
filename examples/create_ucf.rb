@@ -31,50 +31,28 @@
 # Author: Robert Haines
 
 require 'rubygems'
-require 'rake'
-require 'rake/clean'
-require 'rake/testtask'
-require 'rdoc/task'
-require 'jeweler'
-
-# we need to add lib to the path because we're not installed yet!
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), "lib")
 require 'ucf'
 
-task :default => [:test]
+ZIP_FILE = "example.zip"
+file = ARGV.length > 0 ? ARGV[0] : ZIP_FILE
 
-Jeweler::Tasks.new do |s|
-  s.name             = "ucf"
-  s.version          = UCF::Version::STRING
-  s.authors          = ["Robert Haines"]
-  s.email            = ["support@mygrid.org.uk"]
-  s.homepage         = "http://www.taverna.org.uk/"
-  s.platform         = Gem::Platform::RUBY
-  s.summary          = "Universal Container Format Ruby Library"
-  s.description      = "A Ruby library for working with UCF files"
-  s.require_path     = "lib"
-  s.test_file        = "test/ts_ucf.rb"
-  s.has_rdoc         = true
-  s.extra_rdoc_files = ["ReadMe.rdoc", "Licence.rdoc", "Changes.rdoc"]
-  s.rdoc_options     = ["-N", "--tab-width=2", "--main=ReadMe.rdoc"]
-  s.add_development_dependency('rake', '~> 10.0.4')
-  s.add_development_dependency('rdoc', '~> 4.0.1')
-  s.add_development_dependency('jeweler', '~> 1.8.4')
-  s.add_runtime_dependency('rubyzip', '~> 0.9.9')
-end
+File.delete(file) if File.exists?(file)
 
-Rake::TestTask.new do |t|
-  t.libs << "test"
-  t.test_files = FileList['test/ts_ucf.rb']
-  t.verbose = true
-end
+begin
+  UCF::Container.create(file) do |c|
 
-RDoc::Task.new do |r|
-  r.main = "ReadMe.rdoc"
-  lib = Dir.glob("lib/**/*.rb")
-  r.rdoc_files.include("ReadMe.rdoc", "Licence.rdoc", "Changes.rdoc", lib)
-  r.options << "-t Universal Container Format Ruby Library version " +
-    "#{UCF::Version::STRING}"
-  r.options << "-N"
-  r.options << "--tab-width=2"
+    # Add a cheery greeting file from a string.
+    c.file.open("greeting.txt", "w") do |f|
+      f.puts "Hello, World!"
+    end
+
+    # Create a subdirectory.
+    c.dir.mkdir("dir")
+
+    # Copy this example code in straight from a file.
+    c.add("dir/code.rb", __FILE__)
+  end
+rescue UCF::MalformedUCFError, Zip::ZipError => err
+  puts err.to_s
+  exit 1
 end

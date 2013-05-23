@@ -31,6 +31,7 @@
 # Author: Robert Haines
 
 require 'yaml'
+require 'ucf/container'
 
 module UCF
 
@@ -42,5 +43,14 @@ module UCF
 
     # Version number as a String
     STRING = [:major, :minor, :patch].map {|d| INFO[d]}.compact.join('.')
+  end
+
+  # Exception raised when a bad UCF is detected.
+  class MalformedUCFError < RuntimeError
+    # :stopdoc:
+    def initialize(message = "")
+      super(message)
+    end
+    # :startdoc:
   end
 end
