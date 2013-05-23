@@ -37,7 +37,7 @@ ZIP_FILE = "example.zip"
 file = ARGV.length > 0 ? ARGV[0] : ZIP_FILE
 
 begin
-  UCF::Container.verify(file)
+  UCF::Container.verify!(file)
 rescue UCF::MalformedUCFError, Zip::ZipError => err
   puts err.to_s
   exit 1

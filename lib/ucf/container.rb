@@ -84,9 +84,31 @@ module UCF
       c
     end
 
+    # :call-seq:
+    #   Container.verify(filename) -> boolean
+    #
+    # Verify that the specified UCF file conforms to the UCF specification.
+    # This method returns +false+ if there are any problems at all with the
+    # file (including if it can't be found) or +true+ if it conforms.
     def Container.verify(filename)
-      new(filename)
+      begin
+        Container.verify!(filename)
+      rescue
+        return false
+      end
+
       true
+    end
+
+    # :call-seq:
+    #   Container.verify!(filename)
+    #
+    # Verify that the specified UCF file conforms to the UCF specification.
+    # This method raises exceptions when errors are found or if there is
+    # something fundamental wrong with the file itself (e.g. not found).
+    def Container.verify!(filename)
+      new(filename)
+      nil
     end
 
     def remove(entry)
