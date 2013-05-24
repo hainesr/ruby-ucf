@@ -42,6 +42,8 @@ module UCF
   # This class mostly provides all the facilities of the <tt>Zip::ZipFile</tt>
   # class in the rubyzip gem. Please also consult the rubyzip documentation:
   # http://rubydoc.info/gems/rubyzip/0.9.9/frames
+  #
+  # There are code examples available with the source code of this library.
   class Container
 
     extend Forwardable
@@ -195,5 +197,148 @@ module UCF
       name = entry.kind_of?(ZipEntry) ? entry.name : entry
       name == MIMETYPE_FILE
     end
+
+    public
+
+    # Lots of extra docs out of the way at the end here...
+
+    ##
+    # :method: add
+    # :call-seq:
+    #   add(entry, src_path, &continue_on_exists_proc)
+    #
+    # Convenience method for adding the contents of a file to the UCF file.
+    #
+    # See the rubyzip documentation for details of the
+    # +continue_on_exists_proc+ parameter.
+
+    ##
+    # :method: close
+    # :call-seq:
+    #   close
+    #
+    # Closes the UCF file committing any changes that have been made.
+
+    ##
+    # :method: comment
+    # :call-seq:
+    #   comment -> String
+    #
+    # Returns the UCF file comment, if it has one.
+
+    ##
+    # :method: commit
+    # :call-seq:
+    #   commit
+    #
+    # Commits changes that have been made since the previous commit to the
+    # UCF file.
+
+    ##
+    # :method: dir
+    # :call-seq:
+    #   dir -> Zip::ZipFsDir
+    #
+    # Returns an object which can be used like ruby's built in +Dir+ (class)
+    # object, except that it works on the UCF file on which this method is
+    # invoked.
+    #
+    # See the rubyzip documentation for details.
+
+    ##
+    # :method: extract
+    # :call-seq:
+    #   extract(entry, dest_path, &on_exists_proc)
+    #
+    # Extracts the specified entry to +dest_path+.
+    #
+    # See the rubyzip documentation for details of the +on_exists_proc+
+    # parameter.
+
+    ##
+    # :method: file
+    # :call-seq:
+    #   dir -> Zip::ZipFsFile
+    #
+    # Returns an object which can be used like ruby's built in +File+ (class)
+    # object, except that it works on the UCF file on which this method is
+    # invoked.
+    #
+    # See the rubyzip documentation for details.
+
+    ##
+    # :method: find_entry
+    # :call-seq:
+    #   find_entry(entry) -> Zip::ZipEntry
+    #
+    # Searches for entries with the specified name. Returns +nil+ if no entry
+    # is found. See also +get_entry+.
+
+    ##
+    # :method: get_entry
+    # :call-seq:
+    #   get_entry(entry) -> Zip::ZipEntry
+    #
+    # Searches for an entry like +find_entry+, but throws +Errno::ENOENT+ if
+    # no entry is found.
+
+    ##
+    # :method: get_input_stream
+    # :call-seq:
+    #   get_input_stream(entry) -> stream
+    #   get_input_stream(entry) {|stream| ...}
+    #
+    # Returns an input stream to the specified entry. If a block is passed the
+    # stream object is passed to the block and the stream is automatically
+    # closed afterwards just as with ruby's built in +File.open+ method.
+
+    ##
+    # :method: get_output_stream
+    # :call-seq:
+    #   get_output_stream(entry, permission_int = nil) -> stream
+    #   get_output_stream(entry, permission_int = nil) {|stream| ...}
+    #
+    # Returns an output stream to the specified entry. If a block is passed
+    # the stream object is passed to the block and the stream is automatically
+    # closed afterwards just as with ruby's built-in +File.open+ method.
+    #
+    # See the rubyzip documentation for details of the +permission_int+
+    # parameter.
+
+    ##
+    # :method: glob
+    # :call-seq:
+    #   glob(*args) -> Array of Zip::ZipEntry
+    #   glob(*args) {|entry| ...}
+    #
+    # Searches for entries given a glob.
+    #
+    # See the rubyzip documentation for details of the parameters that can be
+    # passed in.
+
+    ##
+    # :method: mkdir
+    # :call-seq:
+    #   mkdir(entryName, permission_int = 0755)
+    #
+    # Creates a directory.
+    #
+    # See the rubyzip documentation for details of the +permission_int+
+    # parameter.
+
+    ##
+    # :method: name
+    # :call-seq:
+    #   name -> String
+    #
+    # Returns the filename of this UCF file.
+
+    ##
+    # :method: read
+    # :call-seq:
+    #   read(entry) -> String
+    #
+    # Returns a string containing the contents of the specified entry.
+
   end
 end
