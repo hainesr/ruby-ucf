@@ -50,8 +50,11 @@ Jeweler::Tasks.new do |s|
   s.email            = ["support@mygrid.org.uk"]
   s.homepage         = "http://www.taverna.org.uk/"
   s.platform         = Gem::Platform::RUBY
-  s.summary          = "Universal Container Format Ruby Library"
-  s.description      = "A Ruby library for working with UCF files"
+  s.summary          = "Universal Container Format (UCF) Ruby Library"
+  s.description      = "A Ruby library for working with Universal Container "\
+    "Format files. See "\
+    "https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format "\
+    "for the specification."
   s.require_path     = "lib"
   s.test_file        = "test/ts_ucf.rb"
   s.has_rdoc         = true

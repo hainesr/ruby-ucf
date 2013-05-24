@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Robert Haines"]
-  s.date = "2013-05-23"
-  s.description = "A Ruby library for working with UCF files"
-  s.email = ["rhaines@manchester.ac.uk"]
+  s.date = "2013-05-24"
+  s.description = "A Ruby library for working with Universal Container Format files. See https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format for the specification."
+  s.email = ["support@mygrid.org.uk"]
   s.extra_rdoc_files = [
     "Changes.rdoc",
     "Licence.rdoc",
@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["-N", "--tab-width=2", "--main=ReadMe.rdoc"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.21"
-  s.summary = "Universal Container Format Ruby Library"
+  s.summary = "Universal Container Format (UCF) Ruby Library"
   s.test_files = ["test/ts_ucf.rb"]
 
   if s.respond_to? :specification_version then
