@@ -33,5 +33,12 @@
 require 'test/unit'
 require 'ucf'
 
-# Add test cases here when we have some, e.g.
-#require 'tc_ucf'
+$file_null = "test/data/null.file"
+$ucf_empty = "test/data/empty.ucf"
+$zip_empty = "test/data/empty.zip"
+$ucf_compressed_mimetype = "test/data/compressed_mimetype.ucf"
+$ucf_example = "test/data/example.ucf"
+
+# Run test cases.
+require 'tc_create'
+require 'tc_read'

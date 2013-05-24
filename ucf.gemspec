@@ -26,6 +26,13 @@ Gem::Specification.new do |s|
     "examples/verify_ucf.rb",
     "lib/ucf.rb",
     "lib/ucf/container.rb",
+    "test/data/compressed_mimetype.ucf",
+    "test/data/empty.ucf",
+    "test/data/empty.zip",
+    "test/data/example.ucf",
+    "test/data/null.file",
+    "test/tc_create.rb",
+    "test/tc_read.rb",
     "test/ts_ucf.rb",
     "ucf.gemspec",
     "version.yml"
