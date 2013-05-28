@@ -9,21 +9,26 @@ Copyright::   (c) 2013 The University of Manchester, UK
 
 == Synopsis
 
-This is a Ruby library for working with UCF files.
+This is a Ruby library for working with UCF documents. See
+{the specification}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
+for more details.
 
-See https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format
+<b>This library is a work in progress!</b> Until we release version 1.0.0 you
+can expect the API to change in incompatible ways, although we will try to
+keep this to an absolute minimum. Once version 1.0.0 is released we will be
+following the principles of {Semantic Versioning}[http://semver.org/] for our
+version numbering scheme.
 
-This library is a work in progress!
-
-Examples are provided in the examples directory.
+There are some examples of how to use the library provided in the examples
+directory. See the contents of the tests directory for even more.
 
 == What this library can not do yet
 
-The basic requirements of a UCF file are all implemented but there are a
+The basic requirements of a UCF document are all implemented but there are a
 number of optional features that are not yet provided.
 
-* In memory operation. Presently all operations are performed on files that
-  are resident on disk.
+* In memory operation. Presently all operations are performed on documents
+  that are resident on disk.
 * META-INF directory support. Everything within the META-INF directory is
   optional but will supported in a near future version.
 * Changing the mimetype. It is not certain that this is a sensible operation
