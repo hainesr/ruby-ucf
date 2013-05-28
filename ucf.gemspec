@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
     "ucf.gemspec",
     "version.yml"
   ]
-  s.homepage = "http://www.taverna.org.uk/"
+  s.homepage = "http://mygrid.github.io/ruby-ucf/"
   s.rdoc_options = ["-N", "--tab-width=2", "--main=ReadMe.rdoc"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.21"

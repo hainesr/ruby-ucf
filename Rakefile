@@ -48,7 +48,7 @@ Jeweler::Tasks.new do |s|
   s.version          = UCF::Version::STRING
   s.authors          = ["Robert Haines"]
   s.email            = ["support@mygrid.org.uk"]
-  s.homepage         = "http://www.taverna.org.uk/"
+  s.homepage         = "http://mygrid.github.io/ruby-ucf/"
   s.platform         = Gem::Platform::RUBY
   s.summary          = "Universal Container Format (UCF) Ruby Library"
   s.description      = "A Ruby library for working with Universal Container "\
