@@ -88,7 +88,7 @@
 <p><a href="mailto:support@mygrid.org.uk">support@mygrid.org.uk</a></p>
 </dd><dt>URL
 <dd>
-<p><a href="http://www.taverna.org.uk">www.taverna.org.uk</a>/</p>
+<p><a href="http://mygrid.github.io/ruby-ucf">mygrid.github.io/ruby-ucf</a></p>
 </dd><dt><a href="Licence_rdoc.html">Licence</a>
 <dd>
 <p>BSD (See <a href="Licence_rdoc.html">Licence</a> file or <a
@@ -100,23 +100,29 @@ href="http://www.opensource.org/licenses/bsd-license.php">www.opensource.org/lic
 
 <h2 id="label-Synopsis">Synopsis<span><a href="#label-Synopsis">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
 
-<p>This is a Ruby library for working with <a href="UCF.html">UCF</a> files.</p>
+<p>This is a Ruby library for working with <a href="UCF.html">UCF</a>
+documents. See <a
+href="https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format">the
+specification</a> for more details.</p>
 
-<p>See <a
-href="https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format">learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format</a></p>
+<p><strong>This library is a work in progress!</strong> Until we release
+version 1.0.0 you can expect the API to change in incompatible ways,
+although we will try to keep this to an absolute minimum. Once version
+1.0.0 is released we will be following the principles of <a
+href="http://semver.org/">Semantic Versioning</a> for our version numbering
+scheme.</p>
 
-<p>This library is a work in progress!</p>
-
-<p>Examples are provided in the examples directory.</p>
+<p>There are some examples of how to use the library provided in the examples
+directory. See the contents of the tests directory for even more.</p>
 
 <h2 id="label-What+this+library+can+not+do+yet">What this library can not do yet<span><a href="#label-What+this+library+can+not+do+yet">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
 
-<p>The basic requirements of a <a href="UCF.html">UCF</a> file are all
+<p>The basic requirements of a <a href="UCF.html">UCF</a> document are all
 implemented but there are a number of optional features that are not yet
 provided.</p>
 <ul><li>
-<p>In memory operation. Presently all operations are performed on files that
-are resident on disk.</p>
+<p>In memory operation. Presently all operations are performed on documents
+that are resident on disk.</p>
 </li><li>
 <p>META-INF directory support. Everything within the META-INF directory is
 optional but will supported in a near future version.</p>
