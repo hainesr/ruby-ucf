@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "ucf"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Robert Haines"]
-  s.date = "2013-05-24"
+  s.date = "2013-05-28"
   s.description = "A Ruby library for working with Universal Container Format files. See https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format for the specification."
   s.email = ["support@mygrid.org.uk"]
   s.extra_rdoc_files = [
