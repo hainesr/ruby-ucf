@@ -59,7 +59,12 @@ module UCF
 
     # :stopdoc:
     DEFAULT_MIMETYPE = "application/epub+zip"
+
+    # Reserved root file names. File names in UCF documents are
+    # case-insensitive so downcase where required in the reserved list.
     MIMETYPE_FILE = "mimetype"
+    META_INF_DIR = "META-INF"
+    RESERVED_ROOT_NAMES = [MIMETYPE_FILE, META_INF_DIR.downcase]
 
     ERR_MT_NONE = "Not a UCF file. 'mimetype' file is missing."
     ERR_MT_BAD_OFF = "Not a UCF file. 'mimetype' file is not at offset 0."
@@ -136,21 +141,22 @@ module UCF
     # :call-seq:
     #   remove(entry)
     #
-    # Removes the specified entry. If asked to remove the special mimetype
-    # header file this method will do nothing.
+    # Removes the specified entry. If asked to remove any reserved files such
+    # as the special mimetype header file this method will do nothing.
     def remove(entry)
-      return if mimetype_entry?(entry)
+      return if reserved_entry?(entry)
       @zipfile.remove(entry)
     end
 
     # :call-seq:
     #   rename(entry, new_name, &continueOnExistsProc)
     #
-    # Renames the specified entry. If asked to rename the special mimetype
-    # header file this method will do nothing. See the rubyzip documentation
-    # for details of the +continue_on_exists_proc+ parameter.
+    # Renames the specified entry. If asked to rename any reserved files such
+    # as the special mimetype header file this method will do nothing. See the
+    # rubyzip documentation for details of the +continue_on_exists_proc+
+    # parameter.
     def rename(entry, new_name, &continue_on_exists_proc)
-      return if mimetype_entry?(entry)
+      return if reserved_entry?(entry)
       @zipfile.rename(entry, new_name, continue_on_exists_proc)
     end
 
@@ -158,10 +164,10 @@ module UCF
     #   replace(entry, src_path)
     #
     # Replaces the specified entry with the contents of +src_path+ (from the
-    # file system). If asked to replace the special mimetype header file this
-    # method will do nothing.
+    # file system). If asked to replace any reserved files such as the special
+    # mimetype header file this method will do nothing.
     def replace(entry, src_path)
-      return if mimetype_entry?(entry)
+      return if reserved_entry?(entry)
       @zipfile.replace(entry, src_path)
     end
 
@@ -193,9 +199,11 @@ module UCF
       @zipfile.read(MIMETYPE_FILE)
     end
 
-    def mimetype_entry?(entry)
-      name = entry.kind_of?(ZipEntry) ? entry.name : entry
-      name == MIMETYPE_FILE
+    # Remember that file names in UCF documents are case-insensitive so
+    # compare downcased versions.
+    def reserved_entry?(entry)
+      name = entry.kind_of?(::Zip::ZipEntry) ? entry.name : entry
+      RESERVED_ROOT_NAMES.include? name.downcase
     end
 
     public

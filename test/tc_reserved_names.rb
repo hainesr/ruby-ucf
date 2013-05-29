@@ -30,16 +30,51 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
 require 'ucf'
 
-$file_null = "test/data/null.file"
-$ucf_empty = "test/data/empty.ucf"
-$zip_empty = "test/data/empty.zip"
-$ucf_compressed_mimetype = "test/data/compressed_mimetype.ucf"
-$ucf_example = "test/data/example.ucf"
+class TestReservedNames < Test::Unit::TestCase
 
-# Run test cases.
-require 'tc_create'
-require 'tc_read'
-require 'tc_reserved_names'
+  # Check that nothing happens when trying to delete the mimetype file.
+  def test_delete_mimetype
+    UCF::Container.open($ucf_example) do |ucf|
+      assert(ucf.file.exists?("mimetype"))
+      assert_nil(ucf.remove("mimetype"))
+      assert(ucf.file.exists?("mimetype"))
+    end
+  end
+
+  # Check that nothing happens when trying to rename the mimetype file.
+  def test_rename_mimetype
+    UCF::Container.open($ucf_example) do |ucf|
+      assert(ucf.file.exists?("mimetype"))
+      assert_nil(ucf.rename("mimetype", "something-else"))
+      assert(ucf.file.exists?("mimetype"))
+      assert(!ucf.file.exists?("something-else"))
+    end
+  end
+
+  # Check that nothing happens when trying to replace the contents of the
+  # mimetype file.
+  def test_replace_mimetype
+    UCF::Container.open($ucf_example) do |ucf|
+      assert(ucf.file.exists?("mimetype"))
+      assert_nil(ucf.replace("mimetype", $zip_empty))
+      assert_equal("application/epub+zip", ucf.file.read("mimetype"))
+    end
+  end
+
+  # Check that nothing happens when trying to delete the META-INF directory.
+  def test_delete_metainf
+    UCF::Container.open($ucf_example) do |ucf|
+      assert_nil(ucf.remove("META-INF"))
+    end
+  end
+
+  # Check that nothing happens when trying to rename the META-INF directory.
+  def test_rename_metainf
+    UCF::Container.open($ucf_example) do |ucf|
+      assert_nil(ucf.rename("META-INF", "something-else"))
+    end
+  end
+
+end
