@@ -92,6 +92,27 @@ module UCF
     end
 
     # :call-seq:
+    #   Container.each_entry -> Enumerator
+    #   Container.each_entry {|entry| ...}
+    #
+    # Iterate over the entries in the UCF document. The entry objects returned
+    # by this method are Zip::ZipEntry objects. Please see the rubyzip
+    # documentation for details.
+    def Container.each_entry(filename, &block)
+      c = new(filename)
+
+      if block_given?
+        begin
+          c.each(&block)
+        ensure
+          c.close
+        end
+      end
+
+      c.each
+    end
+
+    # :call-seq:
     #   Container.open(filename) -> container
     #   Container.open(filename) {|container| ...}
     #
