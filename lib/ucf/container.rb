@@ -134,7 +134,7 @@ module UCF
     # This method raises exceptions when errors are found or if there is
     # something fundamental wrong with the file itself (e.g. not found).
     def Container.verify!(filename)
-      new(filename)
+      new(filename).close
       nil
     end
 
