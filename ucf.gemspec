@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Robert Haines"]
-  s.date = "2013-05-28"
+  s.date = "2013-05-29"
   s.description = "A Ruby library for working with Universal Container Format files. See https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format for the specification."
   s.email = ["support@mygrid.org.uk"]
   s.extra_rdoc_files = [
@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "ReadMe.rdoc",
     "examples/create_ucf.rb",
+    "examples/ucfinfo",
     "examples/verify_ucf.rb",
     "lib/ucf.rb",
     "lib/ucf/container.rb",
@@ -33,6 +34,7 @@ Gem::Specification.new do |s|
     "test/data/null.file",
     "test/tc_create.rb",
     "test/tc_read.rb",
+    "test/tc_reserved_names.rb",
     "test/ts_ucf.rb",
     "ucf.gemspec",
     "version.yml"

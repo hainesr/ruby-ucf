@@ -1,5 +1,15 @@
 = Changes log for the UCF Ruby Gem
 
+== Version 0.0.2
+
+* Update the main ReadMe file.
+* Add support for multiple reserved names and fix checks.
+* Ensure UCF document is closed after verifying it.
+* Expose the "each" method for enumerating UCF entries.
+* Expose the "size" method to count UCF entries.
+* Add an example program to list UCF contents.
+* Add a method to directly iterate over UCF entries.
+
 == Version 0.0.1
 
 * Very basic UCF facilities complete (plus examples).
