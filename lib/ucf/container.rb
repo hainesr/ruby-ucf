@@ -47,9 +47,9 @@ module UCF
   class Container
 
     extend Forwardable
-    def_delegators :@zipfile, :add, :close, :comment, :commit, :dir, :extract,
-      :file, :find_entry, :get_entry, :get_input_stream, :get_output_stream,
-      :glob, :mkdir, :name, :read
+    def_delegators :@zipfile, :add, :close, :comment, :commit, :dir, :each,
+      :extract, :file, :find_entry, :get_entry, :get_input_stream,
+      :get_output_stream, :glob, :mkdir, :name, :read
 
     private_class_method :new
 
@@ -252,6 +252,16 @@ module UCF
     # invoked.
     #
     # See the rubyzip documentation for details.
+
+    ##
+    # :method: each
+    # :call-seq:
+    #   each -> Enumerator
+    #   each {|entry| ...}
+    #
+    # Iterate over the entries in the UCF document. The entry objects returned
+    # by this method are Zip::ZipEntry objects. Please see the rubyzip
+    # documentation for details.
 
     ##
     # :method: extract
