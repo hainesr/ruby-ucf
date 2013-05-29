@@ -49,7 +49,7 @@ module UCF
     extend Forwardable
     def_delegators :@zipfile, :add, :close, :comment, :commit, :dir, :each,
       :extract, :file, :find_entry, :get_entry, :get_input_stream,
-      :get_output_stream, :glob, :mkdir, :name, :read
+      :get_output_stream, :glob, :mkdir, :name, :read, :size
 
     private_class_method :new
 
@@ -357,6 +357,13 @@ module UCF
     #   read(entry) -> String
     #
     # Returns a string containing the contents of the specified entry.
+
+    ##
+    # :method: size
+    # :call-seq:
+    #   size -> int
+    #
+    # Returns the number of entries in the UCF document.
 
   end
 end
