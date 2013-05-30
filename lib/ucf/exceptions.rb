@@ -38,6 +38,19 @@ module UCF
 
   # Exception raised when a bad UCF is detected.
   class MalformedUCFError < UCFError
+
+    # :call-seq:
+    #   new(reason = "")
+    #
+    # Create a new MalformedUCFError with an optional reason for why the UCF
+    # document is malformed.
+    def initialize(reason = nil)
+      if reason.nil?
+        super("Malformed UCF Document.")
+      else
+        super("Malformed UCF Document: #{reason}")
+      end
+    end
   end
 
 end

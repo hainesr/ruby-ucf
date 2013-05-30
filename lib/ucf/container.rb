@@ -64,9 +64,9 @@ module UCF
     MIMETYPE_FILE = "mimetype"
     META_INF_DIR = "META-INF"
 
-    ERR_MT_NONE = "Not a UCF file. 'mimetype' file is missing."
-    ERR_MT_BAD_OFF = "Not a UCF file. 'mimetype' file is not at offset 0."
-    ERR_MT_BAD_COMP = "Not a UCF file. 'mimetype' file is compressed."
+    ERR_MT_NONE = "'mimetype' file is missing."
+    ERR_MT_BAD_OFF = "'mimetype' file is not at offset 0 in the archive."
+    ERR_MT_BAD_COMP = "'mimetype' file is compressed."
 
     def initialize(filename)
       @zipfile = open_and_check_ucf(filename)
