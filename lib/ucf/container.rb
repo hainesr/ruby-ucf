@@ -183,15 +183,20 @@ module UCF
     end
 
     # :call-seq:
-    #   rename(entry, new_name, &continueOnExistsProc)
+    #   rename(entry, new_name, &continue_on_exists_proc)
     #
     # Renames the specified entry. If asked to rename any reserved files such
-    # as the special mimetype header file this method will do nothing. See the
-    # rubyzip documentation for details of the +continue_on_exists_proc+
-    # parameter.
+    # as the special mimetype header file this method will do nothing. If
+    # asked to rename a file _to_ one of the reserved names a
+    # ReservedNameClashError is raised.
+    #
+    # See the rubyzip documentation for details of the
+    # +continue_on_exists_proc+ parameter.
     def rename(entry, new_name, &continue_on_exists_proc)
       return if reserved_entry?(entry)
-      @zipfile.rename(entry, new_name, continue_on_exists_proc)
+      raise ReservedNameClashError.new(new_name) if reserved_entry?(new_name)
+
+      @zipfile.rename(entry, new_name, &continue_on_exists_proc)
     end
 
     # :call-seq:

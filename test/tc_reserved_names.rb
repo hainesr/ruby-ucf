@@ -167,4 +167,37 @@ class TestReservedNames < Test::Unit::TestCase
     end
   end
 
+  # Check that a file cannot be renamed to one of the reserved names
+  def test_rename_to_reserved
+    UCF::Container.open($ucf_example) do |ucf|
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.rename("dir/code.rb", "mimetype")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.rename("dir", "META-INF")
+      end
+    end
+  end
+
+  def test_subclass_rename_to_reserved
+    NewUCF.open($ucf_example) do |ucf|
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.rename("dir/code.rb", "mimetype")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.rename("dir", "META-INF")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.rename("dir/code.rb", "index.html")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.rename("dir", "Test")
+      end
+    end
+  end
+
 end
