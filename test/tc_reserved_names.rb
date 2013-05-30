@@ -52,18 +52,22 @@ class TestReservedNames < Test::Unit::TestCase
       assert_equal(1, ucf.reserved_files.length)
       assert_equal(["mimetype"], ucf.reserved_files)
       assert(ucf.reserved_entry?("mimetype"))
+      assert(ucf.reserved_entry?("mimetype/"))
       assert(ucf.reserved_entry?("MimeType"))
 
       assert_equal(1, ucf.reserved_directories.length)
       assert_equal(["META-INF"], ucf.reserved_directories)
       assert(ucf.reserved_entry?("META-INF"))
+      assert(ucf.reserved_entry?("META-INF/"))
       assert(ucf.reserved_entry?("MeTa-iNf"))
+      assert(ucf.reserved_entry?("MeTa-iNf/"))
 
       assert_equal(2, ucf.reserved_names.length)
       assert_equal(["mimetype", "META-INF"], ucf.reserved_names)
 
       refute(ucf.reserved_entry?("This_should_fail"))
       refute(ucf.reserved_entry?("META_INF"))
+      refute(ucf.reserved_entry?("META_INF/"))
     end
   end
 
@@ -73,6 +77,7 @@ class TestReservedNames < Test::Unit::TestCase
       assert_equal(2, ucf.reserved_files.length)
       assert_equal(["mimetype", "index.html"], ucf.reserved_files)
       assert(ucf.reserved_entry?("mimetype"))
+      assert(ucf.reserved_entry?("mimetype/"))
       assert(ucf.reserved_entry?("MimeType"))
       assert(ucf.reserved_entry?("index.html"))
       assert(ucf.reserved_entry?("Index.HTML"))
@@ -80,11 +85,13 @@ class TestReservedNames < Test::Unit::TestCase
       assert_equal(4, ucf.reserved_directories.length)
       assert_equal(["META-INF", "src", "test", "lib"], ucf.reserved_directories)
       assert(ucf.reserved_entry?("META-INF"))
+      assert(ucf.reserved_entry?("META-INF/"))
       assert(ucf.reserved_entry?("MeTa-iNf"))
       assert(ucf.reserved_entry?("src"))
       assert(ucf.reserved_entry?("SRC"))
       assert(ucf.reserved_entry?("test"))
       assert(ucf.reserved_entry?("lib"))
+      assert(ucf.reserved_entry?("lIb/"))
 
       assert_equal(6, ucf.reserved_names.length)
       assert_equal(["mimetype", "index.html", "META-INF", "src", "test", "lib"],
@@ -92,6 +99,7 @@ class TestReservedNames < Test::Unit::TestCase
 
       refute(ucf.reserved_entry?("This_should_fail"))
       refute(ucf.reserved_entry?("META_INF"))
+      refute(ucf.reserved_entry?("META_INF/"))
       refute(ucf.reserved_entry?("index.htm"))
     end
   end

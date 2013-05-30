@@ -253,6 +253,7 @@ module UCF
     # Is the given entry name in the reserved list of file or directory names?
     def reserved_entry?(entry)
       name = entry.kind_of?(::Zip::ZipEntry) ? entry.name : entry
+      name.chop! if name.end_with? "/"
       reserved_names.map { |n| n.downcase }.include? name.downcase
     end
 
