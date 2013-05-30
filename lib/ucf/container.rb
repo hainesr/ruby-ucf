@@ -47,7 +47,7 @@ module UCF
   class Container
 
     extend Forwardable
-    def_delegators :@zipfile, :add, :close, :comment, :commit, :dir, :each,
+    def_delegators :@zipfile, :close, :comment, :commit, :dir, :each,
       :extract, :file, :find_entry, :get_entry, :get_input_stream,
       :get_output_stream, :glob, :mkdir, :name, :read, :size
 
@@ -158,6 +158,21 @@ module UCF
     end
 
     # :call-seq:
+    #   add(entry, src_path, &continue_on_exists_proc)
+    #
+    # Convenience method for adding the contents of a file to the UCF file. If
+    # asked to add a file with a reserved name, such as the special mimetype
+    # header file, this method will raise a ReservedNameClashError.
+    #
+    # See the rubyzip documentation for details of the
+    # +continue_on_exists_proc+ parameter.
+    def add(entry, src_path, &continue_on_exists_proc)
+      raise ReservedNameClashError.new(entry.to_s) if reserved_entry?(entry)
+
+      @zipfile.add(entry, src_path, &continue_on_exists_proc)
+    end
+
+    # :call-seq:
     #   remove(entry)
     #
     # Removes the specified entry. If asked to remove any reserved files such
@@ -264,16 +279,6 @@ module UCF
     public
 
     # Lots of extra docs out of the way at the end here...
-
-    ##
-    # :method: add
-    # :call-seq:
-    #   add(entry, src_path, &continue_on_exists_proc)
-    #
-    # Convenience method for adding the contents of a file to the UCF file.
-    #
-    # See the rubyzip documentation for details of the
-    # +continue_on_exists_proc+ parameter.
 
     ##
     # :method: close

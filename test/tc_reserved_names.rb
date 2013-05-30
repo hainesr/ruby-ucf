@@ -125,6 +125,34 @@ class TestReservedNames < Test::Unit::TestCase
     end
   end
 
+  # Check that an exception is raised when trying to add file with a reserved
+  # name.
+  def test_add_reserved
+    UCF::Container.open($ucf_empty) do |ucf|
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.add("META-INF", $zip_empty)
+      end
+    end
+  end
+
+  # Check that an exception is raised when trying to add file with a reserved
+  # name to a subclassed container.
+  def test_subclass_add_reserved
+    NewUCF.open($ucf_empty) do |ucf|
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.add("META-INF", $zip_empty)
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.add("index.html", $zip_empty)
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.add("SRC", $zip_empty)
+      end
+    end
+  end
+
   # Check that nothing happens when trying to delete the META-INF directory.
   def test_delete_metainf
     UCF::Container.open($ucf_example) do |ucf|
