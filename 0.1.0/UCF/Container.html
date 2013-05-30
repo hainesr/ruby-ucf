@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class UCF::Container -  Universal Container Format Ruby Library version 0.1.0</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/ucf/container.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">Object
+  
+</nav>
+
+    
+    <!-- Extension Modules -->
+<nav id="extends-section" class="section">
+  <h3 class="section-header">Extended With Modules</h3>
+
+  <ul class="link-list">
+    
+  
+    <li><span class="extend">Forwardable</span>
+  
+  
+  </ul>
+</nav>
+
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-create">::create</a>
+    
+    <li ><a href="#method-c-each_entry">::each_entry</a>
+    
+    <li ><a href="#method-c-open">::open</a>
+    
+    <li ><a href="#method-c-verify">::verify</a>
+    
+    <li ><a href="#method-c-verify-21">::verify!</a>
+    
+    <li ><a href="#method-i-add">#add</a>
+    
+    <li ><a href="#method-i-close">#close</a>
+    
+    <li ><a href="#method-i-comment">#comment</a>
+    
+    <li ><a href="#method-i-commit">#commit</a>
+    
+    <li ><a href="#method-i-dir">#dir</a>
+    
+    <li ><a href="#method-i-each">#each</a>
+    
+    <li ><a href="#method-i-extract">#extract</a>
+    
+    <li ><a href="#method-i-file">#file</a>
+    
+    <li ><a href="#method-i-find_entry">#find_entry</a>
+    
+    <li ><a href="#method-i-get_entry">#get_entry</a>
+    
+    <li ><a href="#method-i-get_input_stream">#get_input_stream</a>
+    
+    <li ><a href="#method-i-get_output_stream">#get_output_stream</a>
+    
+    <li ><a href="#method-i-glob">#glob</a>
+    
+    <li ><a href="#method-i-mkdir">#mkdir</a>
+    
+    <li ><a href="#method-i-name">#name</a>
+    
+    <li ><a href="#method-i-read">#read</a>
+    
+    <li ><a href="#method-i-remove">#remove</a>
+    
+    <li ><a href="#method-i-rename">#rename</a>
+    
+    <li ><a href="#method-i-replace">#replace</a>
+    
+    <li ><a href="#method-i-reserved_directories">#reserved_directories</a>
+    
+    <li ><a href="#method-i-reserved_entry-3F">#reserved_entry?</a>
+    
+    <li ><a href="#method-i-reserved_files">#reserved_files</a>
+    
+    <li ><a href="#method-i-reserved_names">#reserved_names</a>
+    
+    <li ><a href="#method-i-size">#size</a>
+    
+    <li ><a href="#method-i-to_s">#to_s</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../Changes_rdoc.html">Changes</a>
+  
+    <li class="file"><a href="../Licence_rdoc.html">Licence</a>
+  
+    <li class="file"><a href="../ReadMe_rdoc.html">ReadMe</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../UCF.html">UCF</a>
+  
+    <li><a href="../UCF/Container.html">UCF::Container</a>
+  
+    <li><a href="../UCF/MalformedUCFError.html">UCF::MalformedUCFError</a>
+  
+    <li><a href="../UCF/MetaInf.html">UCF::MetaInf</a>
+  
+    <li><a href="../UCF/ReservedNameClashError.html">UCF::ReservedNameClashError</a>
+  
+    <li><a href="../UCF/UCFError.html">UCF::UCFError</a>
+  
+    <li><a href="../UCF/Version.html">UCF::Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class UCF::Container</h1>
+
+  <div id="description" class="description">
+    
+<p>This class represents a <a href="../UCF.html">UCF</a> file in PK Zip
+format. See <a
+href="https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format">learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format</a>
+for more details.</p>
+
+<p>This class mostly provides all the facilities of the
+<code>Zip::ZipFile</code> class in the rubyzip gem. Please also consult the
+rubyzip documentation: <a
+href="http://rubydoc.info/gems/rubyzip/0.9.9/frames">rubydoc.info/gems/rubyzip/0.9.9/frames</a></p>
+
+<p>There are code examples available with the source code of this library.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-mimetype" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">mimetype</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>The mime-type of this <a href="../UCF.html">UCF</a> file. By default this
+is “application/epub+zip”.</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-create" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            create(filename, mimetype = &quot;application/epub+zip&quot;) &rarr; container
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            create(filename, mimetype = &quot;application/epub+zip&quot;) {|container| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Create a new <a href="../UCF.html">UCF</a> file on disk with the specified
+mimetype.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Container</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">mimetype</span> = <span class="ruby-constant">DEFAULT_MIMETYPE</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-operator">::</span><span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">ZipOutputStream</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">stream</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">put_next_entry</span>(<span class="ruby-constant">MIMETYPE_FILE</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-operator">::</span><span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">ZipEntry</span><span class="ruby-operator">::</span><span class="ruby-constant">STORED</span>)
+    <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">mimetype</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-constant">Container</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create-method -->
+
+    
+      <div id="method-c-each_entry" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            each_entry &rarr; Enumerator
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            each_entry {|entry| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Iterate over the entries in the <a href="../UCF.html">UCF</a> document. The
+entry objects returned by this method are Zip::ZipEntry objects. Please see
+the rubyzip documentation for details.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="each_entry-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Container</span>.<span class="ruby-identifier">each_entry</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">c</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">filename</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">c</span>.<span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+    <span class="ruby-keyword">ensure</span>
+      <span class="ruby-identifier">c</span>.<span class="ruby-identifier">close</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">each</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- each_entry-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- each_entry-method -->
+
+    
+      <div id="method-c-open" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            open(filename) &rarr; container
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            open(filename) {|container| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Open an existing <a href="../UCF.html">UCF</a> file from disk. It will be
+checked for conformance to the <a href="../UCF.html">UCF</a> specification
+upon first access.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="open-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 119</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Container</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">c</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">filename</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-keyword">yield</span> <span class="ruby-identifier">c</span>
+    <span class="ruby-keyword">ensure</span>
+      <span class="ruby-identifier">c</span>.<span class="ruby-identifier">close</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">c</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- open-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- open-method -->
+
+    
+      <div id="method-c-verify" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            verify(filename) &rarr; boolean
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Verify that the specified <a href="../UCF.html">UCF</a> file conforms to
+the <a href="../UCF.html">UCF</a> specification. This method returns
+<code>false</code> if there are any problems at all with the file
+(including if it can’t be found) or <code>true</code> if it conforms.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="verify-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 139</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Container</span>.<span class="ruby-identifier">verify</span>(<span class="ruby-identifier">filename</span>)
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-constant">Container</span>.<span class="ruby-identifier">verify!</span>(<span class="ruby-identifier">filename</span>)
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- verify-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- verify-method -->
+
+    
+      <div id="method-c-verify-21" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            verify!(filename)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Verify that the specified <a href="../UCF.html">UCF</a> file conforms to
+the <a href="../UCF.html">UCF</a> specification. This method raises
+exceptions when errors are found or if there is something fundamental wrong
+with the file itself (e.g. not found).</p>
+          
+          
+
+          
+          <div class="method-source-code" id="verify-21-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 155</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">Container</span>.<span class="ruby-identifier">verify!</span>(<span class="ruby-identifier">filename</span>)
+  <span class="ruby-identifier">new</span>(<span class="ruby-identifier">filename</span>).<span class="ruby-identifier">close</span>
+  <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- verify-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- verify-21-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-add" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            add(entry, src_path, &amp;continue_on_exists_proc)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Convenience method for adding the contents of a file to the <a
+href="../UCF.html">UCF</a> file. If asked to add a file with a reserved
+name, such as the special mimetype header file, this method will raise a <a
+href="ReservedNameClashError.html">ReservedNameClashError</a>.</p>
+
+<p>See the rubyzip documentation for details of the
+<code>continue_on_exists_proc</code> parameter.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="add-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 169</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">src_path</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">continue_on_exists_proc</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ReservedNameClashError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">entry</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
+
+  <span class="ruby-ivar">@zipfile</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">src_path</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">continue_on_exists_proc</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add-method -->
+
+    
+      <div id="method-i-close" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            close
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Closes the <a href="../UCF.html">UCF</a> file committing any changes that
+have been made.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="close-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 311</span>
+    </pre>
+          </div><!-- close-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- close-method -->
+
+    
+      <div id="method-i-comment" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            comment &rarr; String
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns the <a href="../UCF.html">UCF</a> file comment, if it has one.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="comment-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 318</span>
+    </pre>
+          </div><!-- comment-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- comment-method -->
+
+    
+      <div id="method-i-commit" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            commit
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Commits changes that have been made since the previous commit to the <a
+href="../UCF.html">UCF</a> file.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="commit-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 326</span>
+    </pre>
+          </div><!-- commit-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- commit-method -->
+
+    
+      <div id="method-i-dir" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            dir &rarr; Zip::ZipFsDir
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns an object which can be used like ruby’s built in <code>Dir</code>
+(class) object, except that it works on the <a href="../UCF.html">UCF</a>
+file on which this method is invoked.</p>
+
+<p>See the rubyzip documentation for details.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="dir-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 337</span>
+    </pre>
+          </div><!-- dir-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- dir-method -->
+
+    
+      <div id="method-i-each" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            each &rarr; Enumerator
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            each {|entry| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Iterate over the entries in the <a href="../UCF.html">UCF</a> document. The
+entry objects returned by this method are Zip::ZipEntry objects. Please see
+the rubyzip documentation for details.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="each-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 347</span>
+    </pre>
+          </div><!-- each-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- each-method -->
+
+    
+      <div id="method-i-extract" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            extract(entry, dest_path, &amp;on_exists_proc)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Extracts the specified entry to <code>dest_path</code>.</p>
+
+<p>See the rubyzip documentation for details of the
+<code>on_exists_proc</code> parameter.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="extract-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 357</span>
+    </pre>
+          </div><!-- extract-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- extract-method -->
+
+    
+      <div id="method-i-file" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            dir &rarr; Zip::ZipFsFile
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns an object which can be used like ruby’s built in <code>File</code>
+(class) object, except that it works on the <a href="../UCF.html">UCF</a>
+file on which this method is invoked.</p>
+
+<p>See the rubyzip documentation for details.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="file-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 368</span>
+    </pre>
+          </div><!-- file-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- file-method -->
+
+    
+      <div id="method-i-find_entry" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            find_entry(entry) &rarr; Zip::ZipEntry
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Searches for entries with the specified name. Returns <code>nil</code> if
+no entry is found. See also <code>get_entry</code>.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="find_entry-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 376</span>
+    </pre>
+          </div><!-- find_entry-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_entry-method -->
+
+    
+      <div id="method-i-get_entry" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_entry(entry) &rarr; Zip::ZipEntry
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Searches for an entry like <code>find_entry</code>, but throws
++Errno::ENOENT+ if no entry is found.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_entry-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 384</span>
+    </pre>
+          </div><!-- get_entry-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_entry-method -->
+
+    
+      <div id="method-i-get_input_stream" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_input_stream(entry) &rarr; stream
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_input_stream(entry) {|stream| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns an input stream to the specified entry. If a block is passed the
+stream object is passed to the block and the stream is automatically closed
+afterwards just as with ruby’s built in <code>File.open</code> method.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_input_stream-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 394</span>
+    </pre>
+          </div><!-- get_input_stream-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_input_stream-method -->
+
+    
+      <div id="method-i-get_output_stream" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_output_stream(entry, permission_int = nil) &rarr; stream
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_output_stream(entry, permission_int = nil) {|stream| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns an output stream to the specified entry. If a block is passed the
+stream object is passed to the block and the stream is automatically closed
+afterwards just as with ruby’s built-in <code>File.open</code> method.</p>
+
+<p>See the rubyzip documentation for details of the
+<code>permission_int</code> parameter.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_output_stream-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 407</span>
+    </pre>
+          </div><!-- get_output_stream-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_output_stream-method -->
+
+    
+      <div id="method-i-glob" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            glob(*args) &rarr; Array of Zip::ZipEntry
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            glob(*args) {|entry| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Searches for entries given a glob.</p>
+
+<p>See the rubyzip documentation for details of the parameters that can be
+passed in.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="glob-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 418</span>
+    </pre>
+          </div><!-- glob-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- glob-method -->
+
+    
+      <div id="method-i-mkdir" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            mkdir(name, permission = 0755)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Creates a directory in the <a href="../UCF.html">UCF</a> document. If asked
+to create a directory with a reserved name this method will raise a <a
+href="ReservedNameClashError.html">ReservedNameClashError</a>.</p>
+
+<p>The new directory will be created with the supplied unix-style permissions.
+The default (<code>0755</code>) is owner read, write and list; group read
+and list; and world read and list.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="mkdir-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 184</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mkdir</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">permission</span> = <span class="ruby-value">0755</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ReservedNameClashError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">name</span>)
+
+  <span class="ruby-ivar">@zipfile</span>.<span class="ruby-identifier">mkdir</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">permission</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- mkdir-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- mkdir-method -->
+
+    
+      <div id="method-i-name" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            name &rarr; String
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns the filename of this <a href="../UCF.html">UCF</a> file.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="name-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 425</span>
+    </pre>
+          </div><!-- name-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- name-method -->
+
+    
+      <div id="method-i-read" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            read(entry) &rarr; String
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns a string containing the contents of the specified entry.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="read-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 432</span>
+    </pre>
+          </div><!-- read-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- read-method -->
+
+    
+      <div id="method-i-remove" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            remove(entry)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Removes the specified entry. If asked to remove any reserved files such as
+the special mimetype header file this method will do nothing.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="remove-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 195</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remove</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-ivar">@zipfile</span>.<span class="ruby-identifier">remove</span>(<span class="ruby-identifier">entry</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- remove-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- remove-method -->
+
+    
+      <div id="method-i-rename" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            rename(entry, new_name, &amp;continue_on_exists_proc)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Renames the specified entry. If asked to rename any reserved files such as
+the special mimetype header file this method will do nothing. If asked to
+rename a file <em>to</em> one of the reserved names a <a
+href="ReservedNameClashError.html">ReservedNameClashError</a> is raised.</p>
+
+<p>See the rubyzip documentation for details of the
+<code>continue_on_exists_proc</code> parameter.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="rename-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 210</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">rename</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">new_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">continue_on_exists_proc</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ReservedNameClashError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">new_name</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">new_name</span>)
+
+  <span class="ruby-ivar">@zipfile</span>.<span class="ruby-identifier">rename</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">new_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">continue_on_exists_proc</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rename-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rename-method -->
+
+    
+      <div id="method-i-replace" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            replace(entry, src_path)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Replaces the specified entry with the contents of <code>src_path</code>
+(from the file system). If asked to replace any reserved files such as the
+special mimetype header file this method will do nothing.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="replace-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 223</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">replace</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">src_path</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-ivar">@zipfile</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">src_path</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- replace-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- replace-method -->
+
+    
+      <div id="method-i-reserved_directories" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            reserved_directories &rarr; Array
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Return a list of reserved directory names for this <a
+href="../UCF.html">UCF</a> document.</p>
+
+<p>When creating a more specialized sub-class of this class then this method
+should be overridden to add any extra reserved directory names.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reserved_directories-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 246</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reserved_directories</span>
+  [<span class="ruby-constant">META_INF_DIR</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reserved_directories-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reserved_directories-method -->
+
+    
+      <div id="method-i-reserved_entry-3F" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            reserved_entry?(entry) &rarr; boolean
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Is the given entry name in the reserved list of file or directory names?</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reserved_entry-3F-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 254</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-identifier">name</span> = <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">ZipEntry</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">entry</span>
+  <span class="ruby-identifier">name</span>.<span class="ruby-identifier">chop!</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">end_with?</span> <span class="ruby-string">&quot;/&quot;</span>
+  <span class="ruby-identifier">reserved_names</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">downcase</span> }.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">downcase</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reserved_entry-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reserved_entry-3F-method -->
+
+    
+      <div id="method-i-reserved_files" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            reserved_files &rarr; Array
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Return a list of reserved file names for this <a href="../UCF.html">UCF</a>
+document.</p>
+
+<p>When creating a more specialized sub-class of this class then this method
+should be overridden to add any extra reserved file names.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reserved_files-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 235</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reserved_files</span>
+  [<span class="ruby-constant">MIMETYPE_FILE</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reserved_files-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reserved_files-method -->
+
+    
+      <div id="method-i-reserved_names" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            reserved_names &rarr; Array
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Return a list of reserved file and directory names for this <a
+href="../UCF.html">UCF</a> document.</p>
+
+<p>In practice this method simply returns the joined lists of reserved file
+and directory names.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reserved_names-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 268</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reserved_names</span>
+  <span class="ruby-identifier">reserved_files</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">reserved_directories</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reserved_names-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reserved_names-method -->
+
+    
+      <div id="method-i-size" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            size &rarr; int
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns the number of entries in the <a href="../UCF.html">UCF</a>
+document.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="size-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 439</span>
+  </pre>
+          </div><!-- size-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- size-method -->
+
+    
+      <div id="method-i-to_s" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            to_s &rarr; String
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Return a String representation of this <a href="../UCF.html">UCF</a> file.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File lib/ucf/container.rb, line 276</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-ivar">@zipfile</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot; - #{@mimetype}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_s-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_s-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
