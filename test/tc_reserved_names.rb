@@ -32,7 +32,69 @@
 
 require 'ucf'
 
+# A class to test the overriding of reserved names.
+class NewUCF < UCF::Container
+  def reserved_files
+    super + ["index.html"]
+  end
+
+  def reserved_directories
+    super + ["src", "test", "lib"]
+  end
+end
+
 class TestReservedNames < Test::Unit::TestCase
+
+  # Check the reserved names stuff all works correctly, baring in mind that
+  # such comparisons for UCF documents should be case sensitive.
+  def test_reserved_names
+    UCF::Container.open($ucf_example) do |ucf|
+      assert_equal(1, ucf.reserved_files.length)
+      assert_equal(["mimetype"], ucf.reserved_files)
+      assert(ucf.reserved_entry?("mimetype"))
+      assert(ucf.reserved_entry?("MimeType"))
+
+      assert_equal(1, ucf.reserved_directories.length)
+      assert_equal(["META-INF"], ucf.reserved_directories)
+      assert(ucf.reserved_entry?("META-INF"))
+      assert(ucf.reserved_entry?("MeTa-iNf"))
+
+      assert_equal(2, ucf.reserved_names.length)
+      assert_equal(["mimetype", "META-INF"], ucf.reserved_names)
+
+      refute(ucf.reserved_entry?("This_should_fail"))
+      refute(ucf.reserved_entry?("META_INF"))
+    end
+  end
+
+  # Check that overriding the reserved names in a sub-class works correctly
+  def test_subclass_reserved_names
+    NewUCF.open($ucf_example) do |ucf|
+      assert_equal(2, ucf.reserved_files.length)
+      assert_equal(["mimetype", "index.html"], ucf.reserved_files)
+      assert(ucf.reserved_entry?("mimetype"))
+      assert(ucf.reserved_entry?("MimeType"))
+      assert(ucf.reserved_entry?("index.html"))
+      assert(ucf.reserved_entry?("Index.HTML"))
+
+      assert_equal(4, ucf.reserved_directories.length)
+      assert_equal(["META-INF", "src", "test", "lib"], ucf.reserved_directories)
+      assert(ucf.reserved_entry?("META-INF"))
+      assert(ucf.reserved_entry?("MeTa-iNf"))
+      assert(ucf.reserved_entry?("src"))
+      assert(ucf.reserved_entry?("SRC"))
+      assert(ucf.reserved_entry?("test"))
+      assert(ucf.reserved_entry?("lib"))
+
+      assert_equal(6, ucf.reserved_names.length)
+      assert_equal(["mimetype", "index.html", "META-INF", "src", "test", "lib"],
+        ucf.reserved_names)
+
+      refute(ucf.reserved_entry?("This_should_fail"))
+      refute(ucf.reserved_entry?("META_INF"))
+      refute(ucf.reserved_entry?("index.htm"))
+    end
+  end
 
   # Check that nothing happens when trying to delete the mimetype file.
   def test_delete_mimetype

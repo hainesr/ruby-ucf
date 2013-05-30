@@ -60,11 +60,9 @@ module UCF
     # :stopdoc:
     DEFAULT_MIMETYPE = "application/epub+zip"
 
-    # Reserved root file names. File names in UCF documents are
-    # case-insensitive so downcase where required in the reserved list.
+    # Reserved file and directory names for the standard UCF.
     MIMETYPE_FILE = "mimetype"
     META_INF_DIR = "META-INF"
-    RESERVED_ROOT_NAMES = [MIMETYPE_FILE, META_INF_DIR.downcase]
 
     ERR_MT_NONE = "Not a UCF file. 'mimetype' file is missing."
     ERR_MT_BAD_OFF = "Not a UCF file. 'mimetype' file is not at offset 0."
@@ -193,6 +191,49 @@ module UCF
     end
 
     # :call-seq:
+    #   reserved_files -> Array
+    #
+    # Return a list of reserved file names for this UCF document.
+    #
+    # When creating a more specialized sub-class of this class then this
+    # method should be overridden to add any extra reserved file names.
+    def reserved_files
+      [MIMETYPE_FILE]
+    end
+
+    # :call-seq:
+    #   reserved_directories -> Array
+    #
+    # Return a list of reserved directory names for this UCF document.
+    #
+    # When creating a more specialized sub-class of this class then this
+    # method should be overridden to add any extra reserved directory names.
+    def reserved_directories
+      [META_INF_DIR]
+    end
+
+    # :call-seq:
+    #   reserved_entry?(entry) -> boolean
+    #
+    # Is the given entry name in the reserved list of file or directory names?
+    def reserved_entry?(entry)
+      name = entry.kind_of?(::Zip::ZipEntry) ? entry.name : entry
+      reserved_names.map { |n| n.downcase }.include? name.downcase
+    end
+
+    # :call-seq:
+    #   reserved_names -> Array
+    #
+    # Return a list of reserved file and directory names for this UCF
+    # document.
+    #
+    # In practice this method simply returns the joined lists of reserved file
+    # and directory names.
+    def reserved_names
+      reserved_files + reserved_directories
+    end
+
+    # :call-seq:
     #   to_s -> String
     #
     # Return a String representation of this UCF file.
@@ -218,13 +259,6 @@ module UCF
 
     def read_mimetype
       @zipfile.read(MIMETYPE_FILE)
-    end
-
-    # Remember that file names in UCF documents are case-insensitive so
-    # compare downcased versions.
-    def reserved_entry?(entry)
-      name = entry.kind_of?(::Zip::ZipEntry) ? entry.name : entry
-      RESERVED_ROOT_NAMES.include? name.downcase
     end
 
     public
