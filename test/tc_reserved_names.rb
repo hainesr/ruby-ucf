@@ -167,6 +167,34 @@ class TestReservedNames < Test::Unit::TestCase
     end
   end
 
+  # Check that an exception is raised when trying to create a directory with a
+  # reserved name.
+  def test_mkdir_reserved
+    UCF::Container.open($ucf_empty) do |ucf|
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.mkdir("META-INF")
+      end
+    end
+  end
+
+  # Check that an exception is raised when trying to create a directory with a
+  # reserved name in a subclassed container.
+  def test_subclass_mkdir_reserved
+    NewUCF.open($ucf_empty) do |ucf|
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.mkdir("META-INF")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.mkdir("index.html")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.mkdir("Lib")
+      end
+    end
+  end
+
   # Check that a file cannot be renamed to one of the reserved names
   def test_rename_to_reserved
     UCF::Container.open($ucf_example) do |ucf|

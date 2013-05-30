@@ -49,7 +49,7 @@ module UCF
     extend Forwardable
     def_delegators :@zipfile, :close, :comment, :commit, :dir, :each,
       :extract, :file, :find_entry, :get_entry, :get_input_stream,
-      :get_output_stream, :glob, :mkdir, :name, :read, :size
+      :get_output_stream, :glob, :name, :read, :size
 
     private_class_method :new
 
@@ -170,6 +170,21 @@ module UCF
       raise ReservedNameClashError.new(entry.to_s) if reserved_entry?(entry)
 
       @zipfile.add(entry, src_path, &continue_on_exists_proc)
+    end
+
+    # :call-seq:
+    #   mkdir(name, permission = 0755)
+    #
+    # Creates a directory in the UCF document. If asked to create a directory
+    # with a reserved name this method will raise a ReservedNameClashError.
+    #
+    # The new directory will be created with the supplied unix-style
+    # permissions. The default (+0755+) is owner read, write and list; group
+    # read and list; and world read and list.
+    def mkdir(name, permission = 0755)
+      raise ReservedNameClashError.new(name) if reserved_entry?(name)
+
+      @zipfile.mkdir(name, permission)
     end
 
     # :call-seq:
@@ -398,16 +413,6 @@ module UCF
     #
     # See the rubyzip documentation for details of the parameters that can be
     # passed in.
-
-    ##
-    # :method: mkdir
-    # :call-seq:
-    #   mkdir(entryName, permission_int = 0755)
-    #
-    # Creates a directory.
-    #
-    # See the rubyzip documentation for details of the +permission_int+
-    # parameter.
 
     ##
     # :method: name
