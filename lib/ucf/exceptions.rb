@@ -30,25 +30,15 @@
 #
 # Author: Robert Haines
 
-require 'yaml'
-require 'ucf/exceptions'
-require 'ucf/container'
-
-# This is a ruby library to read and write UCF files in PK Zip format. See the
-# UCF::Container class for more information.
-#
-# See https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format
-# for more details on the UCF.
 module UCF
 
-  # Library version information.
-  module Version
-    # Version information in a Hash
-    INFO = YAML.load_file(File.join(File.dirname(__FILE__), "..",
-      "version.yml"))
-
-    # Version number as a String
-    STRING = [:major, :minor, :patch].map {|d| INFO[d]}.compact.join('.')
+  # Exception raised when a bad UCF is detected.
+  class MalformedUCFError < RuntimeError
+    # :stopdoc:
+    def initialize(message = "")
+      super(message)
+    end
+    # :startdoc:
   end
 
 end
