@@ -32,13 +32,12 @@
 
 module UCF
 
+  # The base class of all other exceptions raised by this library.
+  class UCFError < RuntimeError
+  end
+
   # Exception raised when a bad UCF is detected.
-  class MalformedUCFError < RuntimeError
-    # :stopdoc:
-    def initialize(message = "")
-      super(message)
-    end
-    # :startdoc:
+  class MalformedUCFError < UCFError
   end
 
 end
