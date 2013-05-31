@@ -40,7 +40,7 @@ class TestRead < Test::Unit::TestCase
       UCF::Container.verify!($file_null)
     end
 
-    assert(!UCF::Container.verify($file_null))
+    refute(UCF::Container.verify($file_null))
   end
 
   # Check that the empty ucf file does verify.
@@ -58,7 +58,7 @@ class TestRead < Test::Unit::TestCase
       UCF::Container.verify!($zip_empty)
     end
 
-    assert(!UCF::Container.verify($zip_empty))
+    refute(UCF::Container.verify($zip_empty))
   end
 
   # Check that a compressed mimetype file is detected.
@@ -67,7 +67,7 @@ class TestRead < Test::Unit::TestCase
       UCF::Container.verify!($ucf_compressed_mimetype)
     end
 
-    assert(!UCF::Container.verify($ucf_compressed_mimetype))
+    refute(UCF::Container.verify($ucf_compressed_mimetype))
   end
 
   # Check the raw mimetype bytes

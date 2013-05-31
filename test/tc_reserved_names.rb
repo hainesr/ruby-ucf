@@ -119,7 +119,7 @@ class TestReservedNames < Test::Unit::TestCase
       assert(ucf.file.exists?("mimetype"))
       assert_nil(ucf.rename("mimetype", "something-else"))
       assert(ucf.file.exists?("mimetype"))
-      assert(!ucf.file.exists?("something-else"))
+      refute(ucf.file.exists?("something-else"))
     end
   end
 

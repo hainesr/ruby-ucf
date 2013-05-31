@@ -92,7 +92,7 @@ class TestCreation < Test::Unit::TestCase
           assert(ucf.file.exists?("test.txt"))
           assert(ucf.file.exists?("dir1"))
           assert(ucf.file.exists?("dir2"))
-          assert(!ucf.file.exists?("dir3"))
+          refute(ucf.file.exists?("dir3"))
 
           text = ucf.file.read("test.txt")
           assert_equal("testing", text)
