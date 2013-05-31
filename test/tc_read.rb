@@ -83,6 +83,9 @@ class TestRead < Test::Unit::TestCase
   def test_read_files_from_ucf
     assert_nothing_raised(UCF::MalformedUCFError, Zip::ZipError) do
       UCF::Container.open($ucf_example) do |ucf|
+        assert(ucf.on_disk?)
+        refute(ucf.in_memory?)
+
         assert(ucf.file.exists?("greeting.txt"))
 
         greeting = ucf.file.read("greeting.txt")

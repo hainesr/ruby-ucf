@@ -42,6 +42,9 @@ class TestCreation < Test::Unit::TestCase
 
       assert_nothing_raised do
         UCF::Container.create(filename) do |c|
+          assert(c.on_disk?)
+          refute(c.in_memory?)
+
           assert(c.find_entry("mimetype").localHeaderOffset == 0)
         end
       end
@@ -61,6 +64,9 @@ class TestCreation < Test::Unit::TestCase
 
       assert_nothing_raised do
         UCF::Container.create(filename) do |c|
+          assert(c.on_disk?)
+          refute(c.in_memory?)
+
           assert(c.find_entry("mimetype").localHeaderOffset == 0)
         end
       end
@@ -78,6 +84,9 @@ class TestCreation < Test::Unit::TestCase
 
       assert_nothing_raised do
         UCF::Container.create(filename) do |ucf|
+          assert(ucf.on_disk?)
+          refute(ucf.in_memory?)
+
           ucf.file.open("test.txt", "w") do |f|
             f.print "testing"
           end
@@ -91,6 +100,9 @@ class TestCreation < Test::Unit::TestCase
 
       assert_nothing_raised(UCF::MalformedUCFError, Zip::ZipError) do
         UCF::Container.open(filename) do |ucf|
+          assert(ucf.on_disk?)
+          refute(ucf.in_memory?)
+
           assert(ucf.file.exists?("test.txt"))
           assert(ucf.file.exists?("dir1"))
           assert(ucf.file.exists?("dir2"))

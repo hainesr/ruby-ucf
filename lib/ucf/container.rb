@@ -71,6 +71,7 @@ module UCF
     def initialize(filename)
       @zipfile = open_and_check_ucf(filename)
       @mimetype = read_mimetype
+      @on_disk = true
 
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
@@ -220,6 +221,14 @@ module UCF
     end
 
     # :call-seq:
+    #   in_memory? -> boolean
+    #
+    # Is this UCF document memory resident as opposed to stored on disk?
+    def in_memory?
+      !@on_disk
+    end
+
+    # :call-seq:
     #   mkdir(name, permission = 0755)
     #
     # Creates a directory in the UCF document. If asked to create a directory
@@ -232,6 +241,14 @@ module UCF
       raise ReservedNameClashError.new(name) if reserved_entry?(name)
 
       @zipfile.mkdir(name, permission)
+    end
+
+    # :call-seq:
+    #   on_disk? -> boolean
+    #
+    # Is this UCF document stored on disk as opposed to memory resident?
+    def on_disk?
+      @on_disk
     end
 
     # :call-seq:
