@@ -77,7 +77,8 @@ class TestCreation < Test::Unit::TestCase
     end
   end
 
-  # Check creation of stuff in ucf files.
+  # Check creation of stuff in ucf files. Check the commit status a few times
+  # to ensure that what we expect to happen, happens.
   def test_create_contents_file
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
@@ -91,10 +92,25 @@ class TestCreation < Test::Unit::TestCase
             f.print "testing"
           end
 
+          assert(ucf.commit_required?)
+          assert(ucf.commit)
+          refute(ucf.commit_required?)
+          refute(ucf.commit)
+
           ucf.dir.mkdir("dir1")
           ucf.mkdir("dir2")
 
+          assert(ucf.commit_required?)
+          assert(ucf.commit)
+          refute(ucf.commit_required?)
+          refute(ucf.commit)
+
           ucf.comment = "A comment!"
+
+          assert(ucf.commit_required?)
+          assert(ucf.commit)
+          refute(ucf.commit_required?)
+          refute(ucf.commit)
         end
       end
 
@@ -112,6 +128,9 @@ class TestCreation < Test::Unit::TestCase
           assert_equal("testing", text)
 
           assert_equal("A comment!", ucf.comment)
+
+          refute(ucf.commit_required?)
+          refute(ucf.commit)
         end
       end
     end

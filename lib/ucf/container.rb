@@ -47,8 +47,9 @@ module UCF
   class Container
 
     extend Forwardable
-    def_delegators :@zipfile, :comment, :comment=, :each, :extract,
-      :find_entry, :get_entry, :get_input_stream, :glob, :name, :read, :size
+    def_delegators :@zipfile, :comment, :comment=, :commit_required?, :each,
+      :extract, :find_entry, :get_entry, :get_input_stream, :glob, :name,
+      :read, :size
 
     private_class_method :new
 
@@ -180,12 +181,15 @@ module UCF
     end
 
     # :call-seq:
-    #   commit
-    #   close
+    #   commit -> boolean
+    #   close -> boolean
     #
     # Commits changes that have been made since the previous commit to the
-    # UCF document.
+    # UCF document. Returns +true+ if anything was actually done, +false+
+    # otherwise.
     def commit
+      return false unless commit_required?
+
       if on_disk?
         @zipfile.commit
       end
@@ -391,6 +395,14 @@ module UCF
     #   comment = comment
     #
     # Set the UCF file comment to the new value.
+
+    ##
+    # :method: commit_required?
+    # :call-seq:
+    #   commit_required? -> boolean
+    #
+    # Returns +true+ if any changes have been made to this UCF document since
+    # the last commit, +false+ otherwise.
 
     ##
     # :method: each

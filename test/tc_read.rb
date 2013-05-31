@@ -79,7 +79,7 @@ class TestRead < Test::Unit::TestCase
     assert_not_equal("application/epub+zip", compressed_mimetype[38..57])
   end
 
-  # Check reading files out of a ucf file.
+  # Check reading files out of a ucf file and make sure we don't change it.
   def test_read_files_from_ucf
     assert_nothing_raised(UCF::MalformedUCFError, Zip::ZipError) do
       UCF::Container.open($ucf_example) do |ucf|
@@ -97,6 +97,9 @@ class TestRead < Test::Unit::TestCase
         assert(ucf.file.exists?("dir/code.rb"))
 
         assert_equal("This is an example UCF file!", ucf.comment)
+
+        refute(ucf.commit_required?)
+        refute(ucf.commit)
       end
     end
   end
