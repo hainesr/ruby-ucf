@@ -47,9 +47,8 @@ module UCF
   class Container
 
     extend Forwardable
-    def_delegators :@zipfile, :close, :comment, :comment=, :commit, :each,
-      :extract, :find_entry, :get_entry, :get_input_stream, :glob, :name,
-      :read, :size
+    def_delegators :@zipfile, :comment, :comment=, :each, :extract,
+      :find_entry, :get_entry, :get_input_stream, :glob, :name, :read, :size
 
     private_class_method :new
 
@@ -179,6 +178,20 @@ module UCF
 
       @zipfile.add(entry, src_path, &continue_on_exists_proc)
     end
+
+    # :call-seq:
+    #   commit
+    #   close
+    #
+    # Commits changes that have been made since the previous commit to the
+    # UCF document.
+    def commit
+      if on_disk?
+        @zipfile.commit
+      end
+    end
+
+    alias :close :commit
 
     # :call-seq:
     #   dir -> Zip::ZipFsDir
@@ -366,13 +379,6 @@ module UCF
     # Lots of extra docs out of the way at the end here...
 
     ##
-    # :method: close
-    # :call-seq:
-    #   close
-    #
-    # Closes the UCF file committing any changes that have been made.
-
-    ##
     # :method: comment
     # :call-seq:
     #   comment -> String
@@ -385,14 +391,6 @@ module UCF
     #   comment = comment
     #
     # Set the UCF file comment to the new value.
-
-    ##
-    # :method: commit
-    # :call-seq:
-    #   commit
-    #
-    # Commits changes that have been made since the previous commit to the
-    # UCF file.
 
     ##
     # :method: each
