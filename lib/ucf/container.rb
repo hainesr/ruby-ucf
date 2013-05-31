@@ -47,9 +47,9 @@ module UCF
   class Container
 
     extend Forwardable
-    def_delegators :@zipfile, :close, :comment, :commit, :dir, :each,
-      :extract, :file, :find_entry, :get_entry, :get_input_stream,
-      :get_output_stream, :glob, :name, :read, :size
+    def_delegators :@zipfile, :close, :comment, :commit, :each, :extract,
+      :find_entry, :get_entry, :get_input_stream, :get_output_stream, :glob,
+      :name, :read, :size
 
     private_class_method :new
 
@@ -70,8 +70,15 @@ module UCF
 
     def initialize(filename)
       @zipfile = open_and_check_ucf(filename)
-
       @mimetype = read_mimetype
+
+      # Here we fake up the connection to the rubyzip filesystem classes so
+      # that they also respect the reserved names that we define.
+      mapped_zip = ::Zip::ZipFileSystem::ZipFileNameMapper.new(self)
+      @fs_dir  = ::Zip::ZipFileSystem::ZipFsDir.new(mapped_zip)
+      @fs_file = ::Zip::ZipFileSystem::ZipFsFile.new(mapped_zip)
+      @fs_dir.file = @fs_file
+      @fs_file.dir = @fs_dir
     end
     # :startdoc:
 
@@ -170,6 +177,30 @@ module UCF
       raise ReservedNameClashError.new(entry.to_s) if reserved_entry?(entry)
 
       @zipfile.add(entry, src_path, &continue_on_exists_proc)
+    end
+
+    # :call-seq:
+    #   dir -> Zip::ZipFsDir
+    #
+    # Returns an object which can be used like ruby's built in +Dir+ (class)
+    # object, except that it works on the UCF document on which this method is
+    # invoked.
+    #
+    # See the rubyzip documentation for details.
+    def dir
+      @fs_dir
+    end
+
+    # :call-seq:
+    #   dir -> Zip::ZipFsFile
+    #
+    # Returns an object which can be used like ruby's built in +File+ (class)
+    # object, except that it works on the UCF document on which this method is
+    # invoked.
+    #
+    # See the rubyzip documentation for details.
+    def file
+      @fs_file
     end
 
     # :call-seq:
@@ -324,17 +355,6 @@ module UCF
     # UCF file.
 
     ##
-    # :method: dir
-    # :call-seq:
-    #   dir -> Zip::ZipFsDir
-    #
-    # Returns an object which can be used like ruby's built in +Dir+ (class)
-    # object, except that it works on the UCF file on which this method is
-    # invoked.
-    #
-    # See the rubyzip documentation for details.
-
-    ##
     # :method: each
     # :call-seq:
     #   each -> Enumerator
@@ -353,17 +373,6 @@ module UCF
     #
     # See the rubyzip documentation for details of the +on_exists_proc+
     # parameter.
-
-    ##
-    # :method: file
-    # :call-seq:
-    #   dir -> Zip::ZipFsFile
-    #
-    # Returns an object which can be used like ruby's built in +File+ (class)
-    # object, except that it works on the UCF file on which this method is
-    # invoked.
-    #
-    # See the rubyzip documentation for details.
 
     ##
     # :method: find_entry
