@@ -64,12 +64,10 @@ module UCF
     MIMETYPE_FILE = "mimetype"
     META_INF_DIR = "META-INF"
 
-    ERR_MT_NONE = "'mimetype' file is missing."
-    ERR_MT_BAD_OFF = "'mimetype' file is not at offset 0 in the archive."
-    ERR_MT_BAD_COMP = "'mimetype' file is compressed."
+    def initialize(document)
+      @zipfile = open_document(document)
+      check_document!
 
-    def initialize(filename)
-      @zipfile = open_and_check_ucf(filename)
       @mimetype = read_mimetype
       @on_disk = true
 
@@ -360,18 +358,23 @@ module UCF
 
     private
 
-    def open_and_check_ucf(filename)
-      file = ::Zip::ZipFile.new(filename)
+    def open_document(document)
+      ::Zip::ZipFile.new(document)
+    end
 
+    def check_document!
       # Check mimetype file is present and correct.
-      entry = file.find_entry(MIMETYPE_FILE)
-      raise MalformedUCFError.new(ERR_MT_NONE) if entry.nil?
-      raise MalformedUCFError.new(ERR_MT_BAD_OFF) if entry.localHeaderOffset != 0
+      entry = @zipfile.find_entry(MIMETYPE_FILE)
+
+      raise MalformedUCFError.new("'mimetype' file is missing.") if entry.nil?
+      if entry.localHeaderOffset != 0
+        raise MalformedUCFError.new("'mimetype' file is not at offset 0 in the archive.")
+      end
       if entry.compression_method != ::Zip::ZipEntry::STORED
-        raise MalformedUCFError.new(ERR_MT_BAD_COMP)
+        raise MalformedUCFError.new("'mimetype' file is compressed.")
       end
 
-      file
+      true
     end
 
     def read_mimetype
