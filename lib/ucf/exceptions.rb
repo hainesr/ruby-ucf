@@ -36,7 +36,7 @@ module UCF
   class UCFError < RuntimeError
   end
 
-  # Exception raised when a bad UCF is detected.
+  # This exception is raised when a bad UCF is detected.
   class MalformedUCFError < UCFError
 
     # :call-seq:
@@ -53,14 +53,13 @@ module UCF
     end
   end
 
-  # Exception raised when a name clash occurs with a reserved name.
+  # This exception is raised when a clash occurs with a reserved name.
   class ReservedNameClashError < UCFError
 
     # :call-seq:
     #   new(name)
     #
-    # Create a new ReservedNameClashError with the name of the clashing name
-    # supplied.
+    # Create a new ReservedNameClashError with the name of the clash supplied.
     def initialize(name)
       super("'#{name}' is reserved for internal use in this UCF document.")
     end

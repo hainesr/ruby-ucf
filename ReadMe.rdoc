@@ -29,8 +29,10 @@ directory. See the contents of the tests directory for even more.
 The basic requirements of a UCF document are all implemented but there are a
 number of optional features that are not yet provided.
 
-* In memory operation. Presently all operations are performed on documents
-  that are resident on disk.
+* Memory resident UCF documents. Presently all operations are performed on
+  documents that are resident on disk as the underlying
+  {rubyzip library}[https://github.com/aussiegeek/rubyzip] currently
+  {cannot do anything else}[https://github.com/aussiegeek/rubyzip/issues/74].
 * META-INF directory support. Everything within the META-INF directory is
   optional but will supported in a near future version.
 * Changing the mimetype. It is not certain that this is a sensible operation
