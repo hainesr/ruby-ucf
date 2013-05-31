@@ -203,7 +203,7 @@ class TestReservedNames < Test::Unit::TestCase
     end
   end
 
-  # Check that a file cannot be renamed to one of the reserved names
+  # Check that a file cannot be renamed to one of the reserved names.
   def test_rename_to_reserved
     UCF::Container.open($ucf_example) do |ucf|
       assert_raises(UCF::ReservedNameClashError) do
@@ -216,6 +216,8 @@ class TestReservedNames < Test::Unit::TestCase
     end
   end
 
+  # Check that a file cannot be renamed to one of the reserved names in a
+  # subclassed container.
   def test_subclass_rename_to_reserved
     NewUCF.open($ucf_example) do |ucf|
       assert_raises(UCF::ReservedNameClashError) do
@@ -232,6 +234,73 @@ class TestReservedNames < Test::Unit::TestCase
 
       assert_raises(UCF::ReservedNameClashError) do
         ucf.rename("dir", "Test")
+      end
+    end
+  end
+
+  # Check that the ruby-like File and Dir classes respect reserved names.
+  def test_file_dir_ops_reserved
+    UCF::Container.open($ucf_empty) do |ucf|
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.file.open("META-INF", "w") do |f|
+          f.puts "TESTING"
+        end
+      end
+
+      assert_nothing_raised(UCF::ReservedNameClashError) do
+        ucf.file.open("mimetype") do |f|
+          assert_equal("application/epub+zip", f.read)
+        end
+      end
+
+      assert_nothing_raised(UCF::ReservedNameClashError) do
+        ucf.file.delete("mimetype")
+        assert(ucf.file.exists?("mimetype"))
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.dir.mkdir("meta-inf")
+      end
+    end
+  end
+
+  # Check that the ruby-like File and Dir classes respect reserved names in a
+  # subclassed container.
+  def test_subclass_file_dir_ops_reserved
+    NewUCF.open($ucf_empty) do |ucf|
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.file.open("META-INF", "w") do |f|
+          f.puts "TESTING"
+        end
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.file.open("INDEX.HTML", "w") do |f|
+          f.puts "TESTING"
+        end
+      end
+
+      assert_nothing_raised(UCF::ReservedNameClashError) do
+        ucf.file.open("mimetype") do |f|
+          assert_equal("application/epub+zip", f.read)
+        end
+      end
+
+      assert_nothing_raised(UCF::ReservedNameClashError) do
+        ucf.file.delete("mimetype")
+        assert(ucf.file.exists?("mimetype"))
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.dir.mkdir("meta-inf")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.dir.mkdir("TEST")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.dir.mkdir("index.html")
       end
     end
   end

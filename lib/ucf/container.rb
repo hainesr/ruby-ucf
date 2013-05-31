@@ -48,8 +48,7 @@ module UCF
 
     extend Forwardable
     def_delegators :@zipfile, :close, :comment, :commit, :each, :extract,
-      :find_entry, :get_entry, :get_input_stream, :get_output_stream, :glob,
-      :name, :read, :size
+      :find_entry, :get_entry, :get_input_stream, :glob, :name, :read, :size
 
     private_class_method :new
 
@@ -201,6 +200,22 @@ module UCF
     # See the rubyzip documentation for details.
     def file
       @fs_file
+    end
+
+    # :call-seq:
+    #   get_output_stream(entry, permission = nil) -> stream
+    #   get_output_stream(entry, permission = nil) {|stream| ...}
+    #
+    # Returns an output stream to the specified entry. If a block is passed
+    # the stream object is passed to the block and the stream is automatically
+    # closed afterwards just as with ruby's built-in +File.open+ method.
+    #
+    # See the rubyzip documentation for details of the +permission_int+
+    # parameter.
+    def get_output_stream(entry, permission = nil, &block)
+      raise ReservedNameClashError.new(entry.to_s) if reserved_entry?(entry)
+
+      @zipfile.get_output_stream(entry, permission, &block)
     end
 
     # :call-seq:
@@ -399,19 +414,6 @@ module UCF
     # Returns an input stream to the specified entry. If a block is passed the
     # stream object is passed to the block and the stream is automatically
     # closed afterwards just as with ruby's built in +File.open+ method.
-
-    ##
-    # :method: get_output_stream
-    # :call-seq:
-    #   get_output_stream(entry, permission_int = nil) -> stream
-    #   get_output_stream(entry, permission_int = nil) {|stream| ...}
-    #
-    # Returns an output stream to the specified entry. If a block is passed
-    # the stream object is passed to the block and the stream is automatically
-    # closed afterwards just as with ruby's built-in +File.open+ method.
-    #
-    # See the rubyzip documentation for details of the +permission_int+
-    # parameter.
 
     ##
     # :method: glob
