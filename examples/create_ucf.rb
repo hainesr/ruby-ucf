@@ -51,6 +51,9 @@ begin
 
     # Copy this example code in straight from a file.
     c.add("dir/code.rb", __FILE__)
+
+    # Add a explanation of this file.
+    c.comment = "This is an example UCF file!"
   end
 rescue UCF::MalformedUCFError, Zip::ZipError => err
   puts err.to_s

@@ -47,8 +47,9 @@ module UCF
   class Container
 
     extend Forwardable
-    def_delegators :@zipfile, :close, :comment, :commit, :each, :extract,
-      :find_entry, :get_entry, :get_input_stream, :glob, :name, :read, :size
+    def_delegators :@zipfile, :close, :comment, :comment=, :commit, :each,
+      :extract, :find_entry, :get_entry, :get_input_stream, :glob, :name,
+      :read, :size
 
     private_class_method :new
 
@@ -360,6 +361,13 @@ module UCF
     #   comment -> String
     #
     # Returns the UCF file comment, if it has one.
+
+    ##
+    # :method: comment=
+    # :call-seq:
+    #   comment = comment
+    #
+    # Set the UCF file comment to the new value.
 
     ##
     # :method: commit

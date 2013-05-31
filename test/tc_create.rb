@@ -84,6 +84,8 @@ class TestCreation < Test::Unit::TestCase
 
           ucf.dir.mkdir("dir1")
           ucf.mkdir("dir2")
+
+          ucf.comment = "A comment!"
         end
       end
 
@@ -96,6 +98,8 @@ class TestCreation < Test::Unit::TestCase
 
           text = ucf.file.read("test.txt")
           assert_equal("testing", text)
+
+          assert_equal("A comment!", ucf.comment)
         end
       end
     end

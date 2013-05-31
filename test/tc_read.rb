@@ -92,6 +92,8 @@ class TestRead < Test::Unit::TestCase
         assert(ucf.file.directory?("dir"))
 
         assert(ucf.file.exists?("dir/code.rb"))
+
+        assert_equal("This is an example UCF file!", ucf.comment)
       end
     end
   end
