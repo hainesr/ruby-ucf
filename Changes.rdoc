@@ -1,5 +1,24 @@
 = Changes log for the UCF Ruby Gem
 
+== Version 0.1.0
+
+* Improvements to the reserved names code to allow sub-classing.
+* Move exceptions to a new source file.
+* Use a base class for UCF exceptions.
+* Standardize the MalformedUCFError exception messages.
+* Add an exception for clashes with reserved names.
+* Implement Container#add to avoid using reserved names.
+* Raise an exception if renaming to a reserved name.
+* Implement Container#mkdir to avoid using reserved names.
+* Make sure testing reserved names copes with trailing slashes.
+* Fake up the connection to ZipFileSystem.
+* Implement Container#get_output_stream to respect reserved names.
+* Can now set comments on the UCF document.
+* Implement the close and commit methods.
+* Forward the commit_required? method.
+* Separate the opening and checking of a UCF document.
+* Documentation improvements and cleanup.
+
 == Version 0.0.2
 
 * Update the main ReadMe file.

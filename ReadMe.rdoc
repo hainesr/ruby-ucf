@@ -35,8 +35,6 @@ number of optional features that are not yet provided.
   {cannot do anything else}[https://github.com/aussiegeek/rubyzip/issues/74].
 * META-INF directory support. Everything within the META-INF directory is
   optional but will supported in a near future version.
-* Changing the mimetype. It is not certain that this is a sensible operation
-  but is being considered for a future version.
 * Digital signatures (this feature has been deferred until a future revision
   of the UCF specification. It will be supported by this gem when it is added
   to the specification).
