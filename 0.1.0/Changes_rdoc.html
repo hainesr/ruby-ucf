@@ -49,6 +49,7 @@
     <h3 class="section-header">Table of Contents</h3>
     <ul>
       <li><a href="#label-Changes+log+for+the+UCF+Ruby+Gem">Changes log for the UCF Ruby Gem</a>
+      <li><a href="#label-Version+0.1.0">Version 0.1.0</a>
       <li><a href="#label-Version+0.0.2">Version 0.0.2</a>
       <li><a href="#label-Version+0.0.1">Version 0.0.1</a>
       <li><a href="#label-About+this+Changes+file">About this Changes file</a>
@@ -100,6 +101,41 @@
 <div id="documentation" class="description">
   
 <h1 id="label-Changes+log+for+the+UCF+Ruby+Gem"><a href="Changes_rdoc.html">Changes</a> log for the <a href="UCF.html">UCF</a> Ruby Gem<span><a href="#label-Changes+log+for+the+UCF+Ruby+Gem">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
+
+<h2 id="label-Version+0.1.0">Version 0.1.0<span><a href="#label-Version+0.1.0">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+<ul><li>
+<p>Improvements to the reserved names code to allow sub-classing.</p>
+</li><li>
+<p>Move exceptions to a new source file.</p>
+</li><li>
+<p>Use a base class for <a href="UCF.html">UCF</a> exceptions.</p>
+</li><li>
+<p>Standardize the MalformedUCFError exception messages.</p>
+</li><li>
+<p>Add an exception for clashes with reserved names.</p>
+</li><li>
+<p>Implement Container#add to avoid using reserved names.</p>
+</li><li>
+<p>Raise an exception if renaming to a reserved name.</p>
+</li><li>
+<p>Implement Container#mkdir to avoid using reserved names.</p>
+</li><li>
+<p>Make sure testing reserved names copes with trailing slashes.</p>
+</li><li>
+<p>Fake up the connection to ZipFileSystem.</p>
+</li><li>
+<p>Implement Container#get_output_stream to respect reserved names.</p>
+</li><li>
+<p>Can now set comments on the <a href="UCF.html">UCF</a> document.</p>
+</li><li>
+<p>Implement the close and commit methods.</p>
+</li><li>
+<p>Forward the commit_required? method.</p>
+</li><li>
+<p>Separate the opening and checking of a <a href="UCF.html">UCF</a> document.</p>
+</li><li>
+<p>Documentation improvements and cleanup.</p>
+</li></ul>
 
 <h2 id="label-Version+0.0.2">Version 0.0.2<span><a href="#label-Version+0.0.2">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
 <ul><li>

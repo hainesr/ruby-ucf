@@ -146,14 +146,15 @@ directory. See the contents of the tests directory for even more.</p>
 implemented but there are a number of optional features that are not yet
 provided.</p>
 <ul><li>
-<p>In memory operation. Presently all operations are performed on documents
-that are resident on disk.</p>
+<p>Memory resident <a href="UCF.html">UCF</a> documents. Presently all
+operations are performed on documents that are resident on disk as the
+underlying <a href="https://github.com/aussiegeek/rubyzip">rubyzip
+library</a> currently <a
+href="https://github.com/aussiegeek/rubyzip/issues/74">cannot do anything
+else</a>.</p>
 </li><li>
 <p>META-INF directory support. Everything within the META-INF directory is
 optional but will supported in a near future version.</p>
-</li><li>
-<p>Changing the mimetype. It is not certain that this is a sensible operation
-but is being considered for a future version.</p>
 </li><li>
 <p>Digital signatures (this feature has been deferred until a future revision
 of the <a href="UCF.html">UCF</a> specification. It will be supported by
