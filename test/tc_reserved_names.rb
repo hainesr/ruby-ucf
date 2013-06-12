@@ -42,10 +42,8 @@ class NewUCF < UCF::Container
     register_managed_directory(UCF::ManagedDirectory.new("src"))
     register_managed_directory(UCF::ManagedDirectory.new("test"))
     register_managed_directory(UCF::ManagedDirectory.new("lib"))
-  end
 
-  def reserved_files
-    super + ["index.html"]
+    register_managed_file(UCF::ManagedFile.new("index.html"))
   end
 
 end

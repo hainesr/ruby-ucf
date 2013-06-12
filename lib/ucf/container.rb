@@ -71,8 +71,9 @@ module UCF
       @mimetype = read_mimetype
       @on_disk = true
 
-      # Register the META-INF managed directory.
+      # Register the META-INF managed directory and initialize managed files.
       @directories = [MetaInf.new]
+      @files = []
 
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
@@ -316,10 +317,10 @@ module UCF
     #
     # Return a list of reserved file names for this UCF document.
     #
-    # When creating a more specialized sub-class of this class then this
-    # method should be overridden to add any extra reserved file names.
+    # Subclasses can add reserved files using the protected
+    # register_managed_file method.
     def reserved_files
-      [MIMETYPE_FILE]
+      [MIMETYPE_FILE] + @files.map { |f| f.name }
     end
 
     # :call-seq:
@@ -377,6 +378,19 @@ module UCF
       end
 
       @directories << directory
+    end
+
+    # :call-seq:
+    #   register_managed_file(file)
+    #
+    # Register a ManagedFile. A ManagedFile is used to reserve the name of a
+    # file in the container namespace.
+    def register_managed_file(file)
+      unless file.is_a? ::UCF::ManagedFile
+        raise ArgumentError.new("The supplied parameter must be of type ManagedFile (or a subclass).")
+      end
+
+      @files << file
     end
 
     private
