@@ -30,6 +30,7 @@
 #
 # Author: Robert Haines
 
+#
 module UCF
 
   # The base class of all other exceptions raised by this library.
