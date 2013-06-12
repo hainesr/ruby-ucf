@@ -54,8 +54,11 @@ class TestReservedNames < Test::Unit::TestCase
   # such comparisons for UCF documents should be case sensitive.
   def test_reserved_names
     UCF::Container.open($ucf_example) do |ucf|
-      assert_equal(1, ucf.reserved_files.length)
-      assert_equal(["mimetype"], ucf.reserved_files)
+      assert_equal(7, ucf.reserved_files.length)
+      assert_equal(["mimetype", "META-INF/container.xml",
+        "META-INF/manifest.xml", "META-INF/metadata.xml",
+        "META-INF/signatures.xml", "META-INF/encryption.xml",
+        "META-INF/rights.xml"], ucf.reserved_files)
       assert(ucf.reserved_entry?("mimetype"))
       assert(ucf.reserved_entry?("mimetype/"))
       assert(ucf.reserved_entry?("MimeType"))
@@ -67,8 +70,11 @@ class TestReservedNames < Test::Unit::TestCase
       assert(ucf.reserved_entry?("MeTa-iNf"))
       assert(ucf.reserved_entry?("MeTa-iNf/"))
 
-      assert_equal(2, ucf.reserved_names.length)
-      assert_equal(["mimetype", "META-INF"], ucf.reserved_names)
+      assert_equal(8, ucf.reserved_names.length)
+      assert_equal(["mimetype", "META-INF/container.xml",
+        "META-INF/manifest.xml", "META-INF/metadata.xml",
+        "META-INF/signatures.xml", "META-INF/encryption.xml",
+        "META-INF/rights.xml", "META-INF"], ucf.reserved_names)
 
       refute(ucf.reserved_entry?("This_should_fail"))
       refute(ucf.reserved_entry?("META_INF"))
@@ -79,8 +85,11 @@ class TestReservedNames < Test::Unit::TestCase
   # Check that overriding the reserved names in a sub-class works correctly
   def test_subclass_reserved_names
     NewUCF.open($ucf_example) do |ucf|
-      assert_equal(2, ucf.reserved_files.length)
-      assert_equal(["mimetype", "index.html"], ucf.reserved_files)
+      assert_equal(8, ucf.reserved_files.length)
+      assert_equal(["mimetype", "index.html", "META-INF/container.xml",
+        "META-INF/manifest.xml", "META-INF/metadata.xml",
+        "META-INF/signatures.xml", "META-INF/encryption.xml",
+        "META-INF/rights.xml"], ucf.reserved_files)
       assert(ucf.reserved_entry?("mimetype"))
       assert(ucf.reserved_entry?("mimetype/"))
       assert(ucf.reserved_entry?("MimeType"))
@@ -98,8 +107,11 @@ class TestReservedNames < Test::Unit::TestCase
       assert(ucf.reserved_entry?("lib"))
       assert(ucf.reserved_entry?("lIb/"))
 
-      assert_equal(6, ucf.reserved_names.length)
-      assert_equal(["mimetype", "index.html", "META-INF", "src", "test", "lib"],
+      assert_equal(12, ucf.reserved_names.length)
+      assert_equal(["mimetype", "index.html", "META-INF/container.xml",
+        "META-INF/manifest.xml", "META-INF/metadata.xml",
+        "META-INF/signatures.xml", "META-INF/encryption.xml",
+        "META-INF/rights.xml", "META-INF", "src", "test", "lib"],
         ucf.reserved_names)
 
       refute(ucf.reserved_entry?("This_should_fail"))

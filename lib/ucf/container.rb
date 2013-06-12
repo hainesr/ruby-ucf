@@ -320,7 +320,8 @@ module UCF
     # Subclasses can add reserved files using the protected
     # register_managed_file method.
     def reserved_files
-      [MIMETYPE_FILE] + @files.map { |f| f.name }
+      [MIMETYPE_FILE] + @files.map { |f| f.name } +
+        @directories.map { |d| d.reserved_names }.flatten
     end
 
     # :call-seq:

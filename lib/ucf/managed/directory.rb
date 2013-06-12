@@ -41,5 +41,57 @@ module UCF
   # used to write to its contents.
   class ManagedDirectory < ManagedEntry
 
+    # :call-seq:
+    #   new(name)
+    #
+    # Create a new ManagedDirectory with the supplied name.
+    def initialize(name)
+      super(name)
+
+      @files = []
+    end
+
+    # :call-seq:
+    #   reserved_files -> Array
+    #
+    # Return a list of reserved file names for this ManagedDirectory.
+    #
+    # Subclasses can add reserved files using the protected
+    # register_managed_file method.
+    def reserved_files
+      @files.map { |f| "#{name}/#{f.name}" }
+    end
+
+    # :call-seq:
+    #   reserved_names -> Array
+    #
+    # Return a list of reserved file and directory names for this
+    # ManagedDirectory
+    #
+    # In practice this method simply returns the joined lists of reserved file
+    # and directory names.
+    def reserved_names
+      reserved_files
+    end
+
+    protected
+
+    # :call-seq:
+    #   register_managed_file(file)
+    #
+    # Register a ManagedFile. A ManagedFile is used to reserve the name of a
+    # file in the namespaces of both this ManagedDirectory and its Container.
+    def register_managed_file(file)
+      unless file.is_a? ManagedFile
+        if file.is_a? String
+          file = ManagedFile.new(file)
+        else
+          raise ArgumentError.new("The supplied parameter must be a String or a ManagedFile (or a subclass).")
+        end
+      end
+
+      @files << file
+    end
+
   end
 end

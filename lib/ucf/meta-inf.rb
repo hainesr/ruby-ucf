@@ -35,6 +35,13 @@ module UCF
 
     def initialize
       super("META-INF")
+
+      register_managed_file("container.xml")
+      register_managed_file("manifest.xml")
+      register_managed_file("metadata.xml")
+      register_managed_file("signatures.xml")
+      register_managed_file("encryption.xml")
+      register_managed_file("rights.xml")
     end
 
   end
