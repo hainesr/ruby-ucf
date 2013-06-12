@@ -34,13 +34,20 @@ require 'ucf'
 
 # A class to test the overriding of reserved names.
 class NewUCF < UCF::Container
+
+  private_class_method :new
+
+  def initialize(filename)
+    super(filename)
+    register_managed_directory(UCF::ManagedDirectory.new("src"))
+    register_managed_directory(UCF::ManagedDirectory.new("test"))
+    register_managed_directory(UCF::ManagedDirectory.new("lib"))
+  end
+
   def reserved_files
     super + ["index.html"]
   end
 
-  def reserved_directories
-    super + ["src", "test", "lib"]
-  end
 end
 
 class TestReservedNames < Test::Unit::TestCase

@@ -61,9 +61,8 @@ module UCF
     # :stopdoc:
     DEFAULT_MIMETYPE = "application/epub+zip"
 
-    # Reserved file and directory names for standard UCF documents.
+    # The reserved mimetype file name for standard UCF documents.
     MIMETYPE_FILE = "mimetype"
-    META_INF_DIR = "META-INF"
 
     def initialize(document)
       @zipfile = open_document(document)
@@ -71,6 +70,9 @@ module UCF
 
       @mimetype = read_mimetype
       @on_disk = true
+
+      # Register the META-INF managed directory.
+      @directories = [MetaInf.new]
 
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
@@ -325,10 +327,10 @@ module UCF
     #
     # Return a list of reserved directory names for this UCF document.
     #
-    # When creating a more specialized sub-class of this class then this
-    # method should be overridden to add any extra reserved directory names.
+    # Subclasses can add reserved directories using the protected
+    # register_managed_directory method.
     def reserved_directories
-      [META_INF_DIR]
+      @directories.map { |d| d.name }
     end
 
     # :call-seq:
@@ -359,6 +361,22 @@ module UCF
     # Return a textual summary of this UCF document.
     def to_s
       @zipfile.to_s + " - #{@mimetype}"
+    end
+
+    protected
+
+    # :call-seq:
+    #   register_managed_directory(directory)
+    #
+    # Register a ManagedDirectory. A ManagedDirectory is used to both reserve
+    # the name of a directory in the container namespace and act as an
+    # interface to the (possibly) managed files within it.
+    def register_managed_directory(directory)
+      unless directory.is_a? ::UCF::ManagedDirectory
+        raise ArgumentError.new("The supplied parameter must be of type ManagedDirectory (or a subclass).")
+      end
+
+      @directories << directory
     end
 
     private

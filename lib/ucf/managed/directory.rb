@@ -30,29 +30,16 @@
 #
 # Author: Robert Haines
 
-require 'yaml'
-require 'ucf/exceptions'
-require 'ucf/managed/entry'
-require 'ucf/managed/directory'
-require 'ucf/meta-inf'
-require 'ucf/container'
-
-# This is a ruby library to read and write UCF files in PK Zip format. See the
-# UCF::Container class for more information.
 #
-# See
-# {the UCF specification}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
-# for more details.
 module UCF
 
-  # Library version information.
-  module Version
-    # Version information in a Hash
-    INFO = YAML.load_file(File.join(File.dirname(__FILE__), "..",
-      "version.yml"))
+  # A ManagedDirectory acts as the interface to a set of (possibly) managed
+  # files within it and also reserves the directory name in the Container
+  # namespace.
+  #
+  # Once a ManagedDirectory is registered in a Container then only it can be
+  # used to write to its contents.
+  class ManagedDirectory < ManagedEntry
 
-    # Version number as a String
-    STRING = [:major, :minor, :patch].map {|d| INFO[d]}.compact.join('.')
   end
-
 end
