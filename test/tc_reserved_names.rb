@@ -50,6 +50,15 @@ end
 
 class TestReservedNames < Test::Unit::TestCase
 
+  # Check that the reserved names verify correctly.
+  def test_verify_reserved_name
+    assert(NewUCF.verify($ucf_example))
+
+    assert_nothing_raised(UCF::MalformedUCFError) do
+      NewUCF.verify!($ucf_example)
+    end
+  end
+
   # Check the reserved names stuff all works correctly, baring in mind that
   # such comparisons for UCF documents should be case sensitive.
   def test_reserved_names

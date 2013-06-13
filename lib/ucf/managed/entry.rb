@@ -33,18 +33,91 @@
 #
 module UCF
 
-  # ManagedEntry is the superclass of ManagedDirectory.
+  # ManagedEntry is the superclass of ManagedDirectory and ManagedFile. It
+  # should not be used directly but may be subclassed if necessary.
   class ManagedEntry
 
-    # The name of this ManagedEntry in the Container namespace.
-    attr_reader :name
+    # :call-seq:
+    #   new(name, required) -> ManagedEntry
+    #
+    # Create a new ManagedEntry with the supplied name. The entry should also
+    # be marked as required or not.
+    def initialize(name, required)
+      @parent = nil
+      @name = name
+      @required = required
+    end
 
     # :call-seq:
-    #   new(name) -> ManagedEntry
+    #   name -> string
     #
-    # Create a new ManagedEntry with the supplied name.
-    def initialize(name)
-      @name = name
+    # The fully qualified name of this ManagedEntry.
+    def name
+      @parent.is_a?(Container) ? @name : "#{@parent.name}/#{@name}"
+    end
+
+    # :call-seq:
+    #   required? -> true or false
+    #
+    # Is this ManagedEntry required to be present according to the
+    # specification of its Container?
+    def required?
+      @required
+    end
+
+    # :call-seq:
+    #   exists? -> true or false
+    #
+    # Does this ManagedEntry exist in the Container?
+    def exists?
+      container.entries.each do |entry|
+        test = (entry.ftype == :directory ? "#{name}/" : name)
+        return true if entry.name == test
+      end
+
+      false
+    end
+
+    # :stopdoc:
+    # Allows the object in which this entry has been registered in to tell it
+    # who it is.
+    def parent=(parent)
+      @parent = parent
+    end
+    # :startdoc:
+
+    # :call-seq:
+    #   verify!
+    #
+    # Verify this ManagedEntry raising a MalformedUCFError if it fails. See
+    # the protected method verify for more details.
+    def verify!
+      unless verify
+        raise MalformedUCFError.new("Entry '#{name}' is required but missing.")
+      end
+    end
+
+    protected
+
+    # :call-seq:
+    #   verify -> true or false
+    #
+    # Verify this ManagedEntry by checking that this file exists if it is
+    # required according to its Container specification.
+    #
+    # Subclasses of ManagedEntry, see ManagedDirectory and ManagedFile for
+    # example, should override this method with any extra checks that need to
+    # be done for verification.
+    def verify
+      !@required || exists?
+    end
+
+    # :call-seq:
+    #   container -> Container
+    #
+    # Return the Container that this ManagedEntry resides in.
+    def container
+      @parent.is_a?(Container) ? @parent : @parent.container
     end
 
   end

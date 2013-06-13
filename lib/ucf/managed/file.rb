@@ -36,5 +36,46 @@ module UCF
   # A ManagedFile is used to reserve a filename in a Container namespace.
   class ManagedFile < ManagedEntry
 
+    # :call-seq:
+    #   new(name, required = false, validation_proc = nil) -> ManagedFile
+    #
+    # Create a new ManagedFile with the supplied name and whether it is
+    # required to exist or not.
+    #
+    # If supplied <tt>validation_proc</tt> should be a Proc that takes a
+    # single parameter and returns +true+ or +false+ depending on whether the
+    # contents of the file were validated or not.
+    #
+    # The following example creates a ManagedFile that is not required to be
+    # present in the container, but if it is, its contents must be the single
+    # word "Boo!".
+    #
+    #  valid = Proc.new { |contents| contents == "Boo!" }
+    #  ManagedFile.new("Surprize.txt", false, valid)
+    def initialize(name, required = false, validation_proc = nil)
+      super(name, required)
+
+      unless validation_proc.is_a? Proc
+        validation_proc = Proc.new { |contents| true }
+      end
+      @validation_proc = validation_proc
+    end
+
+    # :call-seq:
+    #   verify -> true or false
+    #
+    # Verify this ManagedFile for correctness. The contents are validated if
+    # required.
+    def verify
+      super && (exists? ? @validation_proc.call(contents) : true)
+    end
+
+    private
+
+    # Grab the contents of this ManagedFile
+    def contents
+      container.read(name)
+    end
+
   end
 end

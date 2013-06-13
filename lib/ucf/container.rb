@@ -66,14 +66,15 @@ module UCF
 
     def initialize(document)
       @zipfile = open_document(document)
-      check_document!
+      check_mimetype!
 
       @mimetype = read_mimetype
       @on_disk = true
 
       # Register the META-INF managed directory and initialize managed files.
-      @directories = [MetaInf.new]
-      @files = []
+      @directories = {}
+      @files = {}
+      register_managed_directory(MetaInf.new)
 
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
@@ -148,7 +149,7 @@ module UCF
     # all with the file (including if it cannot be found).
     def Container.verify(filename)
       begin
-        Container.verify!(filename)
+        new(filename).verify!
       rescue
         return false
       end
@@ -164,8 +165,7 @@ module UCF
     # there is something fundamental wrong with the file itself (e.g. it
     # cannot be found).
     def Container.verify!(filename)
-      new(filename).close
-      nil
+      new(filename).verify!
     end
 
     # :call-seq:
@@ -320,8 +320,8 @@ module UCF
     # Subclasses can add reserved files using the protected
     # register_managed_file method.
     def reserved_files
-      [MIMETYPE_FILE] + @files.map { |f| f.name } +
-        @directories.map { |d| d.reserved_names }.flatten
+      [MIMETYPE_FILE] + @files.keys +
+        @directories.values.map { |d| d.reserved_names }.flatten
     end
 
     # :call-seq:
@@ -332,7 +332,7 @@ module UCF
     # Subclasses can add reserved directories using the protected
     # register_managed_directory method.
     def reserved_directories
-      @directories.map { |d| d.name }
+      @directories.keys
     end
 
     # :call-seq:
@@ -365,6 +365,23 @@ module UCF
       @zipfile.to_s + " - #{@mimetype}"
     end
 
+    # :call-seq:
+    #   verify!
+    #
+    # Verify the contents of this UCF document. All managed files and
+    # directories are checked to make sure that they exist, if required.
+    def verify!
+      @directories.each_value do |dir|
+        dir.verify!
+      end
+
+      @files.each_value do |file|
+        file.verify!
+      end
+
+      true
+    end
+
     protected
 
     # :call-seq:
@@ -378,7 +395,8 @@ module UCF
         raise ArgumentError.new("The supplied parameter must be of type ManagedDirectory (or a subclass).")
       end
 
-      @directories << directory
+      directory.parent = self
+      @directories[directory.name] = directory
     end
 
     # :call-seq:
@@ -391,7 +409,8 @@ module UCF
         raise ArgumentError.new("The supplied parameter must be of type ManagedFile (or a subclass).")
       end
 
-      @files << file
+      file.parent = self
+      @files[file.name] = file
     end
 
     private
@@ -400,7 +419,7 @@ module UCF
       ::Zip::ZipFile.new(document)
     end
 
-    def check_document!
+    def check_mimetype!
       # Check mimetype file is present and correct.
       entry = @zipfile.find_entry(MIMETYPE_FILE)
 

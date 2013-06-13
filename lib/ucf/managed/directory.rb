@@ -42,11 +42,12 @@ module UCF
   class ManagedDirectory < ManagedEntry
 
     # :call-seq:
-    #   new(name)
+    #   new(name, required = false) -> ManagedDirectory
     #
-    # Create a new ManagedDirectory with the supplied name.
-    def initialize(name)
-      super(name)
+    # Create a new ManagedDirectory with the supplied name and whether it is
+    # required to exist or not.
+    def initialize(name, required = false)
+      super(name, required)
 
       @files = []
     end
@@ -59,7 +60,7 @@ module UCF
     # Subclasses can add reserved files using the protected
     # register_managed_file method.
     def reserved_files
-      @files.map { |f| "#{name}/#{f.name}" }
+      @files.map { |f| f.name }
     end
 
     # :call-seq:
@@ -72,6 +73,15 @@ module UCF
     # and directory names.
     def reserved_names
       reserved_files
+    end
+
+    # :call-seq:
+    #   verify -> true or false
+    #
+    # Verify this ManagedDirectory for correctness. ManagedFiles registered
+    # within it are verified recursively.
+    def verify
+      super && @files.inject(true) { |r, f| r && f.verify }
     end
 
     protected
@@ -90,6 +100,7 @@ module UCF
         end
       end
 
+      file.parent = self
       @files << file
     end
 

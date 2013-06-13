@@ -43,3 +43,4 @@ $ucf_example = "test/data/example.ucf"
 require 'tc_create'
 require 'tc_read'
 require 'tc_reserved_names'
+require 'tc_managed_entries'
