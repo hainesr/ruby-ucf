@@ -49,8 +49,8 @@ module UCF
 
     extend Forwardable
     def_delegators :@zipfile, :comment, :comment=, :commit_required?, :each,
-      :extract, :find_entry, :get_entry, :get_input_stream, :glob, :name,
-      :read, :size
+      :entries, :extract, :find_entry, :get_entry, :get_input_stream, :glob,
+      :name, :read, :size
 
     private_class_method :new
 
@@ -454,6 +454,15 @@ module UCF
     # Iterate over the entries in the UCF document. The entry objects returned
     # by this method are Zip::ZipEntry objects. Please see the rubyzip
     # documentation for details.
+
+    ##
+    # :method:
+    # :call-seq:
+    #   entries -> Enumerable
+    #
+    # Returns an Enumerable containing all the entries in the UCF Document.
+    # The entry objects returned by this method are Zip::ZipEntry objects.
+    # Please see the rubyzip documentation for details.
 
     ##
     # :method: extract
