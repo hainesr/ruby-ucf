@@ -39,11 +39,10 @@ class ManagedUCF < UCF::Container
 
   def initialize(filename)
     super(filename)
-    register_managed_directory(UCF::ManagedDirectory.new("src", true))
-    register_managed_directory(UCF::ManagedDirectory.new("test"))
-    register_managed_directory(UCF::ManagedDirectory.new("lib"))
-
-    register_managed_file(UCF::ManagedFile.new("index.html", true))
+    register_managed_entry(UCF::ManagedDirectory.new("src", true))
+    register_managed_entry(UCF::ManagedDirectory.new("test"))
+    register_managed_entry(UCF::ManagedDirectory.new("lib"))
+    register_managed_entry(UCF::ManagedFile.new("index.html", true))
   end
 
 end
@@ -54,9 +53,8 @@ class ExampleUCF < UCF::Container
 
   def initialize(filename)
     super(filename)
-    register_managed_directory(UCF::ManagedDirectory.new("dir", true))
-
-    register_managed_file(UCF::ManagedFile.new("greeting.txt", true))
+    register_managed_entry(UCF::ManagedDirectory.new("dir", true))
+    register_managed_entry(UCF::ManagedFile.new("greeting.txt", true))
   end
 
 end
@@ -69,7 +67,7 @@ class ExampleUCF2 < UCF::Container
     super(filename)
 
     valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
-    register_managed_file(UCF::ManagedFile.new("greeting.txt", true, valid))
+    register_managed_entry(UCF::ManagedFile.new("greeting.txt", true, valid))
   end
 
 end

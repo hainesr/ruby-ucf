@@ -32,6 +32,8 @@
 
 require 'yaml'
 require 'ucf/exceptions'
+require 'ucf/reserved_names'
+require 'ucf/managed/entries'
 require 'ucf/managed/entry'
 require 'ucf/managed/file'
 require 'ucf/managed/directory'

@@ -46,6 +46,8 @@ module UCF
   #
   # There are code examples available with the source code of this library.
   class Container
+    include ReservedNames
+    include ManagedEntries
 
     extend Forwardable
     def_delegators :@zipfile, :comment, :comment=, :commit_required?, :each,
@@ -71,10 +73,11 @@ module UCF
       @mimetype = read_mimetype
       @on_disk = true
 
-      # Register the META-INF managed directory and initialize managed files.
-      @directories = {}
-      @files = {}
-      register_managed_directory(MetaInf.new)
+      # Reserved entry names. Just the mimetype file by default.
+      register_reserved_name(MIMETYPE_FILE)
+
+      # Register the META-INF managed entry.
+      register_managed_entry(MetaInf.new)
 
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
@@ -179,7 +182,9 @@ module UCF
     # See the rubyzip documentation for details of the
     # +continue_on_exists_proc+ parameter.
     def add(entry, src_path, &continue_on_exists_proc)
-      raise ReservedNameClashError.new(entry.to_s) if reserved_entry?(entry)
+      if reserved_entry?(entry) || managed_directory?(entry)
+        raise ReservedNameClashError.new(entry.to_s)
+      end
 
       @zipfile.add(entry, src_path, &continue_on_exists_proc)
     end
@@ -236,7 +241,9 @@ module UCF
     # See the rubyzip documentation for details of the +permission_int+
     # parameter.
     def get_output_stream(entry, permission = nil, &block)
-      raise ReservedNameClashError.new(entry.to_s) if reserved_entry?(entry)
+      if reserved_entry?(entry) || managed_directory?(entry)
+        raise ReservedNameClashError.new(entry.to_s)
+      end
 
       @zipfile.get_output_stream(entry, permission, &block)
     end
@@ -259,7 +266,9 @@ module UCF
     # permissions. The default (+0755+) is owner read, write and list; group
     # read and list; and world read and list.
     def mkdir(name, permission = 0755)
-      raise ReservedNameClashError.new(name) if reserved_entry?(name)
+      if reserved_entry?(name) || managed_file?(name)
+        raise ReservedNameClashError.new(name)
+      end
 
       @zipfile.mkdir(name, permission)
     end
@@ -313,51 +322,6 @@ module UCF
     end
 
     # :call-seq:
-    #   reserved_files -> Array
-    #
-    # Return a list of reserved file names for this UCF document.
-    #
-    # Subclasses can add reserved files using the protected
-    # register_managed_file method.
-    def reserved_files
-      [MIMETYPE_FILE] + @files.keys +
-        @directories.values.map { |d| d.reserved_names }.flatten
-    end
-
-    # :call-seq:
-    #   reserved_directories -> Array
-    #
-    # Return a list of reserved directory names for this UCF document.
-    #
-    # Subclasses can add reserved directories using the protected
-    # register_managed_directory method.
-    def reserved_directories
-      @directories.keys
-    end
-
-    # :call-seq:
-    #   reserved_entry?(entry) -> boolean
-    #
-    # Is the given entry name in the reserved list of file or directory names?
-    def reserved_entry?(entry)
-      name = entry.kind_of?(::Zip::ZipEntry) ? entry.name : entry
-      name.chop! if name.end_with? "/"
-      reserved_names.map { |n| n.downcase }.include? name.downcase
-    end
-
-    # :call-seq:
-    #   reserved_names -> Array
-    #
-    # Return a list of reserved file and directory names for this UCF
-    # document.
-    #
-    # In practice this method simply returns the joined lists of reserved file
-    # and directory names.
-    def reserved_names
-      reserved_files + reserved_directories
-    end
-
-    # :call-seq:
     #   to_s -> String
     #
     # Return a textual summary of this UCF document.
@@ -371,46 +335,7 @@ module UCF
     # Verify the contents of this UCF document. All managed files and
     # directories are checked to make sure that they exist, if required.
     def verify!
-      @directories.each_value do |dir|
-        dir.verify!
-      end
-
-      @files.each_value do |file|
-        file.verify!
-      end
-
-      true
-    end
-
-    protected
-
-    # :call-seq:
-    #   register_managed_directory(directory)
-    #
-    # Register a ManagedDirectory. A ManagedDirectory is used to both reserve
-    # the name of a directory in the container namespace and act as an
-    # interface to the (possibly) managed files within it.
-    def register_managed_directory(directory)
-      unless directory.is_a? ::UCF::ManagedDirectory
-        raise ArgumentError.new("The supplied parameter must be of type ManagedDirectory (or a subclass).")
-      end
-
-      directory.parent = self
-      @directories[directory.name] = directory
-    end
-
-    # :call-seq:
-    #   register_managed_file(file)
-    #
-    # Register a ManagedFile. A ManagedFile is used to reserve the name of a
-    # file in the container namespace.
-    def register_managed_file(file)
-      unless file.is_a? ::UCF::ManagedFile
-        raise ArgumentError.new("The supplied parameter must be of type ManagedFile (or a subclass).")
-      end
-
-      file.parent = self
-      @files[file.name] = file
+      verify_managed_entries!
     end
 
     private
