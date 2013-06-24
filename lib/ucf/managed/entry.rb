@@ -37,6 +37,10 @@ module UCF
   # should not be used directly but may be subclassed if necessary.
   class ManagedEntry
 
+    # The name of the ManagedEntry. For the full path name of this entry use
+    # full_name.
+    attr_reader :name
+
     # :call-seq:
     #   new(name, required) -> ManagedEntry
     #
@@ -49,10 +53,10 @@ module UCF
     end
 
     # :call-seq:
-    #   name -> string
+    #   full_name -> string
     #
     # The fully qualified name of this ManagedEntry.
-    def name
+    def full_name
       @parent.is_a?(Container) ? @name : "#{@parent.name}/#{@name}"
     end
 
@@ -71,7 +75,7 @@ module UCF
     # Does this ManagedEntry exist in the Container?
     def exists?
       container.entries.each do |entry|
-        test = (entry.ftype == :directory ? "#{name}/" : name)
+        test = (entry.ftype == :directory) ? "#{full_name}/" : full_name
         return true if entry.name == test
       end
 

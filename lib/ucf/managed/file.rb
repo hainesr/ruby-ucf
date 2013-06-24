@@ -74,7 +74,7 @@ module UCF
 
     # Grab the contents of this ManagedFile
     def contents
-      container.read(name)
+      container.read(full_name)
     end
 
   end

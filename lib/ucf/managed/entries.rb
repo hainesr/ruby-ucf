@@ -39,9 +39,19 @@ module UCF
     # :call-seq:
     #   managed_directories -> Array
     #
-    # Return the list of managed directory names.
+    # Return the list of managed directories.
     def managed_directories
-      @directories.keys
+      @directories ||= {}
+      @directories.values
+    end
+
+    # :call-seq:
+    #   managed_directory_names -> Array
+    #
+    # Return the list of managed directory names.
+    def managed_directory_names
+      @directories ||= {}
+      expand_names(@directories.keys)
     end
 
     # :call-seq:
@@ -49,22 +59,30 @@ module UCF
     #
     # Is the supplied entry/name a managed directory?
     def managed_directory?(entry)
-      managed_entry?(entry, @directories.keys)
+      managed_entry?(entry, managed_directory_names)
     end
 
     # :call-seq:
     #   managed_entries -> Array
     #
-    # Return the list of managed file and directory names.
+    # Return the list of managed files and directories.
     def managed_entries
       managed_files + managed_directories
+    end
+
+    # :call-seq:
+    #   managed_entry_names -> Array
+    #
+    # Return the list of managed file and directory names.
+    def managed_entry_names
+      managed_file_names + managed_directory_names
     end
 
     # :call-seq:
     #   managed_entry?(entry) -> boolean
     #
     # Is the supplied entry/name a managed entry?
-    def managed_entry?(entry, list = managed_entries)
+    def managed_entry?(entry, list = managed_entry_names)
       name = entry.kind_of?(::Zip::ZipEntry) ? entry.name : entry
       name.chop! if name.end_with? "/"
       list.map { |n| n.downcase }.include? name.downcase
@@ -75,15 +93,26 @@ module UCF
     #
     # Is the supplied entry/name a managed file?
     def managed_file?(entry)
-      managed_entry?(entry, @files.keys)
+      managed_entry?(entry, managed_file_names)
     end
 
     # :call-seq:
     #   managed_files -> Array
     #
-    # Return the list of managed file names.
+    # Return the list of managed files.
     def managed_files
-      @files.keys + @directories.values.map { |d| d.reserved_names }.flatten
+      @files ||= {}
+      @files.values + managed_directories.map { |d| d.managed_files }.flatten
+    end
+
+    # :call-seq:
+    #   managed_file_names -> Array
+    #
+    # Return the list of managed file names.
+    def managed_file_names
+      @files ||= {}
+      expand_names(@files.keys) +
+        managed_directories.map { |d| d.managed_file_names }.flatten
     end
 
     # :call-seq:
@@ -92,10 +121,12 @@ module UCF
     # All managed files and directories are checked to make sure that they
     # exist, if required.
     def verify_managed_entries!
+      @directories ||= {}
       @directories.each_value do |dir|
         dir.verify!
       end
 
+      @files ||= {}
       @files.each_value do |file|
         file.verify!
       end
@@ -128,6 +159,12 @@ module UCF
       entry.parent = self
       @directories[entry.name] = entry if entry.is_a? ManagedDirectory
       @files[entry.name] = entry if entry.is_a? ManagedFile
+    end
+
+    private
+
+    def expand_names(names)
+      names.map { |n| self.is_a?(Container) ? n : "#{name}/#{n}" }
     end
 
   end

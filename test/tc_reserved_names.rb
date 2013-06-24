@@ -70,7 +70,7 @@ class TestReservedNames < Test::Unit::TestCase
       assert_equal(["META-INF/container.xml",
         "META-INF/manifest.xml", "META-INF/metadata.xml",
         "META-INF/signatures.xml", "META-INF/encryption.xml",
-        "META-INF/rights.xml"], ucf.managed_files)
+        "META-INF/rights.xml"], ucf.managed_file_names)
       assert(ucf.reserved_entry?("mimetype"))
       assert(ucf.reserved_entry?("mimetype/"))
       assert(ucf.reserved_entry?("MimeType"))
@@ -79,7 +79,7 @@ class TestReservedNames < Test::Unit::TestCase
       assert(ucf.managed_entry?("MeTa-INF/maniFest.XML"))
 
       assert_equal(1, ucf.managed_directories.length)
-      assert_equal(["META-INF"], ucf.managed_directories)
+      assert_equal(["META-INF"], ucf.managed_directory_names)
       assert(ucf.managed_entry?("META-INF"))
       assert(ucf.managed_entry?("META-INF/"))
       assert(ucf.managed_entry?("MeTa-iNf"))
@@ -90,7 +90,7 @@ class TestReservedNames < Test::Unit::TestCase
       assert_equal(["META-INF/container.xml",
         "META-INF/manifest.xml", "META-INF/metadata.xml",
         "META-INF/signatures.xml", "META-INF/encryption.xml",
-        "META-INF/rights.xml", "META-INF"], ucf.managed_entries)
+        "META-INF/rights.xml", "META-INF"], ucf.managed_entry_names)
 
       refute(ucf.managed_entry?("This_should_fail"))
       refute(ucf.managed_entry?("META_INF"))
@@ -107,7 +107,7 @@ class TestReservedNames < Test::Unit::TestCase
       assert_equal(["index.html", "META-INF/container.xml",
         "META-INF/manifest.xml", "META-INF/metadata.xml",
         "META-INF/signatures.xml", "META-INF/encryption.xml",
-        "META-INF/rights.xml"], ucf.managed_files)
+        "META-INF/rights.xml"], ucf.managed_file_names)
       assert(ucf.reserved_entry?("mimetype"))
       assert(ucf.reserved_entry?("mimetype/"))
       assert(ucf.reserved_entry?("MimeType"))
@@ -116,7 +116,8 @@ class TestReservedNames < Test::Unit::TestCase
       refute(ucf.reserved_entry?("index.html"))
 
       assert_equal(4, ucf.managed_directories.length)
-      assert_equal(["META-INF", "src", "test", "lib"], ucf.managed_directories)
+      assert_equal(["META-INF", "src", "test", "lib"],
+        ucf.managed_directory_names)
       assert(ucf.managed_entry?("META-INF"))
       assert(ucf.managed_entry?("META-INF/"))
       assert(ucf.managed_entry?("MeTa-iNf"))
@@ -135,7 +136,7 @@ class TestReservedNames < Test::Unit::TestCase
         "META-INF/manifest.xml", "META-INF/metadata.xml",
         "META-INF/signatures.xml", "META-INF/encryption.xml",
         "META-INF/rights.xml", "META-INF", "src", "test", "lib"],
-        ucf.managed_entries)
+        ucf.managed_entry_names)
 
       refute(ucf.managed_entry?("This_should_fail"))
       refute(ucf.managed_entry?("META_INF"))
@@ -232,6 +233,10 @@ class TestReservedNames < Test::Unit::TestCase
       assert_raises(UCF::ReservedNameClashError) do
         ucf.mkdir("mimetype")
       end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.mkdir("META-INF/container.xml")
+      end
     end
   end
 
@@ -253,6 +258,10 @@ class TestReservedNames < Test::Unit::TestCase
 
       assert_raises(UCF::ReservedNameClashError) do
         ucf.mkdir("Reserved_Dir")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.mkdir("META-INF/container.xml")
       end
     end
   end
