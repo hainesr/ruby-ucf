@@ -30,10 +30,15 @@
 #
 # Author: Robert Haines
 
-#
+require 'zip/zip_entry'
+
 module UCF
 
   # This module provides support for managed file and directory entries.
+  #
+  # <b>Note!</b> If you mix this module in you *must* call
+  # +initialize_managed_entries+ in your constructor to ensure that the
+  # internal lists of managed entries are correctly assigned.
   module ManagedEntries
 
     # :call-seq:
@@ -41,7 +46,6 @@ module UCF
     #
     # Return the list of managed directories.
     def managed_directories
-      @directories ||= {}
       @directories.values
     end
 
@@ -50,7 +54,6 @@ module UCF
     #
     # Return the list of managed directory names.
     def managed_directory_names
-      @directories ||= {}
       expand_names(@directories.keys)
     end
 
@@ -101,7 +104,6 @@ module UCF
     #
     # Return the list of managed files.
     def managed_files
-      @files ||= {}
       @files.values + managed_directories.map { |d| d.managed_files }.flatten
     end
 
@@ -110,7 +112,6 @@ module UCF
     #
     # Return the list of managed file names.
     def managed_file_names
-      @files ||= {}
       expand_names(@files.keys) +
         managed_directories.map { |d| d.managed_file_names }.flatten
     end
@@ -121,12 +122,10 @@ module UCF
     # All managed files and directories are checked to make sure that they
     # exist, if required.
     def verify_managed_entries!
-      @directories ||= {}
       @directories.each_value do |dir|
         dir.verify!
       end
 
-      @files ||= {}
       @files.each_value do |file|
         file.verify!
       end
@@ -135,6 +134,22 @@ module UCF
     end
 
     protected
+
+    # :call-seq:
+    #   initialize_managed_entries
+    #   initialize_managed_entries(entry)
+    #   initialize_managed_entries(entries)
+    #
+    # Initialize the managed entries and register any that are supplied. A
+    # single ManagedFile or ManagedDirectory or a list of them can be
+    # provided.
+    def initialize_managed_entries(entries = [])
+      list = [*entries]
+      @directories ||= {}
+      @files ||= {}
+
+      list.each { |item| register_managed_entry(item) }
+    end
 
     # :call-seq:
     #   register_managed_entry(entry)
@@ -152,9 +167,6 @@ module UCF
         raise ArgumentError.new("The supplied entry must be of type "\
           "ManagedDirectory or ManagedFile or a subclass of either.")
       end
-
-      @directories ||= {}
-      @files ||= {}
 
       entry.parent = self
       @directories[entry.name] = entry if entry.is_a? ManagedDirectory

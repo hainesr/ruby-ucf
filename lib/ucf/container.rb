@@ -76,8 +76,8 @@ module UCF
       # Reserved entry names. Just the mimetype file by default.
       register_reserved_name(MIMETYPE_FILE)
 
-      # Register the META-INF managed entry.
-      register_managed_entry(MetaInf.new)
+      # Initialize the managed entries and register the META-INF directory.
+      initialize_managed_entries(MetaInf.new)
 
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.

@@ -47,9 +47,12 @@ module UCF
     #   new(name, required = false) -> ManagedDirectory
     #
     # Create a new ManagedDirectory with the supplied name and whether it is
-    # required to exist or not.
-    def initialize(name, required = false)
+    # required to exist or not. Any ManagedFile or ManagedDirectory objects
+    # that are within this directory can also be given if required.
+    def initialize(name, required = false, entries = [])
       super(name, required)
+
+      initialize_managed_entries(entries)
     end
 
     # :call-seq:

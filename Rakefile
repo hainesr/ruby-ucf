@@ -74,9 +74,7 @@ end
 
 RDoc::Task.new do |r|
   r.main = "ReadMe.rdoc"
-  lib = Dir.glob("lib/**/*.rb").delete_if do |item|
-    item.include? "meta-inf.rb"
-  end
+  lib = Dir.glob("lib/**/*.rb")
   r.rdoc_files.include("ReadMe.rdoc", "Licence.rdoc", "Changes.rdoc", lib)
   r.options << "-t Universal Container Format Ruby Library version " +
     "#{UCF::Version::STRING}"

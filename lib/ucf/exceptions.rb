@@ -53,7 +53,8 @@ module UCF
     end
   end
 
-  # This exception is raised when a clash occurs with a reserved name.
+  # This exception is raised when a clash occurs with a reserved or managed
+  # name.
   class ReservedNameClashError < UCFError
 
     # :call-seq:
