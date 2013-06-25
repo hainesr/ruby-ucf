@@ -30,6 +30,7 @@
 #
 # Author: Robert Haines
 
+require 'tmpdir'
 require 'ucf'
 
 # Classes to test managed entries.
@@ -100,4 +101,106 @@ class TestManagedEntries < Test::Unit::TestCase
       ExampleUCF2.verify!($ucf_example)
     end
   end
+
+  # Check that a standard Container can be created
+  def test_create_standard_container
+    Dir.mktmpdir do |dir|
+      filename = File.join(dir, "test.ucf")
+
+      assert_nothing_raised do
+        UCF::Container.create(filename) do |c|
+          c.mkdir("META-INF")
+          assert(c.file.exists?("META-INF"))
+
+          c.file.open("META-INF/container.xml", "w") do |f|
+            f.puts "<?xml version=\"1.0\"?>"
+          end
+          assert(c.file.exists?("META-INF/container.xml"))
+        end
+      end
+
+      assert_nothing_raised(UCF::MalformedUCFError) do
+        UCF::Container.verify!(filename)
+      end
+    end
+  end
+
+  # Check that a ManagedUCF does not verify immediately after creation.
+  def test_create_bad_subclassed_container
+    Dir.mktmpdir do |dir|
+      filename = File.join(dir, "test.ucf")
+
+      assert_nothing_raised do
+        ManagedUCF.create(filename) do |c|
+          assert_raises(UCF::MalformedUCFError) do
+            c.verify!
+          end
+        end
+      end
+
+      refute(ManagedUCF.verify(filename))
+      assert_raises(UCF::MalformedUCFError) do
+        ManagedUCF.verify!(filename)
+      end
+    end
+  end
+
+  # Check that a ManagedUCF does verify when required objects are added.
+  def test_create_subclassed_container
+    Dir.mktmpdir do |dir|
+      filename = File.join(dir, "test.ucf")
+
+      assert_nothing_raised do
+        ManagedUCF.create(filename) do |c|
+          c.dir.mkdir("src")
+          c.file.open("index.html", "w") do |f|
+            f.puts "<html />"
+          end
+        end
+      end
+
+      assert(ManagedUCF.verify(filename))
+      assert_nothing_raised(UCF::MalformedUCFError) do
+        ManagedUCF.verify!(filename)
+      end
+    end
+  end
+
+  # Check that a ExampleUCF2 will only verify when required objects are added
+  # with the correct contents.
+  def test_create_subclassed_container_with_content_verification
+    Dir.mktmpdir do |dir|
+      filename = File.join(dir, "test.ucf")
+
+      assert_nothing_raised do
+        ExampleUCF2.create(filename) do |c|
+          assert_raises(UCF::MalformedUCFError) do
+            c.verify!
+          end
+
+          c.file.open("greeting.txt", "w") do |f|
+            f.puts "Goodbye!"
+          end
+
+          assert_raises(UCF::MalformedUCFError) do
+            c.verify!
+          end
+
+          c.file.open("greeting.txt", "w") do |f|
+            f.puts "Hello, Y'All!"
+          end
+
+          assert_nothing_raised(UCF::MalformedUCFError) do
+            c.verify!
+          end
+        end
+      end
+
+      assert(ExampleUCF2.verify(filename))
+      assert_nothing_raised(UCF::MalformedUCFError) do
+        ExampleUCF2.verify!(filename)
+      end
+    end
+  end
+
 end
