@@ -46,6 +46,9 @@ module UCF
     # single parameter and returns +true+ or +false+ depending on whether the
     # contents of the file were validated or not.
     #
+    # For more complex content validation subclasses may override the validate
+    # method.
+    #
     # The following example creates a ManagedFile that is not required to be
     # present in the container, but if it is, its contents must be the single
     # word "Boo!".
@@ -55,10 +58,7 @@ module UCF
     def initialize(name, required = false, validation_proc = nil)
       super(name, required)
 
-      unless validation_proc.is_a? Proc
-        validation_proc = Proc.new { |contents| true }
-      end
-      @validation_proc = validation_proc
+      @validation_proc = validation_proc.is_a?(Proc) ? validation_proc : nil
     end
 
     # :call-seq:
@@ -67,7 +67,21 @@ module UCF
     # Verify this ManagedFile for correctness. The contents are validated if
     # required.
     def verify
-      super && (exists? ? @validation_proc.call(contents) : true)
+      super && (exists? ? validate : true)
+    end
+
+    protected
+
+    # :call-seq:
+    #   validate -> boolean
+    #
+    # Validate the contents of this ManagedFile. By default this methods uses
+    # the validation Proc supplied on object initialization if there is one.
+    # If not it simply returns true (no validation was required).
+    #
+    # For complex validations of content subclasses can override this method.
+    def validate
+      @validation_proc.nil? ? true : @validation_proc.call(contents)
     end
 
     private
