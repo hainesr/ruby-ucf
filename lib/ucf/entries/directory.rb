@@ -56,13 +56,15 @@ module UCF
     end
 
     # :call-seq:
-    #   verify -> true or false
+    #   verify!
     #
     # Verify this ManagedDirectory for correctness. ManagedFiles registered
     # within it are verified recursively.
-    def verify
-      @files ||= {}
-      super && @files.values.inject(true) { |r, f| r && f.verify }
+    #
+    # A MalformedUCFError is raised if it does not pass verification.
+    def verify!
+      super
+      @files.values.each { |f| f.verify! }
     end
 
   end

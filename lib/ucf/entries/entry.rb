@@ -91,29 +91,35 @@ module UCF
     # :startdoc:
 
     # :call-seq:
-    #   verify!
+    #   verify -> true or false
     #
-    # Verify this ManagedEntry raising a MalformedUCFError if it fails. See
-    # the protected method verify for more details.
-    def verify!
-      unless verify
-        raise MalformedUCFError.new("Entry '#{name}' is required but missing.")
+    # Verify this ManagedEntry by checking that it exists if it is required
+    # according to its Container specification and validating its contents if
+    # necessary.
+    def verify
+      begin
+        verify!
+      rescue
+        return false
       end
+
+      true
     end
 
     protected
 
     # :call-seq:
-    #   verify -> true or false
+    #   verify!
     #
-    # Verify this ManagedEntry by checking that this file exists if it is
-    # required according to its Container specification.
+    # Verify this ManagedEntry raising a MalformedUCFError if it fails.
     #
-    # Subclasses of ManagedEntry, see ManagedDirectory and ManagedFile for
-    # example, should override this method with any extra checks that need to
-    # be done for verification.
-    def verify
-      !@required || exists?
+    # Subclasses should override this method if they require more complex
+    # verification to be done.
+    def verify!
+      unless !@required || exists?
+        raise MalformedUCFError.new("Entry '#{full_name}' is required but "\
+          "missing.")
+      end
     end
 
     # :call-seq:

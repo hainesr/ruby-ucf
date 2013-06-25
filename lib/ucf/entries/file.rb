@@ -62,12 +62,18 @@ module UCF
     end
 
     # :call-seq:
-    #   verify -> true or false
+    #   verify!
     #
     # Verify this ManagedFile for correctness. The contents are validated if
     # required.
-    def verify
-      super && (exists? ? validate : true)
+    #
+    # A MalformedUCFError is raised if it does not pass verification.
+    def verify!
+      super
+      unless (exists? ? validate : true)
+        raise MalformedUCFError.new("The contents of file '#{full_name}' do "\
+          "not pass validation.")
+      end
     end
 
     protected
