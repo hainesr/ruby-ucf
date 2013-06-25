@@ -100,7 +100,18 @@ module UCF
         stream.write mimetype
       end
 
-      Container.open(filename, &block)
+      # Now open the newly created container.
+      c = new(filename)
+
+      if block_given?
+        begin
+          yield c
+        ensure
+          c.close
+        end
+      end
+
+      c
     end
 
     # :call-seq:
