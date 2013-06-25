@@ -32,11 +32,11 @@
 
 require 'yaml'
 require 'ucf/exceptions'
-require 'ucf/reserved_names'
-require 'ucf/managed/entries'
-require 'ucf/managed/entry'
-require 'ucf/managed/file'
-require 'ucf/managed/directory'
+require 'ucf/entries/reserved'
+require 'ucf/entries/managed'
+require 'ucf/entries/entry'
+require 'ucf/entries/file'
+require 'ucf/entries/directory'
 require 'ucf/meta-inf'
 require 'ucf/container'
 
