@@ -33,38 +33,20 @@
 #
 module UCF
 
-  # The base class of all other exceptions raised by this library.
-  class UCFError < RuntimeError
-  end
-
-  # This exception is raised when a bad UCF is detected.
-  class MalformedUCFError < UCFError
+  # This is a subclass of ManagedDirectory to represent the META-INF directory
+  # in a basic UCF Document.
+  class MetaInf < ManagedDirectory
 
     # :call-seq:
-    #   new(reason = "")
+    #   new -> MetaInf
     #
-    # Create a new MalformedUCFError with an optional reason for why the UCF
-    # document is malformed.
-    def initialize(reason = nil)
-      if reason.nil?
-        super("Malformed UCF Document.")
-      else
-        super("Malformed UCF Document: #{reason}")
-      end
+    # Create a standard META-INF ManagedDirectory.
+    def initialize
+      super("META-INF", false,
+        [ManagedFile.new("container.xml"), ManagedFile.new("manifest.xml"),
+          ManagedFile.new("metadata.xml"), ManagedFile.new("signatures.xml"),
+          ManagedFile.new("encryption.xml"), ManagedFile.new("rights.xml")])
     end
+
   end
-
-  # This exception is raised when a clash occurs with a reserved or managed
-  # name.
-  class ReservedNameClashError < UCFError
-
-    # :call-seq:
-    #   new(name)
-    #
-    # Create a new ReservedNameClashError with the name of the clash supplied.
-    def initialize(name)
-      super("'#{name}' is reserved for internal use in this UCF document.")
-    end
-  end
-
 end

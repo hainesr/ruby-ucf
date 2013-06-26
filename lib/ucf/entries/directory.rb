@@ -33,38 +33,39 @@
 #
 module UCF
 
-  # The base class of all other exceptions raised by this library.
-  class UCFError < RuntimeError
-  end
-
-  # This exception is raised when a bad UCF is detected.
-  class MalformedUCFError < UCFError
-
-    # :call-seq:
-    #   new(reason = "")
-    #
-    # Create a new MalformedUCFError with an optional reason for why the UCF
-    # document is malformed.
-    def initialize(reason = nil)
-      if reason.nil?
-        super("Malformed UCF Document.")
-      else
-        super("Malformed UCF Document: #{reason}")
-      end
-    end
-  end
-
-  # This exception is raised when a clash occurs with a reserved or managed
-  # name.
-  class ReservedNameClashError < UCFError
+  # A ManagedDirectory acts as the interface to a set of (possibly) managed
+  # files within it and also reserves the directory name in the Container
+  # namespace.
+  #
+  # Once a ManagedDirectory is registered in a Container then only it can be
+  # used to write to its contents.
+  class ManagedDirectory < ManagedEntry
+    include ReservedNames
+    include ManagedEntries
 
     # :call-seq:
-    #   new(name)
+    #   new(name, required = false) -> ManagedDirectory
     #
-    # Create a new ReservedNameClashError with the name of the clash supplied.
-    def initialize(name)
-      super("'#{name}' is reserved for internal use in this UCF document.")
-    end
-  end
+    # Create a new ManagedDirectory with the supplied name and whether it is
+    # required to exist or not. Any ManagedFile or ManagedDirectory objects
+    # that are within this directory can also be given if required.
+    def initialize(name, required = false, entries = [])
+      super(name, required)
 
+      initialize_managed_entries(entries)
+    end
+
+    # :call-seq:
+    #   verify!
+    #
+    # Verify this ManagedDirectory for correctness. ManagedFiles registered
+    # within it are verified recursively.
+    #
+    # A MalformedUCFError is raised if it does not pass verification.
+    def verify!
+      super
+      @files.values.each { |f| f.verify! }
+    end
+
+  end
 end
