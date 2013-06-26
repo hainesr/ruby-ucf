@@ -1,5 +1,16 @@
 = Changes log for the UCF Ruby Gem
 
+== Version 0.5.0
+
+* Add support for managed entries in the container.
+* Verify and "optional" functionality for ManagedEntry.
+* Use reserved and managed entry mixins for managed directories.
+* Better initialization of managed entry support.
+* Fix creation of subclassed Container objects.
+* Add extra tests for managed entries.
+* Make file validation more flexible.
+* Fix the source of failing validation messages.
+
 == Version 0.1.0
 
 * Improvements to the reserved names code to allow sub-classing.
