@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module UCF::ReservedNames -  Universal Container Format Ruby Library version 0.5.0</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/ucf/entries/reserved.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-i-register_reserved_name">#register_reserved_name</a>
+    
+    <li ><a href="#method-i-reserved_entry-3F">#reserved_entry?</a>
+    
+    <li ><a href="#method-i-reserved_names">#reserved_names</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../Changes_rdoc.html">Changes</a>
+  
+    <li class="file"><a href="../Licence_rdoc.html">Licence</a>
+  
+    <li class="file"><a href="../ReadMe_rdoc.html">ReadMe</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../UCF.html">UCF</a>
+  
+    <li><a href="../UCF/Container.html">UCF::Container</a>
+  
+    <li><a href="../UCF/MalformedUCFError.html">UCF::MalformedUCFError</a>
+  
+    <li><a href="../UCF/ManagedDirectory.html">UCF::ManagedDirectory</a>
+  
+    <li><a href="../UCF/ManagedEntries.html">UCF::ManagedEntries</a>
+  
+    <li><a href="../UCF/ManagedEntry.html">UCF::ManagedEntry</a>
+  
+    <li><a href="../UCF/ManagedFile.html">UCF::ManagedFile</a>
+  
+    <li><a href="../UCF/MetaInf.html">UCF::MetaInf</a>
+  
+    <li><a href="../UCF/ReservedNameClashError.html">UCF::ReservedNameClashError</a>
+  
+    <li><a href="../UCF/ReservedNames.html">UCF::ReservedNames</a>
+  
+    <li><a href="../UCF/UCFError.html">UCF::UCFError</a>
+  
+    <li><a href="../UCF/Version.html">UCF::Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module UCF::ReservedNames</h1>
+
+  <div id="description" class="description">
+    
+<p>This module provides support for reserved names.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-reserved_entry-3F" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            reserved_entry?(entry) &rarr; boolean
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Is the given entry in the reserved list of names? A String or a
+Zip::ZipEntry object can be passed in here.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reserved_entry-3F-source">
+            <pre><span class="ruby-comment"># File lib/ucf/entries/reserved.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-identifier">name</span> = <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">ZipEntry</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">entry</span>
+  <span class="ruby-identifier">name</span>.<span class="ruby-identifier">chop!</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">end_with?</span> <span class="ruby-string">&quot;/&quot;</span>
+  <span class="ruby-identifier">reserved_names</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">downcase</span> }.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">downcase</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reserved_entry-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reserved_entry-3F-method -->
+
+    
+      <div id="method-i-reserved_names" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            reserved_names &rarr; Array
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Return a list of reserved file and directory names for this <a
+href="../UCF.html">UCF</a> document.</p>
+
+<p>Reserved files and directories must be accessed directly by methods within
+<a href="Container.html">Container</a> (or subclasses of <a
+href="Container.html">Container</a>). This is because they are fundamental
+to the format and might need to exhibit certain properties (such as no
+compression) that must be preserved. The “mimetype” file is an example of
+such a reserved entry.</p>
+
+<p>To add a reserved name to a subclass of <a
+href="Container.html">Container</a> simply add it to the list in the
+constructor (you must call the super constructor first!):</p>
+
+<pre class="ruby"><span class="ruby-keyword">class</span> <span class="ruby-constant">MyContainer</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">UCF</span><span class="ruby-operator">::</span><span class="ruby-constant">Container</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">filename</span>)
+    <span class="ruby-keyword">super</span>(<span class="ruby-identifier">filename</span>)
+
+    <span class="ruby-identifier">register_reserved_name</span>(<span class="ruby-string">&quot;my_reserved_name&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="reserved_names-source">
+            <pre><span class="ruby-comment"># File lib/ucf/entries/reserved.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reserved_names</span>
+  <span class="ruby-ivar">@reserved_names</span> <span class="ruby-operator">||=</span> []
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reserved_names-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reserved_names-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+     <section id="protected-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Protected Instance Methods</h3>
+
+    
+      <div id="method-i-register_reserved_name" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            register_reserved_name(name)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Add a reserved name to the list.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="register_reserved_name-source">
+            <pre><span class="ruby-comment"># File lib/ucf/entries/reserved.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">register_reserved_name</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-ivar">@reserved_names</span> <span class="ruby-operator">||=</span> []
+  <span class="ruby-ivar">@reserved_names</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">name</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@reserved_names</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">name</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- register_reserved_name-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- register_reserved_name-method -->
+
+    
+    </section><!-- protected-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

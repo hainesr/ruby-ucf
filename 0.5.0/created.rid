@@ -1,0 +1,13 @@
+Wed, 26 Jun 2013 10:09:50 +0100
+ReadMe.rdoc	Wed, 26 Jun 2013 10:07:06 +0100
+Licence.rdoc	Wed, 22 May 2013 16:43:44 +0100
+Changes.rdoc	Wed, 26 Jun 2013 10:07:06 +0100
+lib/ucf.rb	Wed, 26 Jun 2013 10:07:06 +0100
+lib/ucf/exceptions.rb	Wed, 26 Jun 2013 10:07:06 +0100
+lib/ucf/container.rb	Wed, 26 Jun 2013 10:07:06 +0100
+lib/ucf/entries/entry.rb	Wed, 26 Jun 2013 10:07:06 +0100
+lib/ucf/entries/directory.rb	Wed, 26 Jun 2013 10:07:06 +0100
+lib/ucf/entries/file.rb	Wed, 26 Jun 2013 10:07:06 +0100
+lib/ucf/entries/managed.rb	Wed, 26 Jun 2013 10:07:06 +0100
+lib/ucf/entries/reserved.rb	Wed, 26 Jun 2013 10:07:06 +0100
+lib/ucf/meta-inf.rb	Wed, 26 Jun 2013 10:07:06 +0100
