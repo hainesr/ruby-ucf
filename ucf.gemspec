@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "ucf"
-  s.version = "0.5.0"
+  s.version = "0.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Robert Haines"]
@@ -27,12 +27,6 @@ Gem::Specification.new do |s|
     "examples/verify_ucf.rb",
     "lib/ucf.rb",
     "lib/ucf/container.rb",
-    "lib/ucf/entries/directory.rb",
-    "lib/ucf/entries/entry.rb",
-    "lib/ucf/entries/file.rb",
-    "lib/ucf/entries/managed.rb",
-    "lib/ucf/entries/reserved.rb",
-    "lib/ucf/exceptions.rb",
     "lib/ucf/meta-inf.rb",
     "test/data/compressed_mimetype.ucf",
     "test/data/empty.ucf",
@@ -61,18 +55,18 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rake>, ["~> 10.0.4"])
       s.add_development_dependency(%q<rdoc>, ["~> 4.0.1"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
-      s.add_runtime_dependency(%q<rubyzip>, ["~> 0.9.9"])
+      s.add_runtime_dependency(%q<zip-container>, ["~> 0.8.0"])
     else
       s.add_dependency(%q<rake>, ["~> 10.0.4"])
       s.add_dependency(%q<rdoc>, ["~> 4.0.1"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
-      s.add_dependency(%q<rubyzip>, ["~> 0.9.9"])
+      s.add_dependency(%q<zip-container>, ["~> 0.8.0"])
     end
   else
     s.add_dependency(%q<rake>, ["~> 10.0.4"])
     s.add_dependency(%q<rdoc>, ["~> 4.0.1"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
-    s.add_dependency(%q<rubyzip>, ["~> 0.9.9"])
+    s.add_dependency(%q<zip-container>, ["~> 0.8.0"])
   end
 end
 

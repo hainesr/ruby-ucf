@@ -13,7 +13,8 @@ Copyright::   (c) 2013 The University of Manchester, UK
 
 This is a Ruby library for working with UCF documents. See
 {the specification}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
-for more details.
+for more details. UCF is a type of EPUB and very similar to the
+{EPUB Open Container Format (OCF)}[http://www.idpf.org/epub/30/spec/epub30-ocf.html].
 
 <b>This library is a work in progress!</b> Until we release version 1.0.0 you
 can expect the API to change in incompatible ways, although we will try to

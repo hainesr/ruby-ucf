@@ -30,12 +30,13 @@
 #
 # Author: Robert Haines
 
-#
+require 'zip-container'
+
 module UCF
 
   # This is a subclass of ManagedDirectory to represent the META-INF directory
   # in a basic UCF Document.
-  class MetaInf < ManagedDirectory
+  class MetaInf < ZipContainer::ManagedDirectory
 
     # :call-seq:
     #   new -> MetaInf
@@ -43,9 +44,12 @@ module UCF
     # Create a standard META-INF ManagedDirectory.
     def initialize
       super("META-INF", false,
-        [ManagedFile.new("container.xml"), ManagedFile.new("manifest.xml"),
-          ManagedFile.new("metadata.xml"), ManagedFile.new("signatures.xml"),
-          ManagedFile.new("encryption.xml"), ManagedFile.new("rights.xml")])
+        [ZipContainer::ManagedFile.new("container.xml"),
+          ZipContainer::ManagedFile.new("manifest.xml"),
+          ZipContainer::ManagedFile.new("metadata.xml"),
+          ZipContainer::ManagedFile.new("signatures.xml"),
+          ZipContainer::ManagedFile.new("encryption.xml"),
+          ZipContainer::ManagedFile.new("rights.xml")])
     end
 
   end

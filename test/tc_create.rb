@@ -30,6 +30,7 @@
 #
 # Author: Robert Haines
 
+require 'test/unit'
 require 'tmpdir'
 require 'ucf'
 
@@ -49,7 +50,7 @@ class TestCreation < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(UCF::MalformedUCFError, Zip::ZipError) do
+      assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
         UCF::Container.verify!(filename)
       end
     end
@@ -57,8 +58,6 @@ class TestCreation < Test::Unit::TestCase
 
   # Check creation of empty ucf files with a different mimetype.
   def test_create_mimetype_file
-    mimetype = "application/x-something-really-odd"
-
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
 
@@ -71,7 +70,7 @@ class TestCreation < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(UCF::MalformedUCFError, Zip::ZipError) do
+      assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
         UCF::Container.verify!(filename)
       end
     end
@@ -114,7 +113,7 @@ class TestCreation < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(UCF::MalformedUCFError, Zip::ZipError) do
+      assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
         UCF::Container.open(filename) do |ucf|
           assert(ucf.on_disk?)
           refute(ucf.in_memory?)

@@ -30,6 +30,7 @@
 #
 # Author: Robert Haines
 
+require 'test/unit'
 require 'ucf'
 
 class TestRead < Test::Unit::TestCase
@@ -45,7 +46,7 @@ class TestRead < Test::Unit::TestCase
 
   # Check that the empty ucf file does verify.
   def test_verify_empty_ucf
-    assert_nothing_raised(UCF::MalformedUCFError, Zip::ZipError) do
+    assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
       UCF::Container.verify!($ucf_empty)
     end
 
@@ -54,7 +55,7 @@ class TestRead < Test::Unit::TestCase
 
   # Check that the empty zip file does not verify.
   def test_verify_empty_zip
-    assert_raise(UCF::MalformedUCFError) do
+    assert_raise(ZipContainer::MalformedZipContainerError) do
       UCF::Container.verify!($zip_empty)
     end
 
@@ -63,7 +64,7 @@ class TestRead < Test::Unit::TestCase
 
   # Check that a compressed mimetype file is detected.
   def test_verify_compressed_mimetype
-    assert_raise(UCF::MalformedUCFError) do
+    assert_raise(ZipContainer::MalformedZipContainerError) do
       UCF::Container.verify!($ucf_compressed_mimetype)
     end
 
@@ -81,7 +82,7 @@ class TestRead < Test::Unit::TestCase
 
   # Check reading files out of a ucf file and make sure we don't change it.
   def test_read_files_from_ucf
-    assert_nothing_raised(UCF::MalformedUCFError, Zip::ZipError) do
+    assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
       UCF::Container.open($ucf_example) do |ucf|
         assert(ucf.on_disk?)
         refute(ucf.in_memory?)
