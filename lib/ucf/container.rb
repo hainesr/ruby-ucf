@@ -46,11 +46,13 @@ module UCF
   #
   # There are code examples available with the source code of this library.
   class Container
+    include ReservedNames
+    include ManagedEntries
 
     extend Forwardable
     def_delegators :@zipfile, :comment, :comment=, :commit_required?, :each,
-      :extract, :find_entry, :get_entry, :get_input_stream, :glob, :name,
-      :read, :size
+      :entries, :extract, :find_entry, :get_entry, :get_input_stream, :glob,
+      :name, :read, :size
 
     private_class_method :new
 
@@ -61,16 +63,21 @@ module UCF
     # :stopdoc:
     DEFAULT_MIMETYPE = "application/epub+zip"
 
-    # Reserved file and directory names for standard UCF documents.
+    # The reserved mimetype file name for standard UCF documents.
     MIMETYPE_FILE = "mimetype"
-    META_INF_DIR = "META-INF"
 
     def initialize(document)
       @zipfile = open_document(document)
-      check_document!
+      check_mimetype!
 
       @mimetype = read_mimetype
       @on_disk = true
+
+      # Reserved entry names. Just the mimetype file by default.
+      register_reserved_name(MIMETYPE_FILE)
+
+      # Initialize the managed entries and register the META-INF directory.
+      initialize_managed_entries(MetaInf.new)
 
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
@@ -93,7 +100,18 @@ module UCF
         stream.write mimetype
       end
 
-      Container.open(filename, &block)
+      # Now open the newly created container.
+      c = new(filename)
+
+      if block_given?
+        begin
+          yield c
+        ensure
+          c.close
+        end
+      end
+
+      c
     end
 
     # :call-seq:
@@ -145,7 +163,7 @@ module UCF
     # all with the file (including if it cannot be found).
     def Container.verify(filename)
       begin
-        Container.verify!(filename)
+        new(filename).verify!
       rescue
         return false
       end
@@ -161,8 +179,7 @@ module UCF
     # there is something fundamental wrong with the file itself (e.g. it
     # cannot be found).
     def Container.verify!(filename)
-      new(filename).close
-      nil
+      new(filename).verify!
     end
 
     # :call-seq:
@@ -176,7 +193,9 @@ module UCF
     # See the rubyzip documentation for details of the
     # +continue_on_exists_proc+ parameter.
     def add(entry, src_path, &continue_on_exists_proc)
-      raise ReservedNameClashError.new(entry.to_s) if reserved_entry?(entry)
+      if reserved_entry?(entry) || managed_directory?(entry)
+        raise ReservedNameClashError.new(entry.to_s)
+      end
 
       @zipfile.add(entry, src_path, &continue_on_exists_proc)
     end
@@ -233,7 +252,9 @@ module UCF
     # See the rubyzip documentation for details of the +permission_int+
     # parameter.
     def get_output_stream(entry, permission = nil, &block)
-      raise ReservedNameClashError.new(entry.to_s) if reserved_entry?(entry)
+      if reserved_entry?(entry) || managed_directory?(entry)
+        raise ReservedNameClashError.new(entry.to_s)
+      end
 
       @zipfile.get_output_stream(entry, permission, &block)
     end
@@ -256,7 +277,9 @@ module UCF
     # permissions. The default (+0755+) is owner read, write and list; group
     # read and list; and world read and list.
     def mkdir(name, permission = 0755)
-      raise ReservedNameClashError.new(name) if reserved_entry?(name)
+      if reserved_entry?(name) || managed_file?(name)
+        raise ReservedNameClashError.new(name)
+      end
 
       @zipfile.mkdir(name, permission)
     end
@@ -310,55 +333,20 @@ module UCF
     end
 
     # :call-seq:
-    #   reserved_files -> Array
-    #
-    # Return a list of reserved file names for this UCF document.
-    #
-    # When creating a more specialized sub-class of this class then this
-    # method should be overridden to add any extra reserved file names.
-    def reserved_files
-      [MIMETYPE_FILE]
-    end
-
-    # :call-seq:
-    #   reserved_directories -> Array
-    #
-    # Return a list of reserved directory names for this UCF document.
-    #
-    # When creating a more specialized sub-class of this class then this
-    # method should be overridden to add any extra reserved directory names.
-    def reserved_directories
-      [META_INF_DIR]
-    end
-
-    # :call-seq:
-    #   reserved_entry?(entry) -> boolean
-    #
-    # Is the given entry name in the reserved list of file or directory names?
-    def reserved_entry?(entry)
-      name = entry.kind_of?(::Zip::ZipEntry) ? entry.name : entry
-      name.chop! if name.end_with? "/"
-      reserved_names.map { |n| n.downcase }.include? name.downcase
-    end
-
-    # :call-seq:
-    #   reserved_names -> Array
-    #
-    # Return a list of reserved file and directory names for this UCF
-    # document.
-    #
-    # In practice this method simply returns the joined lists of reserved file
-    # and directory names.
-    def reserved_names
-      reserved_files + reserved_directories
-    end
-
-    # :call-seq:
     #   to_s -> String
     #
     # Return a textual summary of this UCF document.
     def to_s
       @zipfile.to_s + " - #{@mimetype}"
+    end
+
+    # :call-seq:
+    #   verify!
+    #
+    # Verify the contents of this UCF document. All managed files and
+    # directories are checked to make sure that they exist, if required.
+    def verify!
+      verify_managed_entries!
     end
 
     private
@@ -367,7 +355,7 @@ module UCF
       ::Zip::ZipFile.new(document)
     end
 
-    def check_document!
+    def check_mimetype!
       # Check mimetype file is present and correct.
       entry = @zipfile.find_entry(MIMETYPE_FILE)
 
@@ -421,6 +409,15 @@ module UCF
     # Iterate over the entries in the UCF document. The entry objects returned
     # by this method are Zip::ZipEntry objects. Please see the rubyzip
     # documentation for details.
+
+    ##
+    # :method:
+    # :call-seq:
+    #   entries -> Enumerable
+    #
+    # Returns an Enumerable containing all the entries in the UCF Document.
+    # The entry objects returned by this method are Zip::ZipEntry objects.
+    # Please see the rubyzip documentation for details.
 
     ##
     # :method: extract

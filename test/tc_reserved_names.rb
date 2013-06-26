@@ -32,75 +32,116 @@
 
 require 'ucf'
 
-# A class to test the overriding of reserved names.
+# A class to test the overriding of reserved and managed names.
 class NewUCF < UCF::Container
-  def reserved_files
-    super + ["index.html"]
+
+  private_class_method :new
+
+  def initialize(filename)
+    super(filename)
+    register_managed_entry(UCF::ManagedDirectory.new("src"))
+    register_managed_entry(UCF::ManagedDirectory.new("test"))
+    register_managed_entry(UCF::ManagedDirectory.new("lib"))
+    register_managed_entry(UCF::ManagedFile.new("index.html"))
+
+    register_reserved_name("reserved_dir")
   end
 
-  def reserved_directories
-    super + ["src", "test", "lib"]
-  end
 end
 
 class TestReservedNames < Test::Unit::TestCase
+
+  # Check that the reserved names verify correctly.
+  def test_verify_reserved_name
+    assert(NewUCF.verify($ucf_example))
+
+    assert_nothing_raised(UCF::MalformedUCFError) do
+      NewUCF.verify!($ucf_example)
+    end
+  end
 
   # Check the reserved names stuff all works correctly, baring in mind that
   # such comparisons for UCF documents should be case sensitive.
   def test_reserved_names
     UCF::Container.open($ucf_example) do |ucf|
-      assert_equal(1, ucf.reserved_files.length)
-      assert_equal(["mimetype"], ucf.reserved_files)
+      assert_equal(1, ucf.reserved_names.length)
+      assert_equal(["mimetype"], ucf.reserved_names)
+      assert_equal(6, ucf.managed_files.length)
+      assert_equal(["META-INF/container.xml",
+        "META-INF/manifest.xml", "META-INF/metadata.xml",
+        "META-INF/signatures.xml", "META-INF/encryption.xml",
+        "META-INF/rights.xml"], ucf.managed_file_names)
       assert(ucf.reserved_entry?("mimetype"))
       assert(ucf.reserved_entry?("mimetype/"))
       assert(ucf.reserved_entry?("MimeType"))
+      assert(ucf.managed_entry?("META-INF/container.xml"))
+      assert(ucf.managed_entry?("META-INF/manifest.xml"))
+      assert(ucf.managed_entry?("MeTa-INF/maniFest.XML"))
 
-      assert_equal(1, ucf.reserved_directories.length)
-      assert_equal(["META-INF"], ucf.reserved_directories)
-      assert(ucf.reserved_entry?("META-INF"))
-      assert(ucf.reserved_entry?("META-INF/"))
-      assert(ucf.reserved_entry?("MeTa-iNf"))
-      assert(ucf.reserved_entry?("MeTa-iNf/"))
+      assert_equal(1, ucf.managed_directories.length)
+      assert_equal(["META-INF"], ucf.managed_directory_names)
+      assert(ucf.managed_entry?("META-INF"))
+      assert(ucf.managed_entry?("META-INF/"))
+      assert(ucf.managed_entry?("MeTa-iNf"))
+      assert(ucf.managed_entry?("MeTa-iNf/"))
+      refute(ucf.reserved_entry?("META-INF"))
 
-      assert_equal(2, ucf.reserved_names.length)
-      assert_equal(["mimetype", "META-INF"], ucf.reserved_names)
+      assert_equal(7, ucf.managed_entries.length)
+      assert_equal(["META-INF/container.xml",
+        "META-INF/manifest.xml", "META-INF/metadata.xml",
+        "META-INF/signatures.xml", "META-INF/encryption.xml",
+        "META-INF/rights.xml", "META-INF"], ucf.managed_entry_names)
 
-      refute(ucf.reserved_entry?("This_should_fail"))
-      refute(ucf.reserved_entry?("META_INF"))
-      refute(ucf.reserved_entry?("META_INF/"))
+      refute(ucf.managed_entry?("This_should_fail"))
+      refute(ucf.managed_entry?("META_INF"))
+      refute(ucf.managed_entry?("META_INF/"))
     end
   end
 
   # Check that overriding the reserved names in a sub-class works correctly
   def test_subclass_reserved_names
     NewUCF.open($ucf_example) do |ucf|
-      assert_equal(2, ucf.reserved_files.length)
-      assert_equal(["mimetype", "index.html"], ucf.reserved_files)
+      assert_equal(2, ucf.reserved_names.length)
+      assert_equal(["mimetype", "reserved_dir"], ucf.reserved_names)
+      assert_equal(7, ucf.managed_files.length)
+      assert_equal(["index.html", "META-INF/container.xml",
+        "META-INF/manifest.xml", "META-INF/metadata.xml",
+        "META-INF/signatures.xml", "META-INF/encryption.xml",
+        "META-INF/rights.xml"], ucf.managed_file_names)
       assert(ucf.reserved_entry?("mimetype"))
       assert(ucf.reserved_entry?("mimetype/"))
       assert(ucf.reserved_entry?("MimeType"))
-      assert(ucf.reserved_entry?("index.html"))
-      assert(ucf.reserved_entry?("Index.HTML"))
+      assert(ucf.managed_entry?("index.html"))
+      assert(ucf.managed_entry?("Index.HTML"))
+      refute(ucf.reserved_entry?("index.html"))
 
-      assert_equal(4, ucf.reserved_directories.length)
-      assert_equal(["META-INF", "src", "test", "lib"], ucf.reserved_directories)
-      assert(ucf.reserved_entry?("META-INF"))
-      assert(ucf.reserved_entry?("META-INF/"))
-      assert(ucf.reserved_entry?("MeTa-iNf"))
-      assert(ucf.reserved_entry?("src"))
-      assert(ucf.reserved_entry?("SRC"))
-      assert(ucf.reserved_entry?("test"))
-      assert(ucf.reserved_entry?("lib"))
-      assert(ucf.reserved_entry?("lIb/"))
+      assert_equal(4, ucf.managed_directories.length)
+      assert_equal(["META-INF", "src", "test", "lib"],
+        ucf.managed_directory_names)
+      assert(ucf.managed_entry?("META-INF"))
+      assert(ucf.managed_entry?("META-INF/"))
+      assert(ucf.managed_entry?("MeTa-iNf"))
+      assert(ucf.managed_entry?("src"))
+      assert(ucf.managed_entry?("SRC"))
+      assert(ucf.managed_entry?("test"))
+      assert(ucf.managed_entry?("lib"))
+      assert(ucf.managed_entry?("lIb/"))
+      refute(ucf.reserved_entry?("META-INF"))
+      refute(ucf.reserved_entry?("src"))
+      refute(ucf.reserved_entry?("test"))
+      refute(ucf.reserved_entry?("lib"))
 
-      assert_equal(6, ucf.reserved_names.length)
-      assert_equal(["mimetype", "index.html", "META-INF", "src", "test", "lib"],
-        ucf.reserved_names)
+      assert_equal(11, ucf.managed_entries.length)
+      assert_equal(["index.html", "META-INF/container.xml",
+        "META-INF/manifest.xml", "META-INF/metadata.xml",
+        "META-INF/signatures.xml", "META-INF/encryption.xml",
+        "META-INF/rights.xml", "META-INF", "src", "test", "lib"],
+        ucf.managed_entry_names)
 
-      refute(ucf.reserved_entry?("This_should_fail"))
-      refute(ucf.reserved_entry?("META_INF"))
-      refute(ucf.reserved_entry?("META_INF/"))
-      refute(ucf.reserved_entry?("index.htm"))
+      refute(ucf.managed_entry?("This_should_fail"))
+      refute(ucf.managed_entry?("META_INF"))
+      refute(ucf.managed_entry?("META_INF/"))
+      refute(ucf.managed_entry?("index.htm"))
     end
   end
 
@@ -148,30 +189,40 @@ class TestReservedNames < Test::Unit::TestCase
   def test_subclass_add_reserved
     NewUCF.open($ucf_empty) do |ucf|
       assert_raises(UCF::ReservedNameClashError) do
-        ucf.add("META-INF", $zip_empty)
+        ucf.add("mimetype", $zip_empty)
       end
 
       assert_raises(UCF::ReservedNameClashError) do
-        ucf.add("index.html", $zip_empty)
+        ucf.add("reserved_dir", $zip_empty)
       end
 
       assert_raises(UCF::ReservedNameClashError) do
-        ucf.add("SRC", $zip_empty)
+        ucf.add("MimeType", $zip_empty)
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.add("Reserved_Dir", $zip_empty)
       end
     end
   end
 
-  # Check that nothing happens when trying to delete the META-INF directory.
+  # Check that the META-INF directory is detected as non-existent when trying
+  # to delete it.
   def test_delete_metainf
     UCF::Container.open($ucf_example) do |ucf|
-      assert_nil(ucf.remove("META-INF"))
+      assert_raises(Errno::ENOENT) do
+        ucf.remove("META-INF")
+      end
     end
   end
 
-  # Check that nothing happens when trying to rename the META-INF directory.
+  # Check that the META-INF directory is detected as non-existent when trying
+  # to rename it.
   def test_rename_metainf
     UCF::Container.open($ucf_example) do |ucf|
-      assert_nil(ucf.rename("META-INF", "something-else"))
+      assert_raises(Errno::ENOENT) do
+        ucf.rename("META-INF", "something-else")
+      end
     end
   end
 
@@ -180,7 +231,11 @@ class TestReservedNames < Test::Unit::TestCase
   def test_mkdir_reserved
     UCF::Container.open($ucf_empty) do |ucf|
       assert_raises(UCF::ReservedNameClashError) do
-        ucf.mkdir("META-INF")
+        ucf.mkdir("mimetype")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.mkdir("META-INF/container.xml")
       end
     end
   end
@@ -190,7 +245,7 @@ class TestReservedNames < Test::Unit::TestCase
   def test_subclass_mkdir_reserved
     NewUCF.open($ucf_empty) do |ucf|
       assert_raises(UCF::ReservedNameClashError) do
-        ucf.mkdir("META-INF")
+        ucf.mkdir("mimetype")
       end
 
       assert_raises(UCF::ReservedNameClashError) do
@@ -198,7 +253,15 @@ class TestReservedNames < Test::Unit::TestCase
       end
 
       assert_raises(UCF::ReservedNameClashError) do
-        ucf.mkdir("Lib")
+        ucf.mkdir("reserved_dir")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.mkdir("Reserved_Dir")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.mkdir("META-INF/container.xml")
       end
     end
   end
@@ -208,10 +271,6 @@ class TestReservedNames < Test::Unit::TestCase
     UCF::Container.open($ucf_example) do |ucf|
       assert_raises(UCF::ReservedNameClashError) do
         ucf.rename("dir/code.rb", "mimetype")
-      end
-
-      assert_raises(UCF::ReservedNameClashError) do
-        ucf.rename("dir", "META-INF")
       end
     end
   end
@@ -225,20 +284,13 @@ class TestReservedNames < Test::Unit::TestCase
       end
 
       assert_raises(UCF::ReservedNameClashError) do
-        ucf.rename("dir", "META-INF")
-      end
-
-      assert_raises(UCF::ReservedNameClashError) do
-        ucf.rename("dir/code.rb", "index.html")
-      end
-
-      assert_raises(UCF::ReservedNameClashError) do
-        ucf.rename("dir", "Test")
+        ucf.rename("dir", "reserved_dir")
       end
     end
   end
 
-  # Check that the ruby-like File and Dir classes respect reserved names.
+  # Check that the ruby-like File and Dir classes respect reserved and managed
+  # names.
   def test_file_dir_ops_reserved
     UCF::Container.open($ucf_empty) do |ucf|
       assert_raises(UCF::ReservedNameClashError) do
@@ -257,10 +309,6 @@ class TestReservedNames < Test::Unit::TestCase
         ucf.file.delete("mimetype")
         assert(ucf.file.exists?("mimetype"))
       end
-
-      assert_raises(UCF::ReservedNameClashError) do
-        ucf.dir.mkdir("meta-inf")
-      end
     end
   end
 
@@ -275,7 +323,7 @@ class TestReservedNames < Test::Unit::TestCase
       end
 
       assert_raises(UCF::ReservedNameClashError) do
-        ucf.file.open("INDEX.HTML", "w") do |f|
+        ucf.file.open("TEST", "w") do |f|
           f.puts "TESTING"
         end
       end
@@ -292,15 +340,15 @@ class TestReservedNames < Test::Unit::TestCase
       end
 
       assert_raises(UCF::ReservedNameClashError) do
-        ucf.dir.mkdir("meta-inf")
-      end
-
-      assert_raises(UCF::ReservedNameClashError) do
-        ucf.dir.mkdir("TEST")
-      end
-
-      assert_raises(UCF::ReservedNameClashError) do
         ucf.dir.mkdir("index.html")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.dir.mkdir("reserved_dir")
+      end
+
+      assert_raises(UCF::ReservedNameClashError) do
+        ucf.dir.mkdir("Reserved_Dir")
       end
     end
   end

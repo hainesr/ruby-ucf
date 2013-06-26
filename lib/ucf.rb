@@ -32,6 +32,12 @@
 
 require 'yaml'
 require 'ucf/exceptions'
+require 'ucf/entries/reserved'
+require 'ucf/entries/managed'
+require 'ucf/entries/entry'
+require 'ucf/entries/file'
+require 'ucf/entries/directory'
+require 'ucf/meta-inf'
 require 'ucf/container'
 
 # This is a ruby library to read and write UCF files in PK Zip format. See the
