@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # Copyright (c) 2013 The University of Manchester, UK.
 #
 # All rights reserved.
@@ -33,12 +34,18 @@
 require 'rubygems'
 require 'ucf'
 
-ZIP_FILE = "example.zip"
-file = ARGV.length > 0 ? ARGV[0] : ZIP_FILE
+def usage
+  puts "Usage:\n  verify-ucf <ucf-file>"
+  exit 1
+end
+
+usage unless ARGV.length == 1
+
+ucffile = ARGV[0]
 
 begin
-  UCF::Container.verify!(file)
-rescue UCF::MalformedUCFError, Zip::ZipError => err
+  UCF::Container.verify!(ucffile)
+rescue ZipContainer::MalformedContainerError, Zip::ZipError => err
   puts err.to_s
   exit 1
 end
