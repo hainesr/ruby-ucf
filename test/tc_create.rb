@@ -50,7 +50,7 @@ class TestCreation < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
         UCF::Container.verify!(filename)
       end
     end
@@ -70,7 +70,7 @@ class TestCreation < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
         UCF::Container.verify!(filename)
       end
     end
@@ -113,7 +113,7 @@ class TestCreation < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
         UCF::Container.open(filename) do |ucf|
           assert(ucf.on_disk?)
           refute(ucf.in_memory?)

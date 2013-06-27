@@ -56,7 +56,7 @@ class TestReservedNames < Test::Unit::TestCase
   def test_verify_reserved_name
     assert(NewUCF.verify($ucf_example))
 
-    assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+    assert_nothing_raised(ZipContainer::MalformedContainerError) do
       NewUCF.verify!($ucf_example)
     end
   end
