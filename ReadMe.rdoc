@@ -22,6 +22,12 @@ keep this to an absolute minimum. Once version 1.0.0 is released we will be
 following the principles of {Semantic Versioning}[http://semver.org/] for our
 version numbering scheme.
 
+Most of this library's API is provided by the underlying
+{zip-container gem}[https://rubygems.org/gems/zip-container] so you will need
+to consult
+{that documentation as well}[http://mygrid.github.io/ruby-zip-container/] in
+addition to this.
+
 There are some examples of how to use the library provided in the examples
 directory. See the contents of the tests directory for even more.
 
