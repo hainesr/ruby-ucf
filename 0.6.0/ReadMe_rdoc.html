@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>ReadMe -  Universal Container Format Ruby Library version 0.6.0</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+<div id="table-of-contents">
+  <nav class="section">
+    <h3 class="section-header">Table of Contents</h3>
+    <ul>
+      <li><a href="#label-Universal+Container+Format+%28UCF%29+Ruby+Library">Universal Container Format (UCF) Ruby Library</a>
+      <li><a href="#label-Synopsis">Synopsis</a>
+      <li><a href="#label-What+this+library+can+not+do+yet">What this library can not do yet</a>
+    </ul>
+  </nav>
+</div>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Changes_rdoc.html">Changes</a>
+  
+    <li class="file"><a href="./Licence_rdoc.html">Licence</a>
+  
+    <li class="file"><a href="./ReadMe_rdoc.html">ReadMe</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./UCF.html">UCF</a>
+  
+    <li><a href="./UCF/Container.html">UCF::Container</a>
+  
+    <li><a href="./UCF/MetaInf.html">UCF::MetaInf</a>
+  
+    <li><a href="./UCF/Version.html">UCF::Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<h1 id="label-Universal+Container+Format+%28UCF%29+Ruby+Library">Universal Container Format (UCF) Ruby Library<span><a href="#label-Universal+Container+Format+%28UCF%29+Ruby+Library">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
+<dl class="rdoc-list note-list"><dt>Authors
+<dd>
+<p>Robert Haines</p>
+</dd><dt>Contact
+<dd>
+<p><a href="mailto:support@mygrid.org.uk">support@mygrid.org.uk</a></p>
+</dd><dt>Homepage
+<dd>
+<p><a href="http://mygrid.github.io/ruby-ucf">mygrid.github.io/ruby-ucf</a></p>
+</dd><dt>Source code
+<dd>
+<p><a href="https://github.com/myGrid/ruby-ucf">github.com/myGrid/ruby-ucf</a></p>
+</dd><dt><a href="Licence_rdoc.html">Licence</a>
+<dd>
+<p>BSD (See <a href="Licence_rdoc.html">Licence</a> file or <a
+href="http://www.opensource.org/licenses/bsd-license.php">www.opensource.org/licenses/bsd-license.php</a>)</p>
+</dd><dt>Copyright
+<dd>
+<p>© 2013 The University of Manchester, UK</p>
+</dd></dl>
+
+<p><a href="https://codeclimate.com/github/myGrid/ruby-ucf"><img
+src="https://codeclimate.com/github/myGrid/ruby-ucf.png" /></a></p>
+
+<h2 id="label-Synopsis">Synopsis<span><a href="#label-Synopsis">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>This is a Ruby library for working with <a href="UCF.html">UCF</a>
+documents. See <a
+href="https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format">the
+specification</a> for more details. <a href="UCF.html">UCF</a> is a type of
+EPUB and very similar to the <a
+href="http://www.idpf.org/epub/30/spec/epub30-ocf.html">EPUB Open Container
+Format (OCF)</a>.</p>
+
+<p><strong>This library is a work in progress!</strong> Until we release
+version 1.0.0 you can expect the API to change in incompatible ways,
+although we will try to keep this to an absolute minimum. Once version
+1.0.0 is released we will be following the principles of <a
+href="http://semver.org/">Semantic Versioning</a> for our version numbering
+scheme.</p>
+
+<p>Most of this library’s API is provided by the underlying <a
+href="https://rubygems.org/gems/zip-container">zip-container gem</a> so you
+will need to consult <a
+href="http://mygrid.github.io/ruby-zip-container/">that documentation as
+well</a> in addition to this.</p>
+
+<p>There are some examples of how to use the library provided in the examples
+directory. See the contents of the tests directory for even more.</p>
+
+<h2 id="label-What+this+library+can+not+do+yet">What this library can not do yet<span><a href="#label-What+this+library+can+not+do+yet">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>The basic requirements of a <a href="UCF.html">UCF</a> document are all
+implemented but there are a number of optional features that are not yet
+provided.</p>
+<ul><li>
+<p>Memory resident <a href="UCF.html">UCF</a> documents. Presently all
+operations are performed on documents that are resident on disk as the
+underlying <a href="https://github.com/aussiegeek/rubyzip">rubyzip
+library</a> currently <a
+href="https://github.com/aussiegeek/rubyzip/issues/74">cannot do anything
+else</a>.</p>
+</li><li>
+<p>Validation of file contents in the META-INF directory. Most of the
+machinery for this has been implemented but files are not validated against
+the schema yet.</p>
+</li><li>
+<p>Digital signatures (this feature has been deferred until a future revision
+of the <a href="UCF.html">UCF</a> specification. It will be supported by
+this gem when it is added to the specification).</p>
+</li><li>
+<p>Encryption (this feature has been deferred until a future revision of the
+<a href="UCF.html">UCF</a> specification. It will be supported by this gem
+when it is added to the specification).</p>
+</li></ul>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
