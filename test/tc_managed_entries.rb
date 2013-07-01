@@ -30,6 +30,7 @@
 #
 # Author: Robert Haines
 
+require 'test/unit'
 require 'tmpdir'
 require 'ucf'
 
@@ -40,10 +41,10 @@ class ManagedUCF < UCF::Container
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(UCF::ManagedDirectory.new("src", true))
-    register_managed_entry(UCF::ManagedDirectory.new("test"))
-    register_managed_entry(UCF::ManagedDirectory.new("lib"))
-    register_managed_entry(UCF::ManagedFile.new("index.html", true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("src", true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("test"))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("lib"))
+    register_managed_entry(ZipContainer::ManagedFile.new("index.html", true))
   end
 
 end
@@ -54,8 +55,8 @@ class ExampleUCF < UCF::Container
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(UCF::ManagedDirectory.new("dir", true))
-    register_managed_entry(UCF::ManagedFile.new("greeting.txt", true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("dir", true))
+    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt", true))
   end
 
 end
@@ -68,7 +69,8 @@ class ExampleUCF2 < UCF::Container
     super(filename)
 
     valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
-    register_managed_entry(UCF::ManagedFile.new("greeting.txt", true, valid))
+    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
+      true, valid))
   end
 
 end
@@ -79,7 +81,7 @@ class TestManagedEntries < Test::Unit::TestCase
   def test_fail_verification
     refute(ManagedUCF.verify($ucf_example))
 
-    assert_raises(UCF::MalformedUCFError) do
+    assert_raises(ZipContainer::MalformedContainerError) do
       ManagedUCF.verify!($ucf_example)
     end
   end
@@ -88,7 +90,7 @@ class TestManagedEntries < Test::Unit::TestCase
   def test_pass_verification
     assert(ExampleUCF.verify($ucf_example))
 
-    assert_nothing_raised(UCF::MalformedUCFError) do
+    assert_nothing_raised(ZipContainer::MalformedContainerError) do
       ExampleUCF.verify!($ucf_example)
     end
   end
@@ -97,7 +99,7 @@ class TestManagedEntries < Test::Unit::TestCase
   def test_pass_verification_2
     assert(ExampleUCF2.verify($ucf_example))
 
-    assert_nothing_raised(UCF::MalformedUCFError) do
+    assert_nothing_raised(ZipContainer::MalformedContainerError) do
       ExampleUCF2.verify!($ucf_example)
     end
   end
@@ -119,7 +121,7 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(UCF::MalformedUCFError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError) do
         UCF::Container.verify!(filename)
       end
     end
@@ -132,14 +134,14 @@ class TestManagedEntries < Test::Unit::TestCase
 
       assert_nothing_raised do
         ManagedUCF.create(filename) do |c|
-          assert_raises(UCF::MalformedUCFError) do
+          assert_raises(ZipContainer::MalformedContainerError) do
             c.verify!
           end
         end
       end
 
       refute(ManagedUCF.verify(filename))
-      assert_raises(UCF::MalformedUCFError) do
+      assert_raises(ZipContainer::MalformedContainerError) do
         ManagedUCF.verify!(filename)
       end
     end
@@ -160,7 +162,7 @@ class TestManagedEntries < Test::Unit::TestCase
       end
 
       assert(ManagedUCF.verify(filename))
-      assert_nothing_raised(UCF::MalformedUCFError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError) do
         ManagedUCF.verify!(filename)
       end
     end
@@ -174,7 +176,7 @@ class TestManagedEntries < Test::Unit::TestCase
 
       assert_nothing_raised do
         ExampleUCF2.create(filename) do |c|
-          assert_raises(UCF::MalformedUCFError) do
+          assert_raises(ZipContainer::MalformedContainerError) do
             c.verify!
           end
 
@@ -182,7 +184,7 @@ class TestManagedEntries < Test::Unit::TestCase
             f.puts "Goodbye!"
           end
 
-          assert_raises(UCF::MalformedUCFError) do
+          assert_raises(ZipContainer::MalformedContainerError) do
             c.verify!
           end
 
@@ -190,14 +192,14 @@ class TestManagedEntries < Test::Unit::TestCase
             f.puts "Hello, Y'All!"
           end
 
-          assert_nothing_raised(UCF::MalformedUCFError) do
+          assert_nothing_raised(ZipContainer::MalformedContainerError) do
             c.verify!
           end
         end
       end
 
       assert(ExampleUCF2.verify(filename))
-      assert_nothing_raised(UCF::MalformedUCFError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError) do
         ExampleUCF2.verify!(filename)
       end
     end

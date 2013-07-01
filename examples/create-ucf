@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # Copyright (c) 2013 The University of Manchester, UK.
 #
 # All rights reserved.
@@ -33,12 +34,38 @@
 require 'rubygems'
 require 'ucf'
 
-ZIP_FILE = "example.zip"
-file = ARGV.length > 0 ? ARGV[0] : ZIP_FILE
+def usage
+  puts "Usage:\n  create-ucf <ucf-file>"
+  exit 1
+end
+
+usage unless ARGV.length == 1
+
+ucffile = ARGV[0]
+
+if File.exists?(ucffile)
+  puts "File '#{ucffile}' already exists. Exiting."
+  exit 1
+end
 
 begin
-  UCF::Container.verify!(file)
-rescue UCF::MalformedUCFError, Zip::ZipError => err
+  UCF::Container.create(ucffile) do |c|
+
+    # Add a cheery greeting file from a string.
+    c.file.open("greeting.txt", "w") do |f|
+      f.puts "Hello, World!"
+    end
+
+    # Create a subdirectory.
+    c.dir.mkdir("dir")
+
+    # Copy this example code in straight from a file.
+    c.add("dir/code.rb", __FILE__)
+
+    # Add a explanation of this file.
+    c.comment = "This is an example UCF file!"
+  end
+rescue ZipContainer::MalformedContainerError, Zip::ZipError => err
   puts err.to_s
   exit 1
 end

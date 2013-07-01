@@ -30,9 +30,7 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
-require 'ucf'
-
+# Example data files.
 $file_null = "test/data/null.file"
 $ucf_empty = "test/data/empty.ucf"
 $zip_empty = "test/data/empty.zip"
