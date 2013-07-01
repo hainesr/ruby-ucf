@@ -52,10 +52,11 @@ Jeweler::Tasks.new do |s|
   s.platform         = Gem::Platform::RUBY
   s.summary          = "Universal Container Format (UCF) Ruby Library"
   s.description      = "A Ruby library for working with Universal Container "\
-    "Format files - a type of EPUB document. See the "\
-    "{UCF specification}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format] "\
-    "for details. They are very similar, although not as restrictive, as the "\
-    "{EPUB Open Container Format (OCF)}[http://www.idpf.org/epub/30/spec/epub30-ocf.html]."
+    "Format files - a type of EPUB document. See the UCF specification "\
+    "(https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format)"\
+    " for details. They are very similar, although not as restrictive, as "\
+    "the EPUB Open Container Format (OCF) "\
+    "(http://www.idpf.org/epub/30/spec/epub30-ocf.html)."
   s.require_path     = "lib"
   s.test_file        = "test/ts_ucf.rb"
   s.has_rdoc         = true
