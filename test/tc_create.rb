@@ -64,11 +64,13 @@ class TestCreation < Test::Unit::TestCase
 
   # Check creation of empty ucf files with a different mimetype.
   def test_create_mimetype_file
+    mimetype = "application/x-something-really-odd"
+
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
 
       assert_nothing_raised do
-        UCF::Container.create(filename) do |c|
+        UCF::Container.create(filename, mimetype) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
@@ -79,6 +81,8 @@ class TestCreation < Test::Unit::TestCase
           else
             assert(c.find_entry("mimetype").local_header_offset == 0)
           end
+
+          assert_equal mimetype, c.read("mimetype")
         end
       end
 

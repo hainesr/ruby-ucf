@@ -63,16 +63,20 @@ module UCF
 
     # :call-seq:
     #   Container.create(filename) -> Container
+    #   Container.create(filename, mimetype) -> Container
     #   Container.create(filename) {|container| ...}
+    #   Container.create(filename, mimetype) {|container| ...}
     #
-    # Create a new UCF document on disk and open it for editing.
+    # Create a new UCF document on disk and open it for editing. A custom
+    # mimetype for the container may be specified but if not the default,
+    # "application/epub+zip", will be used.
     #
     # Please see the
     # {ZipContainer documentation}[http://mygrid.github.io/ruby-zip-container/]
     # for much more information and a list of all the other methods available
     # in this class. RDoc does not list inherited methods, unfortunately.
-    def Container.create(filename, &block)
-      super(filename, DEFAULT_MIMETYPE, &block)
+    def Container.create(filename, mimetype = DEFAULT_MIMETYPE, &block)
+      super(filename, mimetype, &block)
     end
 
   end
