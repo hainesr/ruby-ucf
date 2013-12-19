@@ -30,8 +30,7 @@
 #
 # Author: Robert Haines
 
-require 'zip-container'
-
+#
 module UCF
 
   # This is a subclass of ManagedDirectory to represent the META-INF directory

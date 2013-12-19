@@ -30,8 +30,7 @@
 #
 # Author: Robert Haines
 
-require 'zip-container'
-
+#
 module UCF
 
   # This class represents a UCF document - also known as an EPUB and very

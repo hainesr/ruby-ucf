@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Robert Haines"]
-  s.date = "2013-07-01"
+  s.date = "2013-12-19"
   s.description = "A Ruby library for working with Universal Container Format files - a type of EPUB document. See the UCF specification (https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format) for details. They are very similar, although not as restrictive, as the EPUB Open Container Format (OCF) (http://www.idpf.org/epub/30/spec/epub30-ocf.html)."
   s.email = ["support@mygrid.org.uk"]
   s.extra_rdoc_files = [
@@ -55,18 +55,18 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rake>, ["~> 10.0.4"])
       s.add_development_dependency(%q<rdoc>, ["~> 4.0.1"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
-      s.add_runtime_dependency(%q<zip-container>, ["~> 0.9.0"])
+      s.add_runtime_dependency(%q<zip-container>, [">= 0.9.0"])
     else
       s.add_dependency(%q<rake>, ["~> 10.0.4"])
       s.add_dependency(%q<rdoc>, ["~> 4.0.1"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
-      s.add_dependency(%q<zip-container>, ["~> 0.9.0"])
+      s.add_dependency(%q<zip-container>, [">= 0.9.0"])
     end
   else
     s.add_dependency(%q<rake>, ["~> 10.0.4"])
     s.add_dependency(%q<rdoc>, ["~> 4.0.1"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
-    s.add_dependency(%q<zip-container>, ["~> 0.9.0"])
+    s.add_dependency(%q<zip-container>, [">= 0.9.0"])
   end
 end
 

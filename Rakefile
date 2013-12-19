@@ -65,7 +65,7 @@ Jeweler::Tasks.new do |s|
   s.add_development_dependency('rake', '~> 10.0.4')
   s.add_development_dependency('rdoc', '~> 4.0.1')
   s.add_development_dependency('jeweler', '~> 1.8.4')
-  s.add_runtime_dependency('zip-container', '~> 0.9.0')
+  s.add_runtime_dependency('zip-container', '>= 0.9.0')
 end
 
 Rake::TestTask.new do |t|

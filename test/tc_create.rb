@@ -46,7 +46,13 @@ class TestCreation < Test::Unit::TestCase
           assert(c.on_disk?)
           refute(c.in_memory?)
 
-          assert(c.find_entry("mimetype").localHeaderOffset == 0)
+          # At this point we can still use the version of zip-container that
+          # uses the old version of the rubyzip API...
+          if Gem.loaded_specs["zip-container"].version < Gem::Version.create("1.0")
+            assert(c.find_entry("mimetype").localHeaderOffset == 0)
+          else
+            assert(c.find_entry("mimetype").local_header_offset == 0)
+          end
         end
       end
 
@@ -66,7 +72,13 @@ class TestCreation < Test::Unit::TestCase
           assert(c.on_disk?)
           refute(c.in_memory?)
 
-          assert(c.find_entry("mimetype").localHeaderOffset == 0)
+          # At this point we can still use the version of zip-container that
+          # uses the old version of the rubyzip API...
+          if Gem.loaded_specs["zip-container"].version < Gem::Version.create("1.0")
+            assert(c.find_entry("mimetype").localHeaderOffset == 0)
+          else
+            assert(c.find_entry("mimetype").local_header_offset == 0)
+          end
         end
       end
 

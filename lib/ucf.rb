@@ -31,6 +31,8 @@
 # Author: Robert Haines
 
 require 'yaml'
+require 'zip-container'
+
 require 'ucf/meta-inf'
 require 'ucf/container'
 
