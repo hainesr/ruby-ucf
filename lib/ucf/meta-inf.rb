@@ -42,7 +42,9 @@ module UCF
   # in a basic UCF Document.
   class MetaInf < ZipContainer::ManagedDirectory
 
-    CONTAINER_SCHEMA = ::File.join(::File.dirname(__FILE__), "schema", "container.rng")
+    SCHEMA_DIR = ::File.join(::File.dirname(__FILE__), "schema")
+    CONTAINER_SCHEMA = ::File.join(SCHEMA_DIR, "container.rng")
+    MANIFEST_SCHEMA = ::File.join(SCHEMA_DIR, "OpenDocument-manifest-schema-v1.0-os.rng")
 
     # :call-seq:
     #   new -> MetaInf
@@ -52,7 +54,7 @@ module UCF
       super("META-INF", false,
         [
           File.new("container.xml", CONTAINER_SCHEMA),
-          File.new("manifest.xml"),
+          File.new("manifest.xml", MANIFEST_SCHEMA),
           File.new("metadata.xml"),
           File.new("signatures.xml"),
           File.new("encryption.xml"),

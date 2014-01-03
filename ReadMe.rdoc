@@ -36,9 +36,9 @@ directory. See the contents of the tests directory for even more.
 
 The UCF specification requires that files in the META-INF directory are
 validated against a schema if they are present. If the
-{nokogiri gem}[https://github.com/sparklemotion/nokogiri] is available then
-this library will use it to validate the contents of the
-<tt>container.xml</tt> file. This functionality is not enforced on the user in
+{nokogiri gem}[https://rubygems.org/gems/nokogiri] is available then this
+library will use it to validate the contents of the <tt>container.xml</tt> and
+<tt>manifest.xml</tt> files. This functionality is not enforced on the user in
 case they are not using the META-INF directory and so would not need the extra
 dependency on nokogiri.
 
@@ -52,7 +52,8 @@ number of optional features that are not yet provided.
   {rubyzip library}[https://github.com/aussiegeek/rubyzip] currently
   {cannot do anything else}[https://github.com/aussiegeek/rubyzip/issues/74].
 * Validation of all file contents in the META-INF directory. The
-  <tt>container.xml</tt> file is validated but others are not yet.
+  <tt>container.xml</tt> and <tt>manifest.xml</tt> files are validated but
+  others are not yet.
 * Digital signatures (this feature has been deferred until a future revision
   of the UCF specification. It will be supported by this gem when it is added
   to the specification).

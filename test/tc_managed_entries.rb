@@ -115,8 +115,11 @@ class TestManagedEntries < Test::Unit::TestCase
           c.mkdir("META-INF")
           assert(c.file.exists?("META-INF"))
 
-          c.add("META-INF/container.xml", File.join($meta_inf_dir, "container.xml"))
-          assert(c.file.exists?("META-INF/container.xml"))
+          %w(container.xml manifest.xml).each do |file|
+            full_path = "META-INF/#{file}"
+            c.add(full_path, File.join($meta_inf_dir, file))
+            assert(c.file.exists?(full_path))
+          end
         end
       end
 
