@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="urn:oasis:names:tc:opendocument:xmlns:container" xmlns="http://relaxng.org/ns/structure/1.0">
+  <start>
+    <ref name="ucf.container"/>
+  </start>
+  <define name="ucf.container">
+    <element name="container">
+      <attribute name="version">
+        <value>1.0</value>
+      </attribute>
+      <optional>
+        <element name="rootfiles">
+          <oneOrMore>
+            <element name="rootfile">
+              <attribute name="full-path">
+                <text/>
+              </attribute>
+              <attribute name="media-type">
+                <text/>
+              </attribute>
+            </element>
+          </oneOrMore>
+        </element>
+      </optional>
+      <optional>
+        <element name="relationships">
+          <oneOrMore>
+            <element name="relationship">
+              <attribute name="type">
+                <text/>
+              </attribute>
+              <attribute name="target">
+                <text/>
+              </attribute>
+            </element>
+          </oneOrMore>
+        </element>
+      </optional>
+    </element>
+  </define>
+</grammar>

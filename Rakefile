@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -65,6 +65,7 @@ Jeweler::Tasks.new do |s|
   s.add_development_dependency('rake', '~> 10.0.4')
   s.add_development_dependency('rdoc', '~> 4.0.1')
   s.add_development_dependency('jeweler', '~> 1.8.4')
+  s.add_development_dependency('nokogiri', '~> 1.6')
   s.add_runtime_dependency('zip-container', '>= 0.9.0')
 end
 
@@ -76,7 +77,9 @@ end
 
 RDoc::Task.new do |r|
   r.main = "ReadMe.rdoc"
-  lib = Dir.glob("lib/**/*.rb")
+  lib = Dir.glob("lib/**/*.rb").delete_if do |item|
+    item.include?("meta-inf.rb")
+  end
   r.rdoc_files.include("ReadMe.rdoc", "Licence.rdoc", "Changes.rdoc", lib)
   r.options << "-t Universal Container Format Ruby Library version " +
     "#{UCF::Version::STRING}"

@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,12 +30,19 @@
 #
 # Author: Robert Haines
 
-#
+begin
+  require 'nokogiri'
+rescue LoadError
+  # We don't care if there's no nokogiri but can't validate things without it.
+end
+
 module UCF
 
   # This is a subclass of ManagedDirectory to represent the META-INF directory
   # in a basic UCF Document.
   class MetaInf < ZipContainer::ManagedDirectory
+
+    CONTAINER_SCHEMA = ::File.join(::File.dirname(__FILE__), "schema", "container.rng")
 
     # :call-seq:
     #   new -> MetaInf
@@ -43,12 +50,33 @@ module UCF
     # Create a standard META-INF ManagedDirectory.
     def initialize
       super("META-INF", false,
-        [ZipContainer::ManagedFile.new("container.xml"),
-          ZipContainer::ManagedFile.new("manifest.xml"),
-          ZipContainer::ManagedFile.new("metadata.xml"),
-          ZipContainer::ManagedFile.new("signatures.xml"),
-          ZipContainer::ManagedFile.new("encryption.xml"),
-          ZipContainer::ManagedFile.new("rights.xml")])
+        [
+          File.new("container.xml", CONTAINER_SCHEMA),
+          File.new("manifest.xml"),
+          File.new("metadata.xml"),
+          File.new("signatures.xml"),
+          File.new("encryption.xml"),
+          File.new("rights.xml")
+        ]
+      )
+    end
+
+    class File < ZipContainer::ManagedFile
+
+      def initialize(name, schema = nil)
+        super(name, false)
+
+        @schema = nil
+        if defined?(::Nokogiri)
+          @schema = schema.nil? ? nil : Nokogiri::XML::RelaxNG(::File.open(schema))
+        end
+      end
+
+      protected
+
+      def validate
+        @schema.nil? ? true : @schema.validate(Nokogiri::XML(contents)) == []
+      end
     end
 
   end

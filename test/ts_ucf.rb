@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -36,6 +36,7 @@ $ucf_empty = "test/data/empty.ucf"
 $zip_empty = "test/data/empty.zip"
 $ucf_compressed_mimetype = "test/data/compressed_mimetype.ucf"
 $ucf_example = "test/data/example.ucf"
+$meta_inf_dir = "test/data/META-INF"
 
 # Run test cases.
 require 'tc_create'

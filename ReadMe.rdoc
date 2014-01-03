@@ -5,7 +5,7 @@ Contact::     mailto:support@mygrid.org.uk
 Homepage::    http://mygrid.github.io/ruby-ucf
 Source code:: https://github.com/myGrid/ruby-ucf
 Licence::     BSD (See Licence file or http://www.opensource.org/licenses/bsd-license.php)
-Copyright::   (c) 2013 The University of Manchester, UK
+Copyright::   (c) 2013, 2014 The University of Manchester, UK
 
 {<img src="https://badge.fury.io/rb/ucf.png" alt="Gem Version" />}[http://badge.fury.io/rb/ucf]
 {<img src="https://codeclimate.com/github/myGrid/ruby-ucf.png" />}[https://codeclimate.com/github/myGrid/ruby-ucf]
@@ -32,6 +32,16 @@ addition to this.
 There are some examples of how to use the library provided in the examples
 directory. See the contents of the tests directory for even more.
 
+== Files in the META-INF directory
+
+The UCF specification requires that files in the META-INF directory are
+validated against a schema if they are present. If the
+{nokogiri gem}[https://github.com/sparklemotion/nokogiri] is available then
+this library will use it to validate the contents of the
+<tt>container.xml</tt> file. This functionality is not enforced on the user in
+case they are not using the META-INF directory and so would not need the extra
+dependency on nokogiri.
+
 == What this library can not do yet
 
 The basic requirements of a UCF document are all implemented but there are a
@@ -41,9 +51,8 @@ number of optional features that are not yet provided.
   documents that are resident on disk as the underlying
   {rubyzip library}[https://github.com/aussiegeek/rubyzip] currently
   {cannot do anything else}[https://github.com/aussiegeek/rubyzip/issues/74].
-* Validation of file contents in the META-INF directory. Most of the machinery
-  for this has been implemented but files are not validated against the schema
-  yet.
+* Validation of all file contents in the META-INF directory. The
+  <tt>container.xml</tt> file is validated but others are not yet.
 * Digital signatures (this feature has been deferred until a future revision
   of the UCF specification. It will be supported by this gem when it is added
   to the specification).

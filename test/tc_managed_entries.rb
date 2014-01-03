@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -104,7 +104,8 @@ class TestManagedEntries < Test::Unit::TestCase
     end
   end
 
-  # Check that a standard Container can be created
+  # Check that a standard UCF Container can be created and things within it
+  # are verified correctly.
   def test_create_standard_container
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
@@ -114,9 +115,7 @@ class TestManagedEntries < Test::Unit::TestCase
           c.mkdir("META-INF")
           assert(c.file.exists?("META-INF"))
 
-          c.file.open("META-INF/container.xml", "w") do |f|
-            f.puts "<?xml version=\"1.0\"?>"
-          end
+          c.add("META-INF/container.xml", File.join($meta_inf_dir, "container.xml"))
           assert(c.file.exists?("META-INF/container.xml"))
         end
       end
