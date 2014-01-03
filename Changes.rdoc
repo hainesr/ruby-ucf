@@ -1,5 +1,13 @@
 = Changes log for the UCF Ruby Gem
 
+== Version 0.7.0
+
+* Update to be able to use the newer zip-container gem.
+* Add ability to use a custom mimetype.
+* Verify META-INF/container.xml against its schema.
+* Verify META-INF/manifest.xml against its schema.
+* Add META-INF content to the example ucf file.
+
 == Version 0.6.0
 
 * Move to use version 0.9.0 of the zip-container library.
