@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>Changes -  Universal Container Format Ruby Library version 0.7.0</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+<div id="table-of-contents">
+  <nav class="section">
+    <h3 class="section-header">Table of Contents</h3>
+    <ul>
+      <li><a href="#label-Changes+log+for+the+UCF+Ruby+Gem">Changes log for the UCF Ruby Gem</a>
+      <li><a href="#label-Version+0.7.0">Version 0.7.0</a>
+      <li><a href="#label-Version+0.6.0">Version 0.6.0</a>
+      <li><a href="#label-Version+0.5.0">Version 0.5.0</a>
+      <li><a href="#label-Version+0.1.0">Version 0.1.0</a>
+      <li><a href="#label-Version+0.0.2">Version 0.0.2</a>
+      <li><a href="#label-Version+0.0.1">Version 0.0.1</a>
+      <li><a href="#label-About+this+Changes+file">About this Changes file</a>
+    </ul>
+  </nav>
+</div>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Changes_rdoc.html">Changes</a>
+  
+    <li class="file"><a href="./Licence_rdoc.html">Licence</a>
+  
+    <li class="file"><a href="./ReadMe_rdoc.html">ReadMe</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./UCF.html">UCF</a>
+  
+    <li><a href="./UCF/Container.html">UCF::Container</a>
+  
+    <li><a href="./UCF/Version.html">UCF::Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<h1 id="label-Changes+log+for+the+UCF+Ruby+Gem"><a href="Changes_rdoc.html">Changes</a> log for the <a href="UCF.html">UCF</a> Ruby Gem<span><a href="#label-Changes+log+for+the+UCF+Ruby+Gem">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
+
+<h2 id="label-Version+0.7.0">Version 0.7.0<span><a href="#label-Version+0.7.0">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+<ul><li>
+<p>Update to be able to use the newer zip-container gem.</p>
+</li><li>
+<p>Add ability to use a custom mimetype.</p>
+</li><li>
+<p>Verify META-INF/container.xml against its schema.</p>
+</li><li>
+<p>Verify META-INF/manifest.xml against its schema.</p>
+</li><li>
+<p>Add META-INF content to the example ucf file.</p>
+</li></ul>
+
+<h2 id="label-Version+0.6.0">Version 0.6.0<span><a href="#label-Version+0.6.0">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+<ul><li>
+<p>Move to use version 0.9.0 of the zip-container library.</p>
+</li><li>
+<p>Update and polish the example scripts.</p>
+</li></ul>
+
+<h2 id="label-Version+0.5.0">Version 0.5.0<span><a href="#label-Version+0.5.0">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+<ul><li>
+<p>Add support for managed entries in the container.</p>
+</li><li>
+<p>Verify and “optional” functionality for ManagedEntry.</p>
+</li><li>
+<p>Use reserved and managed entry mixins for managed directories.</p>
+</li><li>
+<p>Better initialization of managed entry support.</p>
+</li><li>
+<p>Fix creation of subclassed Container objects.</p>
+</li><li>
+<p>Add extra tests for managed entries.</p>
+</li><li>
+<p>Make file validation more flexible.</p>
+</li><li>
+<p>Fix the source of failing validation messages.</p>
+</li></ul>
+
+<h2 id="label-Version+0.1.0">Version 0.1.0<span><a href="#label-Version+0.1.0">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+<ul><li>
+<p>Improvements to the reserved names code to allow sub-classing.</p>
+</li><li>
+<p>Move exceptions to a new source file.</p>
+</li><li>
+<p>Use a base class for <a href="UCF.html">UCF</a> exceptions.</p>
+</li><li>
+<p>Standardize the MalformedUCFError exception messages.</p>
+</li><li>
+<p>Add an exception for clashes with reserved names.</p>
+</li><li>
+<p>Implement Container#add to avoid using reserved names.</p>
+</li><li>
+<p>Raise an exception if renaming to a reserved name.</p>
+</li><li>
+<p>Implement Container#mkdir to avoid using reserved names.</p>
+</li><li>
+<p>Make sure testing reserved names copes with trailing slashes.</p>
+</li><li>
+<p>Fake up the connection to ZipFileSystem.</p>
+</li><li>
+<p>Implement Container#get_output_stream to respect reserved names.</p>
+</li><li>
+<p>Can now set comments on the <a href="UCF.html">UCF</a> document.</p>
+</li><li>
+<p>Implement the close and commit methods.</p>
+</li><li>
+<p>Forward the commit_required? method.</p>
+</li><li>
+<p>Separate the opening and checking of a <a href="UCF.html">UCF</a> document.</p>
+</li><li>
+<p>Documentation improvements and cleanup.</p>
+</li></ul>
+
+<h2 id="label-Version+0.0.2">Version 0.0.2<span><a href="#label-Version+0.0.2">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+<ul><li>
+<p>Update the main <a href="ReadMe_rdoc.html">ReadMe</a> file.</p>
+</li><li>
+<p>Add support for multiple reserved names and fix checks.</p>
+</li><li>
+<p>Ensure <a href="UCF.html">UCF</a> document is closed after verifying it.</p>
+</li><li>
+<p>Expose the “each” method for enumerating <a href="UCF.html">UCF</a>
+entries.</p>
+</li><li>
+<p>Expose the “size” method to count <a href="UCF.html">UCF</a> entries.</p>
+</li><li>
+<p>Add an example program to list <a href="UCF.html">UCF</a> contents.</p>
+</li><li>
+<p>Add a method to directly iterate over <a href="UCF.html">UCF</a> entries.</p>
+</li></ul>
+
+<h2 id="label-Version+0.0.1">Version 0.0.1<span><a href="#label-Version+0.0.1">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+<ul><li>
+<p>Very basic <a href="UCF.html">UCF</a> facilities complete (plus examples).</p>
+</li><li>
+<p>Two ways of verifying <a href="UCF.html">UCF</a> files.</p>
+</li><li>
+<p>API documentation added.</p>
+</li><li>
+<p>Add tests.</p>
+</li></ul>
+
+<h2 id="label-About+this+Changes+file">About this <a href="Changes_rdoc.html">Changes</a> file<span><a href="#label-About+this+Changes+file">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>This file is, at least in part, generated by the following command:</p>
+
+<pre>$ git log --pretty=format:&quot;* %s&quot; --reverse --no-merges &lt;commit-hash&gt;..</pre>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
