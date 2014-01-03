@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -51,6 +51,15 @@ class TestRead < Test::Unit::TestCase
     end
 
     assert(UCF::Container.verify($ucf_empty))
+  end
+
+  # Check that the example ucf file does verify.
+  def test_verify_example_ucf
+    assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
+      UCF::Container.verify!($ucf_example)
+    end
+
+    assert(UCF::Container.verify($ucf_example))
   end
 
   # Check that the empty zip file does not verify.
