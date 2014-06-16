@@ -1,7 +1,9 @@
 pkg/
 html/
+coverage/
 .buildpath
 .project
 .idea
 .rvmrc
+Gemfile.lock
 example.zip

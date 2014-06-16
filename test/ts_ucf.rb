@@ -30,6 +30,9 @@
 #
 # Author: Robert Haines
 
+require "coveralls"
+Coveralls.wear!
+
 # Example data files.
 $file_null = "test/data/null.file"
 $ucf_empty = "test/data/empty.ucf"

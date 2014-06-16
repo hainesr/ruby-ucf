@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,9 +30,12 @@
 #
 # Author: Robert Haines
 
-require 'yaml'
+require 'rubygems'
+require 'bundler/setup'
+
 require 'zip-container'
 
+require 'ucf/version'
 require 'ucf/meta-inf'
 require 'ucf/container'
 
@@ -43,15 +46,4 @@ require 'ucf/container'
 # {the UCF specification}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
 # for more details.
 module UCF
-
-  # Library version information.
-  module Version
-    # Version information in a Hash
-    INFO = YAML.load_file(File.join(File.dirname(__FILE__), "..",
-      "version.yml"))
-
-    # Version number as a String
-    STRING = [:major, :minor, :patch].map {|d| INFO[d]}.compact.join('.')
-  end
-
 end

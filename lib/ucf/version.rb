@@ -1,5 +1,4 @@
-#!/usr/bin/env ruby
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -31,22 +30,17 @@
 #
 # Author: Robert Haines
 
-require 'rubygems'
-require 'bundler/setup'
-require 'ucf'
+require 'yaml'
 
-def usage
-  puts "Usage:\n  verify-ucf <ucf-file>"
-  exit 1
-end
+module UCF
 
-usage unless ARGV.length == 1
+  # Library version information.
+  module Version
+    # Version information in a Hash
+    INFO = YAML.load_file(File.join(File.dirname(__FILE__), "..", "..",
+      "version.yml"))
 
-ucffile = ARGV[0]
-
-begin
-  UCF::Container.verify!(ucffile)
-rescue ZipContainer::MalformedContainerError, Zip::ZipError => err
-  puts err.to_s
-  exit 1
+    # Version number as a String
+    STRING = [:major, :minor, :patch].map {|d| INFO[d]}.compact.join('.')
+  end
 end
