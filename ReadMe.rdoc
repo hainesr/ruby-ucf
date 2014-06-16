@@ -10,6 +10,7 @@ Copyright::   (c) 2013, 2014 The University of Manchester, UK
 {<img src="https://badge.fury.io/rb/ucf.png" alt="Gem Version" />}[http://badge.fury.io/rb/ucf]
 {<img src="https://codeclimate.com/github/myGrid/ruby-ucf.png" />}[https://codeclimate.com/github/myGrid/ruby-ucf]
 {<img src="https://travis-ci.org/myGrid/ruby-ucf.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/myGrid/ruby-ucf]
+{<img src="https://coveralls.io/repos/myGrid/ruby-ucf/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/myGrid/ruby-ucf?branch=master]
 
 == Synopsis
 
