@@ -30,44 +30,11 @@
 #
 # Author: Robert Haines
 
-require 'rubygems'
-require 'rake'
-require 'rake/clean'
-require 'rake/testtask'
-require 'rdoc/task'
-require 'jeweler'
-
-# we need to add lib to the path because we're not installed yet!
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), "lib")
-require 'ucf'
+require "bundler/gem_tasks"
+require "rake/testtask"
+require "rdoc/task"
 
 task :default => [:test]
-
-Jeweler::Tasks.new do |s|
-  s.name             = "ucf"
-  s.version          = UCF::Version::STRING
-  s.authors          = ["Robert Haines"]
-  s.email            = ["support@mygrid.org.uk"]
-  s.homepage         = "http://mygrid.github.io/ruby-ucf/"
-  s.platform         = Gem::Platform::RUBY
-  s.summary          = "Universal Container Format (UCF) Ruby Library"
-  s.description      = "A Ruby library for working with Universal Container "\
-    "Format files - a type of EPUB document. See the UCF specification "\
-    "(https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format)"\
-    " for details. They are very similar, although not as restrictive, as "\
-    "the EPUB Open Container Format (OCF) "\
-    "(http://www.idpf.org/epub/30/spec/epub30-ocf.html)."
-  s.require_path     = "lib"
-  s.test_file        = "test/ts_ucf.rb"
-  s.has_rdoc         = true
-  s.extra_rdoc_files = ["ReadMe.rdoc", "Licence.rdoc", "Changes.rdoc"]
-  s.rdoc_options     = ["-N", "--tab-width=2", "--main=ReadMe.rdoc"]
-  s.add_development_dependency('rake', '~> 10.0.4')
-  s.add_development_dependency('rdoc', '~> 4.0.1')
-  s.add_development_dependency('jeweler', '~> 1.8.4')
-  s.add_development_dependency('nokogiri', '~> 1.6')
-  s.add_runtime_dependency('zip-container', '>= 0.9.0')
-end
 
 Rake::TestTask.new do |t|
   t.libs << "test"
