@@ -34,7 +34,7 @@ require 'test/unit'
 require 'ucf'
 
 # A class to test the overriding of reserved and managed names.
-class NewUCF < UCF::Container
+class NewUCF < UCF::File
 
   private_class_method :new
 
@@ -64,7 +64,7 @@ class TestReservedNames < Test::Unit::TestCase
   # Check the reserved names stuff all works correctly, baring in mind that
   # such comparisons for UCF documents should be case sensitive.
   def test_reserved_names
-    UCF::Container.open($ucf_example) do |ucf|
+    UCF::File.open($ucf_example) do |ucf|
       assert_equal(1, ucf.reserved_names.length)
       assert_equal(["mimetype"], ucf.reserved_names)
       assert_equal(6, ucf.managed_files.length)
@@ -148,7 +148,7 @@ class TestReservedNames < Test::Unit::TestCase
 
   # Check that nothing happens when trying to delete the mimetype file.
   def test_delete_mimetype
-    UCF::Container.open($ucf_example) do |ucf|
+    UCF::File.open($ucf_example) do |ucf|
       assert(ucf.file.exists?("mimetype"))
       assert_nil(ucf.remove("mimetype"))
       assert(ucf.file.exists?("mimetype"))
@@ -157,7 +157,7 @@ class TestReservedNames < Test::Unit::TestCase
 
   # Check that nothing happens when trying to rename the mimetype file.
   def test_rename_mimetype
-    UCF::Container.open($ucf_example) do |ucf|
+    UCF::File.open($ucf_example) do |ucf|
       assert(ucf.file.exists?("mimetype"))
       assert_nil(ucf.rename("mimetype", "something-else"))
       assert(ucf.file.exists?("mimetype"))
@@ -168,7 +168,7 @@ class TestReservedNames < Test::Unit::TestCase
   # Check that nothing happens when trying to replace the contents of the
   # mimetype file.
   def test_replace_mimetype
-    UCF::Container.open($ucf_example) do |ucf|
+    UCF::File.open($ucf_example) do |ucf|
       assert(ucf.file.exists?("mimetype"))
       assert_nil(ucf.replace("mimetype", $zip_empty))
       assert_equal("application/epub+zip", ucf.file.read("mimetype"))
@@ -178,7 +178,7 @@ class TestReservedNames < Test::Unit::TestCase
   # Check that an exception is raised when trying to add file with a reserved
   # name.
   def test_add_reserved
-    UCF::Container.open($ucf_empty) do |ucf|
+    UCF::File.open($ucf_empty) do |ucf|
       assert_raises(ZipContainer::ReservedNameClashError) do
         ucf.add("META-INF", $zip_empty)
       end
@@ -210,7 +210,7 @@ class TestReservedNames < Test::Unit::TestCase
   # Check that the META-INF directory is detected as non-existent when trying
   # to delete it.
   def test_delete_metainf
-    UCF::Container.open($ucf_example) do |ucf|
+    UCF::File.open($ucf_example) do |ucf|
       assert_raises(Errno::ENOENT) do
         ucf.remove("META-INF")
       end
@@ -220,7 +220,7 @@ class TestReservedNames < Test::Unit::TestCase
   # Check that the META-INF directory is detected as non-existent when trying
   # to rename it.
   def test_rename_metainf
-    UCF::Container.open($ucf_example) do |ucf|
+    UCF::File.open($ucf_example) do |ucf|
       assert_raises(Errno::ENOENT) do
         ucf.rename("META-INF", "something-else")
       end
@@ -230,7 +230,7 @@ class TestReservedNames < Test::Unit::TestCase
   # Check that an exception is raised when trying to create a directory with a
   # reserved name.
   def test_mkdir_reserved
-    UCF::Container.open($ucf_empty) do |ucf|
+    UCF::File.open($ucf_empty) do |ucf|
       assert_raises(ZipContainer::ReservedNameClashError) do
         ucf.mkdir("mimetype")
       end
@@ -269,7 +269,7 @@ class TestReservedNames < Test::Unit::TestCase
 
   # Check that a file cannot be renamed to one of the reserved names.
   def test_rename_to_reserved
-    UCF::Container.open($ucf_example) do |ucf|
+    UCF::File.open($ucf_example) do |ucf|
       assert_raises(ZipContainer::ReservedNameClashError) do
         ucf.rename("dir/code.rb", "mimetype")
       end
@@ -293,7 +293,7 @@ class TestReservedNames < Test::Unit::TestCase
   # Check that the ruby-like File and Dir classes respect reserved and managed
   # names.
   def test_file_dir_ops_reserved
-    UCF::Container.open($ucf_empty) do |ucf|
+    UCF::File.open($ucf_empty) do |ucf|
       assert_raises(ZipContainer::ReservedNameClashError) do
         ucf.file.open("META-INF", "w") do |f|
           f.puts "TESTING"

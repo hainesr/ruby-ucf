@@ -42,7 +42,7 @@ class TestCreation < Test::Unit::TestCase
       filename = File.join(dir, "test.ucf")
 
       assert_nothing_raised do
-        UCF::Container.create(filename) do |c|
+        UCF::File.create(filename) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
@@ -57,7 +57,7 @@ class TestCreation < Test::Unit::TestCase
       end
 
       assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
-        UCF::Container.verify!(filename)
+        UCF::File.verify!(filename)
       end
     end
   end
@@ -70,7 +70,7 @@ class TestCreation < Test::Unit::TestCase
       filename = File.join(dir, "test.ucf")
 
       assert_nothing_raised do
-        UCF::Container.create(filename, mimetype) do |c|
+        UCF::File.create(filename, mimetype) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
@@ -87,7 +87,7 @@ class TestCreation < Test::Unit::TestCase
       end
 
       assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
-        UCF::Container.verify!(filename)
+        UCF::File.verify!(filename)
       end
     end
   end
@@ -99,7 +99,7 @@ class TestCreation < Test::Unit::TestCase
       filename = File.join(dir, "test.ucf")
 
       assert_nothing_raised do
-        UCF::Container.create(filename) do |ucf|
+        UCF::File.create(filename) do |ucf|
           assert(ucf.on_disk?)
           refute(ucf.in_memory?)
 
@@ -130,7 +130,7 @@ class TestCreation < Test::Unit::TestCase
       end
 
       assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
-        UCF::Container.open(filename) do |ucf|
+        UCF::File.open(filename) do |ucf|
           assert(ucf.on_disk?)
           refute(ucf.in_memory?)
 

@@ -35,7 +35,7 @@ require 'tmpdir'
 require 'ucf'
 
 # Classes to test managed entries.
-class ManagedUCF < UCF::Container
+class ManagedUCF < UCF::File
 
   private_class_method :new
 
@@ -51,7 +51,7 @@ class ManagedUCF < UCF::Container
 
 end
 
-class ExampleUCF < UCF::Container
+class ExampleUCF < UCF::File
 
   private_class_method :new
 
@@ -65,7 +65,7 @@ class ExampleUCF < UCF::Container
 
 end
 
-class ExampleUCF2 < UCF::Container
+class ExampleUCF2 < UCF::File
 
   private_class_method :new
 
@@ -115,7 +115,7 @@ class TestManagedEntries < Test::Unit::TestCase
       filename = File.join(dir, "test.ucf")
 
       assert_nothing_raised do
-        UCF::Container.create(filename) do |c|
+        UCF::File.create(filename) do |c|
           c.mkdir("META-INF")
           assert(c.file.exists?("META-INF"))
 
@@ -128,7 +128,7 @@ class TestManagedEntries < Test::Unit::TestCase
       end
 
       assert_nothing_raised(ZipContainer::MalformedContainerError) do
-        UCF::Container.verify!(filename)
+        UCF::File.verify!(filename)
       end
     end
   end

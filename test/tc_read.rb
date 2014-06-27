@@ -38,46 +38,46 @@ class TestRead < Test::Unit::TestCase
   # Check that the null file does not verify.
   def test_verify_null_file
     assert_raise(Zip::ZipError) do
-      UCF::Container.verify!($file_null)
+      UCF::File.verify!($file_null)
     end
 
-    refute(UCF::Container.verify($file_null))
+    refute(UCF::File.verify($file_null))
   end
 
   # Check that the empty ucf file does verify.
   def test_verify_empty_ucf
     assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
-      UCF::Container.verify!($ucf_empty)
+      UCF::File.verify!($ucf_empty)
     end
 
-    assert(UCF::Container.verify($ucf_empty))
+    assert(UCF::File.verify($ucf_empty))
   end
 
   # Check that the example ucf file does verify.
   def test_verify_example_ucf
     assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
-      UCF::Container.verify!($ucf_example)
+      UCF::File.verify!($ucf_example)
     end
 
-    assert(UCF::Container.verify($ucf_example))
+    assert(UCF::File.verify($ucf_example))
   end
 
   # Check that the empty zip file does not verify.
   def test_verify_empty_zip
     assert_raise(ZipContainer::MalformedContainerError) do
-      UCF::Container.verify!($zip_empty)
+      UCF::File.verify!($zip_empty)
     end
 
-    refute(UCF::Container.verify($zip_empty))
+    refute(UCF::File.verify($zip_empty))
   end
 
   # Check that a compressed mimetype file is detected.
   def test_verify_compressed_mimetype
     assert_raise(ZipContainer::MalformedContainerError) do
-      UCF::Container.verify!($ucf_compressed_mimetype)
+      UCF::File.verify!($ucf_compressed_mimetype)
     end
 
-    refute(UCF::Container.verify($ucf_compressed_mimetype))
+    refute(UCF::File.verify($ucf_compressed_mimetype))
   end
 
   # Check the raw mimetype bytes
@@ -92,7 +92,7 @@ class TestRead < Test::Unit::TestCase
   # Check reading files out of a ucf file and make sure we don't change it.
   def test_read_files_from_ucf
     assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
-      UCF::Container.open($ucf_example) do |ucf|
+      UCF::File.open($ucf_example) do |ucf|
         assert(ucf.on_disk?)
         refute(ucf.in_memory?)
 

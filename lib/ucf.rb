@@ -37,13 +37,15 @@ require 'zip-container'
 
 require 'ucf/version'
 require 'ucf/meta-inf'
-require 'ucf/container'
+require 'ucf/file'
 
 # This is a ruby library to read and write UCF files in PK Zip format. See the
-# UCF::Container class for more information.
+# UCF::File class for more information.
 #
 # See
 # {the UCF specification}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
 # for more details.
 module UCF
+  # For compatibility.
+  Container = File
 end

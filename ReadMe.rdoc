@@ -44,6 +44,16 @@ library will use it to validate the contents of the <tt>container.xml</tt> and
 case they are not using the META-INF directory and so would not need the extra
 dependency on nokogiri.
 
+== Backwards incompatibility warning!
+
+The UCF::Container class is deprecated in favour of UCF::File. These classes
+are functionally identical; it is just a change of name. The new name brings
+this API into closer alignment with the
+underlying zip-container API (ZipContainer::File).
+
+UCF::Container will be available until version 1.0.0 when it will be
+removed.
+
 == What this library can not do yet
 
 The basic requirements of a UCF document are all implemented but there are a

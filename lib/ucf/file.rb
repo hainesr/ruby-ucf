@@ -33,20 +33,20 @@
 #
 module UCF
 
-  # This class represents a UCF document - also known as an EPUB and very
+  # This class represents a UCF document file - also known as an EPUB and very
   # similar to the
   # {EPUB Open Container Format (OCF)}[http://www.idpf.org/epub/30/spec/epub30-ocf.html].
   # See the
   # {UCF specification}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
   # for more details.
   #
-  # This class is a specialization of ZipContainer so you should see the
+  # This class is a specialization of ZipContainer::File so you should see the
   # {ZipContainer documentation}[http://mygrid.github.io/ruby-zip-container/]
   # for much more information and a list of all the other methods available in
   # this class. RDoc does not list inherited methods, unfortunately.
   #
   # There are code examples available with the source code of this library.
-  class Container < ZipContainer::Container
+  class File < ZipContainer::File
 
     private_class_method :new
 
@@ -62,12 +62,12 @@ module UCF
     # :startdoc:
 
     # :call-seq:
-    #   Container.create(filename) -> Container
-    #   Container.create(filename, mimetype) -> Container
-    #   Container.create(filename) {|container| ...}
-    #   Container.create(filename, mimetype) {|container| ...}
+    #   create(filename) -> UCF::File
+    #   create(filename, mimetype) -> UCF::FILE
+    #   create(filename) {|file| ...}
+    #   create(filename, mimetype) {|file| ...}
     #
-    # Create a new UCF document on disk and open it for editing. A custom
+    # Create a new UCF document file on disk and open it for editing. A custom
     # mimetype for the container may be specified but if not the default,
     # "application/epub+zip", will be used.
     #
@@ -75,7 +75,7 @@ module UCF
     # {ZipContainer documentation}[http://mygrid.github.io/ruby-zip-container/]
     # for much more information and a list of all the other methods available
     # in this class. RDoc does not list inherited methods, unfortunately.
-    def Container.create(filename, mimetype = DEFAULT_MIMETYPE, &block)
+    def self.create(filename, mimetype = DEFAULT_MIMETYPE, &block)
       super(filename, mimetype, &block)
     end
 
