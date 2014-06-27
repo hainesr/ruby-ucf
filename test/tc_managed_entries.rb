@@ -41,10 +41,12 @@ class ManagedUCF < UCF::Container
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(ZipContainer::ManagedDirectory.new("src", true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("src",
+      :required => true))
     register_managed_entry(ZipContainer::ManagedDirectory.new("test"))
     register_managed_entry(ZipContainer::ManagedDirectory.new("lib"))
-    register_managed_entry(ZipContainer::ManagedFile.new("index.html", true))
+    register_managed_entry(ZipContainer::ManagedFile.new("index.html",
+      :required => true))
   end
 
 end
@@ -55,8 +57,10 @@ class ExampleUCF < UCF::Container
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(ZipContainer::ManagedDirectory.new("dir", true))
-    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt", true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("dir",
+      :required => true))
+    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
+      :required => true))
   end
 
 end
@@ -70,7 +74,7 @@ class ExampleUCF2 < UCF::Container
 
     valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
     register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
-      true, valid))
+       :required => true, :validation_proc => valid))
   end
 
 end
@@ -176,7 +180,7 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
 
-      assert_nothing_raised do
+      #assert_nothing_raised do
         ExampleUCF2.create(filename) do |c|
           assert_raises(ZipContainer::MalformedContainerError) do
             c.verify!
@@ -198,7 +202,7 @@ class TestManagedEntries < Test::Unit::TestCase
             c.verify!
           end
         end
-      end
+      #end
 
       assert(ExampleUCF2.verify(filename))
       assert_nothing_raised(ZipContainer::MalformedContainerError) do
