@@ -19,12 +19,6 @@ This is a Ruby library for working with UCF documents. See
 for more details. UCF is a type of EPUB and very similar to the
 {EPUB Open Container Format (OCF)}[http://www.idpf.org/epub/30/spec/epub30-ocf.html].
 
-<b>This library is a work in progress!</b> Until we release version 1.0.0 you
-can expect the API to change in incompatible ways, although we will try to
-keep this to an absolute minimum. Once version 1.0.0 is released we will be
-following the principles of {Semantic Versioning}[http://semver.org/] for our
-version numbering scheme.
-
 Most of this library's API is provided by the underlying
 {zip-container gem}[https://rubygems.org/gems/zip-container] so you will need
 to consult
@@ -33,6 +27,9 @@ addition to this.
 
 There are some examples of how to use the library provided in the examples
 directory. See the contents of the tests directory for even more.
+
+We follow the principles of {Semantic Versioning}[http://semver.org/] for our
+releases.
 
 == Files in the META-INF directory
 
