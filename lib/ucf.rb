@@ -46,6 +46,4 @@ require 'ucf/file'
 # {the UCF specification}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
 # for more details.
 module UCF
-  # For compatibility.
-  Container = File
 end

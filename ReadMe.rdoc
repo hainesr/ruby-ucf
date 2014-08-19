@@ -48,11 +48,11 @@ dependency on nokogiri.
 
 The UCF::Container class is deprecated in favour of UCF::File. These classes
 are functionally identical; it is just a change of name. The new name brings
-this API into closer alignment with the
-underlying zip-container API (ZipContainer::File).
+this API into closer alignment with the underlying
+{zip-container API}[http://mygrid.github.io/ruby-zip-container/]
+(ZipContainer::File).
 
-UCF::Container will be available until version 1.0.0 when it will be
-removed.
+UCF::Container is not available from version 1.0.0 onwards.
 
 == What this library can not do yet
 
