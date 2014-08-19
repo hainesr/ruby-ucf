@@ -33,5 +33,3 @@
 source "https://rubygems.org"
 
 gemspec
-
-gem "zip-container", :git => "https://github.com/myGrid/ruby-zip-container", :branch => "next"
