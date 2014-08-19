@@ -1,5 +1,11 @@
 = Changes log for the UCF Ruby Gem
 
+== Version 1.0.0
+
+* Rename UCF::Container to UCF::File.
+* Use released zip-container 2.0 gem.
+* Remove UCF::Container compatibility.
+
 == Version 0.7.0
 
 * Update to be able to use the newer zip-container gem.
