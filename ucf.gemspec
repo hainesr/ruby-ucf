@@ -55,6 +55,7 @@ Gem::Specification.new do |s|
   s.has_rdoc         = true
   s.extra_rdoc_files = [ "Changes.rdoc", "Licence.rdoc", "ReadMe.rdoc" ]
   s.rdoc_options = ["-N", "--tab-width=2", "--main=ReadMe.rdoc"]
+  s.required_ruby_version = ">= 1.9.3"
   s.add_development_dependency("rake", "~> 10.0.4")
   s.add_development_dependency("bundler", "~> 1.5")
   s.add_development_dependency("rdoc", "~> 4.0.1")
