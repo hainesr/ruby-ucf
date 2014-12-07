@@ -59,6 +59,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake", "~> 10.4"
   s.add_development_dependency "bundler", "~> 1.5"
   s.add_development_dependency "rdoc", "~> 4.1"
+  s.add_development_dependency "test-unit", "~> 3.0"
   s.add_development_dependency "coveralls"
   s.add_development_dependency "nokogiri", "~> 1.6"
   s.add_runtime_dependency "zip-container", "~> 2.0"
