@@ -35,13 +35,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "ucf/version"
 
 Gem::Specification.new do |s|
-  s.name = "ucf"
-  s.version = UCF::Version::STRING
-  s.authors = ["Robert Haines"]
-  s.email = ["support@mygrid.org.uk"]
-  s.homepage = "http://mygrid.github.io/ruby-ucf/"
-  s.platform         = Gem::Platform::RUBY
-  s.summary = "Universal Container Format (UCF) Ruby Library"
+  s.name        = "ucf"
+  s.version     = UCF::Version::STRING
+  s.authors     = ["Robert Haines"]
+  s.email       = ["support@mygrid.org.uk"]
+  s.homepage    = "http://mygrid.github.io/ruby-ucf/"
+  s.platform    = Gem::Platform::RUBY
+  s.summary     = "Universal Container Format (UCF) Ruby Library"
   s.description = "A Ruby library for working with Universal Container "\
     "Format files - a type of EPUB document. See the UCF specification "\
     "(https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format) "\
@@ -54,12 +54,13 @@ Gem::Specification.new do |s|
   s.test_files       = `git ls-files -- test/*`.split($/)
   s.has_rdoc         = true
   s.extra_rdoc_files = [ "Changes.rdoc", "Licence.rdoc", "ReadMe.rdoc" ]
-  s.rdoc_options = ["-N", "--tab-width=2", "--main=ReadMe.rdoc"]
+  s.rdoc_options     = ["-N", "--tab-width=2", "--main=ReadMe.rdoc"]
   s.required_ruby_version = ">= 1.9.3"
-  s.add_development_dependency("rake", "~> 10.0.4")
-  s.add_development_dependency("bundler", "~> 1.5")
-  s.add_development_dependency("rdoc", "~> 4.0.1")
-  s.add_development_dependency("coveralls")
-  s.add_development_dependency("nokogiri", "~> 1.6")
-  s.add_runtime_dependency("zip-container", "~> 2.0")
+  s.add_development_dependency "rake", "~> 10.4"
+  s.add_development_dependency "bundler", "~> 1.5"
+  s.add_development_dependency "rdoc", "~> 4.1"
+  s.add_development_dependency "test-unit", "~> 3.0"
+  s.add_development_dependency "coveralls"
+  s.add_development_dependency "nokogiri", "~> 1.6"
+  s.add_runtime_dependency "zip-container", "~> 2.0"
 end
