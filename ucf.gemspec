@@ -62,5 +62,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "test-unit", "~> 3.0"
   s.add_development_dependency "coveralls"
   s.add_development_dependency "nokogiri", "~> 1.6"
-  s.add_runtime_dependency "zip-container", "~> 2.0"
+  s.add_runtime_dependency "zip-container", "~> 2.2"
 end

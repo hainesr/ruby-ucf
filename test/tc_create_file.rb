@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -46,13 +46,7 @@ class TestCreateFile < Test::Unit::TestCase
           assert(c.on_disk?)
           refute(c.in_memory?)
 
-          # At this point we can still use the version of zip-container that
-          # uses the old version of the rubyzip API...
-          if Gem.loaded_specs["zip-container"].version < Gem::Version.create("1.0")
-            assert(c.find_entry("mimetype").localHeaderOffset == 0)
-          else
-            assert(c.find_entry("mimetype").local_header_offset == 0)
-          end
+          assert(c.find_entry("mimetype").local_header_offset == 0)
         end
       end
 
@@ -74,13 +68,7 @@ class TestCreateFile < Test::Unit::TestCase
           assert(c.on_disk?)
           refute(c.in_memory?)
 
-          # At this point we can still use the version of zip-container that
-          # uses the old version of the rubyzip API...
-          if Gem.loaded_specs["zip-container"].version < Gem::Version.create("1.0")
-            assert(c.find_entry("mimetype").localHeaderOffset == 0)
-          else
-            assert(c.find_entry("mimetype").local_header_offset == 0)
-          end
+          assert(c.find_entry("mimetype").local_header_offset == 0)
 
           assert_equal mimetype, c.read("mimetype")
         end
