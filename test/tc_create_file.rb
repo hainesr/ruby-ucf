@@ -34,7 +34,7 @@ require 'test/unit'
 require 'tmpdir'
 require 'ucf'
 
-class TestCreation < Test::Unit::TestCase
+class TestCreateFile < Test::Unit::TestCase
 
   # Check creation of standard empty ucf files.
   def test_create_standard_file

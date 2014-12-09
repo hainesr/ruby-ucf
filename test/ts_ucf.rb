@@ -42,7 +42,7 @@ $ucf_example = "test/data/example.ucf"
 $meta_inf_dir = "test/data/META-INF"
 
 # Run test cases.
-require 'tc_create'
-require 'tc_read'
+require 'tc_create_file'
+require 'tc_read_file'
 require 'tc_reserved_names'
 require 'tc_managed_entries'
