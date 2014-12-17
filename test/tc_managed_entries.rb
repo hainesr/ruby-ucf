@@ -79,6 +79,21 @@ class ExampleUCF2 < UCF::File
 
 end
 
+class ExampleUCFDir < UCF::Dir
+
+  private_class_method :new
+
+  def initialize(filename)
+    super(filename)
+
+    valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
+
+    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
+       :required => true, :validation_proc => valid))
+  end
+
+end
+
 class TestManagedEntries < Test::Unit::TestCase
 
   # Check that the example UCF document does not validate as a ManagedUCF.
@@ -105,6 +120,15 @@ class TestManagedEntries < Test::Unit::TestCase
 
     assert_nothing_raised(ZipContainer::MalformedContainerError) do
       ExampleUCF2.verify!($ucf_example)
+    end
+  end
+
+  # Check that the example UCF directory validates.
+  def test_pass_verification_dir
+    assert(ExampleUCFDir.verify($dir_mngd))
+
+    assert_nothing_raised(ZipContainer::MalformedContainerError) do
+      ExampleUCFDir.verify!($dir_mngd)
     end
   end
 

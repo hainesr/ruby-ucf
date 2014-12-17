@@ -37,6 +37,7 @@ require 'zip-container'
 
 require 'ucf/version'
 require 'ucf/meta-inf'
+require 'ucf/dir'
 require 'ucf/file'
 
 # This is a ruby library to read and write UCF files in PK Zip format. See the
