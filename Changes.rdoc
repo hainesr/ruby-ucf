@@ -1,5 +1,15 @@
 = Changes log for the UCF Ruby Gem
 
+== Version 1.1.0
+
+* Tidy up gemspec and update dependency versions.
+* Add test-unit to the deps so we can test in ruby 2.2.
+* Setup gem caching for Travis.
+* Test using ruby 2.1.5 in Travis.
+* Disambiguate the create and read test names.
+* Update zip-container dependency to 2.2.
+* Add the UCF::Dir class to create exploded containers.
+
 == Version 1.0.0
 
 * Rename UCF::Container to UCF::File.
