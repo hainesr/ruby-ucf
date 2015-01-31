@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -50,7 +50,7 @@ class TestCreateFile < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::Error) do
         UCF::File.verify!(filename)
       end
     end
@@ -74,7 +74,7 @@ class TestCreateFile < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::Error) do
         UCF::File.verify!(filename)
       end
     end
@@ -117,7 +117,7 @@ class TestCreateFile < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::Error) do
         UCF::File.open(filename) do |ucf|
           assert(ucf.on_disk?)
           refute(ucf.in_memory?)
