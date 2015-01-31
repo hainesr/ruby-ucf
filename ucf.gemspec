@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -62,5 +62,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "test-unit", "~> 3.0"
   s.add_development_dependency "coveralls"
   s.add_development_dependency "nokogiri", "~> 1.6"
-  s.add_runtime_dependency "zip-container", "~> 2.2"
+  s.add_runtime_dependency "zip-container", "~> 3.0"
 end

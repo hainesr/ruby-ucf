@@ -1,4 +1,4 @@
-# Copyright (c) 2014 The University of Manchester, UK.
+# Copyright (c) 2014, 2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -41,7 +41,7 @@ class TestReadDir < Test::Unit::TestCase
       UCF::Dir.verify!($dir_null)
     end
 
-    refute(UCF::Dir.verify($dir_null))
+    refute(UCF::Dir.verify?($dir_null))
   end
 
   # Check that the empty container directory does verify.
@@ -50,7 +50,7 @@ class TestReadDir < Test::Unit::TestCase
       UCF::Dir.verify!($dir_empty)
     end
 
-    assert(UCF::Dir.verify($dir_empty))
+    assert(UCF::Dir.verify?($dir_empty))
   end
 
 end

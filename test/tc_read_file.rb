@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -41,7 +41,9 @@ class TestReadFile < Test::Unit::TestCase
       UCF::File.verify!($file_null)
     end
 
-    refute(UCF::File.verify($file_null))
+    assert_raise(Zip::ZipError) do
+      UCF::File.verify?($file_null)
+    end
   end
 
   # Check that the empty ucf file does verify.
@@ -50,7 +52,7 @@ class TestReadFile < Test::Unit::TestCase
       UCF::File.verify!($ucf_empty)
     end
 
-    assert(UCF::File.verify($ucf_empty))
+    assert(UCF::File.verify?($ucf_empty))
   end
 
   # Check that the example ucf file does verify.
@@ -59,7 +61,7 @@ class TestReadFile < Test::Unit::TestCase
       UCF::File.verify!($ucf_example)
     end
 
-    assert(UCF::File.verify($ucf_example))
+    assert(UCF::File.verify?($ucf_example))
   end
 
   # Check that the empty zip file does not verify.
@@ -68,7 +70,7 @@ class TestReadFile < Test::Unit::TestCase
       UCF::File.verify!($zip_empty)
     end
 
-    refute(UCF::File.verify($zip_empty))
+    refute(UCF::File.verify?($zip_empty))
   end
 
   # Check that a compressed mimetype file is detected.
@@ -77,7 +79,7 @@ class TestReadFile < Test::Unit::TestCase
       UCF::File.verify!($ucf_compressed_mimetype)
     end
 
-    refute(UCF::File.verify($ucf_compressed_mimetype))
+    refute(UCF::File.verify?($ucf_compressed_mimetype))
   end
 
   # Check the raw mimetype bytes
