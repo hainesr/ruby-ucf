@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -98,7 +98,7 @@ class TestManagedEntries < Test::Unit::TestCase
 
   # Check that the example UCF document does not validate as a ManagedUCF.
   def test_fail_verification
-    refute(ManagedUCF.verify($ucf_example))
+    refute(ManagedUCF.verify?($ucf_example))
 
     assert_raises(ZipContainer::MalformedContainerError) do
       ManagedUCF.verify!($ucf_example)
@@ -107,7 +107,7 @@ class TestManagedEntries < Test::Unit::TestCase
 
   # Check that the example UCF document does validate as an ExampleUCF.
   def test_pass_verification
-    assert(ExampleUCF.verify($ucf_example))
+    assert(ExampleUCF.verify?($ucf_example))
 
     assert_nothing_raised(ZipContainer::MalformedContainerError) do
       ExampleUCF.verify!($ucf_example)
@@ -116,7 +116,7 @@ class TestManagedEntries < Test::Unit::TestCase
 
   # Check that the example UCF document does validate as an ExampleUCF2.
   def test_pass_verification_2
-    assert(ExampleUCF2.verify($ucf_example))
+    assert(ExampleUCF2.verify?($ucf_example))
 
     assert_nothing_raised(ZipContainer::MalformedContainerError) do
       ExampleUCF2.verify!($ucf_example)
@@ -125,7 +125,7 @@ class TestManagedEntries < Test::Unit::TestCase
 
   # Check that the example UCF directory validates.
   def test_pass_verification_dir
-    assert(ExampleUCFDir.verify($dir_mngd))
+    assert(ExampleUCFDir.verify?($dir_mngd))
 
     assert_nothing_raised(ZipContainer::MalformedContainerError) do
       ExampleUCFDir.verify!($dir_mngd)
@@ -170,7 +170,7 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       end
 
-      refute(ManagedUCF.verify(filename))
+      refute(ManagedUCF.verify?(filename))
       assert_raises(ZipContainer::MalformedContainerError) do
         ManagedUCF.verify!(filename)
       end
@@ -191,7 +191,7 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       end
 
-      assert(ManagedUCF.verify(filename))
+      assert(ManagedUCF.verify?(filename))
       assert_nothing_raised(ZipContainer::MalformedContainerError) do
         ManagedUCF.verify!(filename)
       end
@@ -228,7 +228,7 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       #end
 
-      assert(ExampleUCF2.verify(filename))
+      assert(ExampleUCF2.verify?(filename))
       assert_nothing_raised(ZipContainer::MalformedContainerError) do
         ExampleUCF2.verify!(filename)
       end

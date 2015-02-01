@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013-2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -54,7 +54,7 @@ class TestReservedNames < Test::Unit::TestCase
 
   # Check that the reserved names verify correctly.
   def test_verify_reserved_name
-    assert(NewUCF.verify($ucf_example))
+    assert(NewUCF.verify?($ucf_example))
 
     assert_nothing_raised(ZipContainer::MalformedContainerError) do
       NewUCF.verify!($ucf_example)

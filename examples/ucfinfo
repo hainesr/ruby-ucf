@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013-2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -45,8 +45,8 @@ usage unless ARGV.length == 1
 ucffile = ARGV[0]
 
 begin
-  ucf = UCF::Container.open(ucffile)
-rescue ZipContainer::MalformedContainerError, Zip::ZipError => err
+  ucf = UCF::File.open(ucffile)
+rescue ZipContainer::MalformedContainerError, ZipContainer::Error => err
   puts err.to_s
   exit 1
 end
