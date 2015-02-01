@@ -7,10 +7,10 @@ Source code:: https://github.com/myGrid/ruby-ucf
 Licence::     BSD (See Licence file or http://www.opensource.org/licenses/bsd-license.php)
 Copyright::   (c) 2013-2015 The University of Manchester, UK
 
-{<img src="https://badge.fury.io/rb/ucf.png" alt="Gem Version" />}[http://badge.fury.io/rb/ucf]
-{<img src="https://codeclimate.com/github/myGrid/ruby-ucf.png" />}[https://codeclimate.com/github/myGrid/ruby-ucf]
+{<img src="https://badge.fury.io/rb/ucf.svg" alt="Gem Version" />}[http://badge.fury.io/rb/ucf]
+{<img src="https://codeclimate.com/github/myGrid/ruby-ucf.svg" />}[https://codeclimate.com/github/myGrid/ruby-ucf]
 {<img src="https://travis-ci.org/myGrid/ruby-ucf.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/myGrid/ruby-ucf]
-{<img src="https://coveralls.io/repos/myGrid/ruby-ucf/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/myGrid/ruby-ucf?branch=master]
+{<img src="https://coveralls.io/repos/myGrid/ruby-ucf/badge.svg?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/myGrid/ruby-ucf?branch=master]
 
 == Synopsis
 
