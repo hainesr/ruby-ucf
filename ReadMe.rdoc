@@ -51,6 +51,25 @@ this API into closer alignment with the underlying
 
 UCF::Container is not available from version 1.0.0 onwards.
 
+== Usage
+
+This library has two entry points.
+
+The main UCF::File class is a specialization of
+{ZipContainer::File}[http://mygrid.github.io/ruby-zip-container/3.0.0/ZipContainer/File.html]
+which largely mimics the rubyzip
+{Zip::File}[http://www.rubydoc.info/gems/rubyzip/1.1.6/Zip/File] and
+{Zip::FileSystem}[http://www.rubydoc.info/gems/rubyzip/1.1.6/Zip/FileSystem]
+APIs.
+
+The UCF::Dir class is a based upon the
+{ZipContainer::Dir}[http://mygrid.github.io/ruby-zip-container/3.0.0/ZipContainer/Dir.html]
+class which mimics, where possible, the core ruby
+{Dir API}[http://ruby-doc.org/core-1.9.3/Dir.html].
+
+There are some examples of how to use the library provided in the examples
+directory. See the contents of the tests directory for even more.
+
 == What this library can not do yet
 
 The basic requirements of a UCF document are all implemented but there are a
