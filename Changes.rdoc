@@ -1,5 +1,12 @@
 = Changes log for the UCF Ruby Gem
 
+== Version 2.0.0
+
+* Add ruby 2.2.0 to the Travis test matrix.
+* Update examples and tests to use the latest API.
+* Add some usage information to the ReadMe.
+* Update to version 3.0.1 of zip-container.
+
 == Version 1.1.0
 
 * Tidy up gemspec and update dependency versions.
