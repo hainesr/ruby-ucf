@@ -1,5 +1,9 @@
 = Changes log for the UCF Ruby Gem
 
+== Version 2.0.1
+
+* Update zip-container dependency to fix rubyzip security vulnerability.
+
 == Version 2.0.0
 
 * Add ruby 2.2.0 to the Travis test matrix.
