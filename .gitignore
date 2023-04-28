@@ -7,3 +7,6 @@ coverage/
 .rvmrc
 Gemfile.lock
 example.zip
+.ruby-env
+.ruby-gemset
+.ruby-version
