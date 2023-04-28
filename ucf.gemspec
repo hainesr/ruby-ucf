@@ -57,7 +57,6 @@ Gem::Specification.new do |s|
   s.rdoc_options     = ["-N", "--tab-width=2", "--main=ReadMe.rdoc"]
   s.required_ruby_version = ">= 1.9.3"
   s.add_development_dependency "rake", "~> 10.4"
-  s.add_development_dependency "bundler", "~> 1.5"
   s.add_development_dependency "rdoc", "~> 4.1"
   s.add_development_dependency "test-unit", "~> 3.0"
   s.add_development_dependency "coveralls"
