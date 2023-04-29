@@ -65,8 +65,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake", "~> 13.0"
   s.add_development_dependency "rdoc", "~> 6.4.0"
   s.add_development_dependency "test-unit", "~> 3.0"
-  s.add_development_dependency "coveralls"
   s.add_development_dependency "nokogiri", "~> 1.13.0"
+  s.add_development_dependency 'simplecov', '0.18.3'
+  s.add_development_dependency 'simplecov-lcov', '~> 0.8.0'
 
   s.add_runtime_dependency "zip-container", "~> 4.0.1"
 end
