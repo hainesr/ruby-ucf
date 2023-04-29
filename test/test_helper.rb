@@ -36,12 +36,12 @@ require 'minitest/autorun'
 Minitest::Test.make_my_diffs_pretty!
 
 # Example data files and directories.
-$dir_null  = "test/data/dirs/null"
-$dir_empty = "test/data/dirs/empty"
-$dir_mngd  = "test/data/dirs/managed"
-$file_null = "test/data/null.file"
-$ucf_empty = "test/data/empty.ucf"
-$zip_empty = "test/data/empty.zip"
-$ucf_compressed_mimetype = "test/data/compressed_mimetype.ucf"
-$ucf_example = "test/data/example.ucf"
-$meta_inf_dir = "test/data/META-INF"
+$dir_null  = 'test/data/dirs/null'
+$dir_empty = 'test/data/dirs/empty'
+$dir_mngd  = 'test/data/dirs/managed'
+$file_null = 'test/data/null.file'
+$ucf_empty = 'test/data/empty.ucf'
+$zip_empty = 'test/data/empty.zip'
+$ucf_compressed_mimetype = 'test/data/compressed_mimetype.ucf'
+$ucf_example = 'test/data/example.ucf'
+$meta_inf_dir = 'test/data/META-INF'

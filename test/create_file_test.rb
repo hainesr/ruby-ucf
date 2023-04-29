@@ -39,13 +39,13 @@ class TestCreateFile < Minitest::Test
   # Check creation of standard empty ucf files.
   def test_create_standard_file
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, 'test.ucf')
 
       UCF::File.create(filename) do |c|
         assert(c.on_disk?)
         refute(c.in_memory?)
 
-        assert(c.find_entry("mimetype").local_header_offset == 0)
+        assert(c.find_entry('mimetype').local_header_offset == 0)
       end
 
       UCF::File.verify!(filename)
@@ -54,18 +54,18 @@ class TestCreateFile < Minitest::Test
 
   # Check creation of empty ucf files with a different mimetype.
   def test_create_mimetype_file
-    mimetype = "application/x-something-really-odd"
+    mimetype = 'application/x-something-really-odd'
 
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, 'test.ucf')
 
       UCF::File.create(filename, mimetype) do |c|
         assert(c.on_disk?)
         refute(c.in_memory?)
 
-        assert(c.find_entry("mimetype").local_header_offset == 0)
+        assert(c.find_entry('mimetype').local_header_offset == 0)
 
-        assert_equal(mimetype, c.read("mimetype"))
+        assert_equal(mimetype, c.read('mimetype'))
       end
 
       UCF::File.verify!(filename)
@@ -76,14 +76,14 @@ class TestCreateFile < Minitest::Test
   # to ensure that what we expect to happen, happens.
   def test_create_contents_file
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, 'test.ucf')
 
       UCF::File.create(filename) do |ucf|
         assert(ucf.on_disk?)
         refute(ucf.in_memory?)
 
-        ucf.file.open("test.txt", "w") do |f|
-          f.print "testing"
+        ucf.file.open('test.txt', 'w') do |f|
+          f.print 'testing'
         end
 
         assert(ucf.commit_required?)
@@ -91,15 +91,15 @@ class TestCreateFile < Minitest::Test
         refute(ucf.commit_required?)
         refute(ucf.commit)
 
-        ucf.dir.mkdir("dir1")
-        ucf.mkdir("dir2")
+        ucf.dir.mkdir('dir1')
+        ucf.mkdir('dir2')
 
         assert(ucf.commit_required?)
         assert(ucf.commit)
         refute(ucf.commit_required?)
         refute(ucf.commit)
 
-        ucf.comment = "A comment!"
+        ucf.comment = 'A comment!'
 
         assert(ucf.commit_required?)
         assert(ucf.commit)
@@ -111,15 +111,15 @@ class TestCreateFile < Minitest::Test
         assert(ucf.on_disk?)
         refute(ucf.in_memory?)
 
-        assert(ucf.file.exists?("test.txt"))
-        assert(ucf.file.exists?("dir1"))
-        assert(ucf.file.exists?("dir2"))
-        refute(ucf.file.exists?("dir3"))
+        assert(ucf.file.exists?('test.txt'))
+        assert(ucf.file.exists?('dir1'))
+        assert(ucf.file.exists?('dir2'))
+        refute(ucf.file.exists?('dir3'))
 
-        text = ucf.file.read("test.txt")
-        assert_equal("testing", text)
+        text = ucf.file.read('test.txt')
+        assert_equal('testing', text)
 
-        assert_equal("A comment!", ucf.comment)
+        assert_equal('A comment!', ucf.comment)
 
         refute(ucf.commit_required?)
         refute(ucf.commit)

@@ -51,7 +51,7 @@ module UCF
     private_class_method :new
 
     # :stopdoc:
-    DEFAULT_MIMETYPE = "application/epub+zip"
+    DEFAULT_MIMETYPE = 'application/epub+zip'
 
     def initialize(filename)
       super(filename)

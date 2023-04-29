@@ -42,23 +42,23 @@ module UCF
   # in a basic UCF Document.
   class MetaInf < ZipContainer::ManagedDirectory
 
-    SCHEMA_DIR = ::File.join(::File.dirname(__FILE__), "schema")
-    CONTAINER_SCHEMA = ::File.join(SCHEMA_DIR, "container.rng")
-    MANIFEST_SCHEMA = ::File.join(SCHEMA_DIR, "OpenDocument-manifest-schema-v1.0-os.rng")
+    SCHEMA_DIR = ::File.join(::File.dirname(__FILE__), 'schema')
+    CONTAINER_SCHEMA = ::File.join(SCHEMA_DIR, 'container.rng')
+    MANIFEST_SCHEMA = ::File.join(SCHEMA_DIR, 'OpenDocument-manifest-schema-v1.0-os.rng')
 
     # :call-seq:
     #   new -> MetaInf
     #
     # Create a standard META-INF ManagedDirectory.
     def initialize
-      super("META-INF", :required => false, :entries =>
+      super('META-INF', :required => false, :entries =>
         [
-          File.new("container.xml", CONTAINER_SCHEMA),
-          File.new("manifest.xml", MANIFEST_SCHEMA),
-          File.new("metadata.xml"),
-          File.new("signatures.xml"),
-          File.new("encryption.xml"),
-          File.new("rights.xml")
+          File.new('container.xml', CONTAINER_SCHEMA),
+          File.new('manifest.xml', MANIFEST_SCHEMA),
+          File.new('metadata.xml'),
+          File.new('signatures.xml'),
+          File.new('encryption.xml'),
+          File.new('rights.xml')
         ]
       )
     end

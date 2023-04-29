@@ -81,10 +81,10 @@ class TestReadFile < Minitest::Test
   # Check the raw mimetype bytes
   def test_raw_mimetypes
     empty_ucf = File.read($ucf_empty)
-    assert_equal("application/epub+zip", empty_ucf[38..57])
+    assert_equal('application/epub+zip', empty_ucf[38..57])
 
     compressed_mimetype = File.read($ucf_compressed_mimetype)
-    refute_equal("application/epub+zip", compressed_mimetype[38..57])
+    refute_equal('application/epub+zip', compressed_mimetype[38..57])
   end
 
   # Check reading files out of a ucf file and make sure we don't change it.
@@ -93,17 +93,17 @@ class TestReadFile < Minitest::Test
       assert(ucf.on_disk?)
       refute(ucf.in_memory?)
 
-      assert(ucf.file.exists?("greeting.txt"))
+      assert(ucf.file.exists?('greeting.txt'))
 
-      greeting = ucf.file.read("greeting.txt")
+      greeting = ucf.file.read('greeting.txt')
       assert_equal("Hello, World!\n", greeting)
 
-      assert(ucf.file.exists?("dir"))
-      assert(ucf.file.directory?("dir"))
+      assert(ucf.file.exists?('dir'))
+      assert(ucf.file.directory?('dir'))
 
-      assert(ucf.file.exists?("dir/code.rb"))
+      assert(ucf.file.exists?('dir/code.rb'))
 
-      assert_equal("This is an example UCF file!", ucf.comment)
+      assert_equal('This is an example UCF file!', ucf.comment)
 
       refute(ucf.commit_required?)
       refute(ucf.commit)

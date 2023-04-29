@@ -53,18 +53,18 @@ begin
   UCF::File.create(ucffile) do |c|
 
     # Add a cheery greeting file from a string.
-    c.file.open("greeting.txt", "w") do |f|
-      f.puts "Hello, World!"
+    c.file.open('greeting.txt', 'w') do |f|
+      f.puts 'Hello, World!'
     end
 
     # Create a subdirectory.
-    c.dir.mkdir("dir")
+    c.dir.mkdir('dir')
 
     # Copy this example code in straight from a file.
-    c.add("dir/code.rb", __FILE__)
+    c.add('dir/code.rb', __FILE__)
 
     # Add a explanation of this file.
-    c.comment = "This is an example UCF file!"
+    c.comment = 'This is an example UCF file!'
   end
 rescue ZipContainer::MalformedContainerError, ZipContainer::Error => err
   puts err.to_s

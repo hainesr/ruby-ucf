@@ -296,23 +296,3 @@ Style/RedundantInterpolation:
 Style/StringConcatenation:
   Exclude:
     - 'Rakefile'
-
-# Offense count: 250
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Exclude:
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'examples/create-ucf'
-    - 'examples/ucfinfo'
-    - 'lib/ucf/dir.rb'
-    - 'lib/ucf/file.rb'
-    - 'lib/ucf/meta-inf.rb'
-    - 'test/create_file_test.rb'
-    - 'test/managed_entries_test.rb'
-    - 'test/read_file_test.rb'
-    - 'test/reserved_names_test.rb'
-    - 'test/test_helper.rb'
-    - 'ucf.gemspec'

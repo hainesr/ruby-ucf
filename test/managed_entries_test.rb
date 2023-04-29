@@ -41,11 +41,11 @@ class ManagedUCF < UCF::File
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(ZipContainer::ManagedDirectory.new("src",
+    register_managed_entry(ZipContainer::ManagedDirectory.new('src',
       :required => true))
-    register_managed_entry(ZipContainer::ManagedDirectory.new("test"))
-    register_managed_entry(ZipContainer::ManagedDirectory.new("lib"))
-    register_managed_entry(ZipContainer::ManagedFile.new("index.html",
+    register_managed_entry(ZipContainer::ManagedDirectory.new('test'))
+    register_managed_entry(ZipContainer::ManagedDirectory.new('lib'))
+    register_managed_entry(ZipContainer::ManagedFile.new('index.html',
       :required => true))
   end
 
@@ -57,9 +57,9 @@ class ExampleUCF < UCF::File
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(ZipContainer::ManagedDirectory.new("dir",
+    register_managed_entry(ZipContainer::ManagedDirectory.new('dir',
       :required => true))
-    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
+    register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt',
       :required => true))
   end
 
@@ -73,7 +73,7 @@ class ExampleUCF2 < UCF::File
     super(filename)
 
     valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
-    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
+    register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt',
        :required => true, :validation_proc => valid))
   end
 
@@ -88,7 +88,7 @@ class ExampleUCFDir < UCF::Dir
 
     valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
 
-    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
+    register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt',
        :required => true, :validation_proc => valid))
   end
 
@@ -130,11 +130,11 @@ class TestManagedEntries < Minitest::Test
   # are verified correctly.
   def test_create_standard_container
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, 'test.ucf')
 
       UCF::File.create(filename) do |c|
-        c.mkdir("META-INF")
-        assert(c.file.exists?("META-INF"))
+        c.mkdir('META-INF')
+        assert(c.file.exists?('META-INF'))
 
         %w(container.xml manifest.xml).each do |file|
           full_path = "META-INF/#{file}"
@@ -150,7 +150,7 @@ class TestManagedEntries < Minitest::Test
   # Check that a ManagedUCF does not verify immediately after creation.
   def test_create_bad_subclassed_container
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, 'test.ucf')
 
       ManagedUCF.create(filename) do |c|
         assert_raises(ZipContainer::MalformedContainerError) do
@@ -168,12 +168,12 @@ class TestManagedEntries < Minitest::Test
   # Check that a ManagedUCF does verify when required objects are added.
   def test_create_subclassed_container
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, 'test.ucf')
 
       ManagedUCF.create(filename) do |c|
-        c.dir.mkdir("src")
-        c.file.open("index.html", "w") do |f|
-          f.puts "<html />"
+        c.dir.mkdir('src')
+        c.file.open('index.html', 'w') do |f|
+          f.puts '<html />'
         end
       end
 
@@ -186,22 +186,22 @@ class TestManagedEntries < Minitest::Test
   # with the correct contents.
   def test_create_subclassed_container_with_content_verification
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, 'test.ucf')
 
       ExampleUCF2.create(filename) do |c|
         assert_raises(ZipContainer::MalformedContainerError) do
           c.verify!
         end
 
-        c.file.open("greeting.txt", "w") do |f|
-          f.puts "Goodbye!"
+        c.file.open('greeting.txt', 'w') do |f|
+          f.puts 'Goodbye!'
         end
 
         assert_raises(ZipContainer::MalformedContainerError) do
           c.verify!
         end
 
-        c.file.open("greeting.txt", "w") do |f|
+        c.file.open('greeting.txt', 'w') do |f|
           f.puts "Hello, Y'All!"
         end
 

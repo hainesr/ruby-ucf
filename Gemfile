@@ -30,6 +30,6 @@
 #
 # Author: Robert Haines
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 gemspec

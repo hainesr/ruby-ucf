@@ -33,21 +33,21 @@
 require_relative 'lib/ucf/version'
 
 Gem::Specification.new do |s|
-  s.name        = "ucf"
+  s.name        = 'ucf'
   s.version     = UCF::VERSION
-  s.authors     = ["Robert Haines", "Finn Bacall"]
-  s.email       = ["robert.haines@manchester.ac.uk"]
-  s.homepage    = "https://github.com/hainesr/ruby-ucf"
+  s.authors     = ['Robert Haines', 'Finn Bacall']
+  s.email       = ['robert.haines@manchester.ac.uk']
+  s.homepage    = 'https://github.com/hainesr/ruby-ucf'
   s.platform    = Gem::Platform::RUBY
-  s.summary     = "Universal Container Format (UCF) Ruby Library"
-  s.description = "A Ruby library for working with Universal Container "\
-    "Format files - a type of EPUB document. See the UCF specification "\
-    "(https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format) "\
-    "for details. They are very similar, although not as restrictive, as "\
-    "the EPUB Open Container Format (OCF) "\
-    "(http://www.idpf.org/epub/30/spec/epub30-ocf.html)."
-  s.license          = "BSD"
-  s.require_paths    = ["lib"]
+  s.summary     = 'Universal Container Format (UCF) Ruby Library'
+  s.description = 'A Ruby library for working with Universal Container '\
+    'Format files - a type of EPUB document. See the UCF specification '\
+    '(https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format) '\
+    'for details. They are very similar, although not as restrictive, as '\
+    'the EPUB Open Container Format (OCF) '\
+    '(http://www.idpf.org/epub/30/spec/epub30-ocf.html).'
+  s.license          = 'BSD'
+  s.require_paths    = ['lib']
   s.files            = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
@@ -60,12 +60,12 @@ Gem::Specification.new do |s|
     'rubygems_mfa_required' => 'true'
   }
 
-  s.required_ruby_version = ">= 2.6"
+  s.required_ruby_version = '>= 2.6'
 
   s.add_development_dependency 'minitest', '~> 5.16.0'
-  s.add_development_dependency "nokogiri", "~> 1.13.0"
-  s.add_development_dependency "rake", "~> 13.0"
-  s.add_development_dependency "rdoc", "~> 6.4.0"
+  s.add_development_dependency 'nokogiri', '~> 1.13.0'
+  s.add_development_dependency 'rake', '~> 13.0'
+  s.add_development_dependency 'rdoc', '~> 6.4.0'
   s.add_development_dependency 'rubocop', '~> 1.50.0'
   s.add_development_dependency 'rubocop-minitest', '~> 0.30.0'
   s.add_development_dependency 'rubocop-performance', '~> 1.17.0'
@@ -73,5 +73,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov', '0.18.3'
   s.add_development_dependency 'simplecov-lcov', '~> 0.8.0'
 
-  s.add_runtime_dependency "zip-container", "~> 4.0.1"
+  s.add_runtime_dependency 'zip-container', '~> 4.0.1'
 end
