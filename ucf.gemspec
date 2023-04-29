@@ -60,7 +60,7 @@ Gem::Specification.new do |s|
     'rubygems_mfa_required' => 'true'
   }
 
-  s.required_ruby_version = ">= 1.9.3"
+  s.required_ruby_version = ">= 2.6"
 
   s.add_development_dependency "rake", "~> 13.0"
   s.add_development_dependency "rdoc", "~> 6.4.0"
