@@ -63,9 +63,9 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 2.6"
 
   s.add_development_dependency 'minitest', '~> 5.16.0'
+  s.add_development_dependency "nokogiri", "~> 1.13.0"
   s.add_development_dependency "rake", "~> 13.0"
   s.add_development_dependency "rdoc", "~> 6.4.0"
-  s.add_development_dependency "nokogiri", "~> 1.13.0"
   s.add_development_dependency 'rubocop', '~> 1.50.0'
   s.add_development_dependency 'rubocop-minitest', '~> 0.30.0'
   s.add_development_dependency 'rubocop-performance', '~> 1.17.0'
