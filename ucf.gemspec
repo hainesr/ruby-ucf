@@ -38,8 +38,8 @@ Gem::Specification.new do |s|
   s.name        = "ucf"
   s.version     = UCF::Version::STRING
   s.authors     = ["Robert Haines", "Finn Bacall"]
-  s.email       = ["support@mygrid.org.uk"]
-  s.homepage    = "http://mygrid.github.io/ruby-ucf/"
+  s.email       = ["robert.haines@manchester.ac.uk"]
+  s.homepage    = "https://github.com/hainesr/ruby-ucf"
   s.platform    = Gem::Platform::RUBY
   s.summary     = "Universal Container Format (UCF) Ruby Library"
   s.description = "A Ruby library for working with Universal Container "\
@@ -53,6 +53,14 @@ Gem::Specification.new do |s|
   s.files            = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
+
+  s.metadata      = {
+    'bug_tracker_uri'       => 'https://github.com/hainesr/ruby-ucf/issues',
+    'changelog_uri'         => "https://github.com/hainesr/ruby-ucf/blob/v#{s.version}/Changelog.md",
+    'documentation_uri'     => 'https://hainesr.github.io/ruby-ucf',
+    'source_code_uri'       => "https://github.com/hainesr/ruby-ucf/tree/v#{s.version}",
+    'rubygems_mfa_required' => 'true'
+  }
 
   s.required_ruby_version = ">= 1.9.3"
 
