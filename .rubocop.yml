@@ -1,0 +1,60 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-minitest
+  - rubocop-performance
+  - rubocop-rake
+
+# Set our base version of ruby and enable all cops.
+AllCops:
+  TargetRubyVersion: 2.6
+  NewCops: enable
+
+# I think 'has_key?' looks better than 'key?'.
+Style/PreferredHashMethods:
+  EnforcedStyle: verbose
+
+# Allow long lines in the tests.
+Layout/LineLength:
+  Max: 100
+  Exclude:
+    - 'test/**/*.rb'
+
+# Force ruby19 style hash keys, but be consistent within a hash.
+Style/HashSyntax:
+  EnforcedStyle: ruby19_no_mixed_keys
+
+# Enforce %w notation in the library code, but be less strict in tests.
+Style/WordArray:
+  Exclude:
+    - 'test/**/*.rb'
+
+# Ignore ABC failures in the tests.
+Metrics/AbcSize:
+  Exclude:
+    - 'test/**/*.rb'
+
+# Ignore block length failures in the tests.
+Metrics/BlockLength:
+  Exclude:
+    - 'ucf.gemspec'
+    - 'test/**/*.rb'
+
+# Set a more reasonable method length and ignore failures in the tests.
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - 'test/**/*.rb'
+
+# Set a more reasonable class length and ignore failures in the tests.
+Metrics/ClassLength:
+  Max: 150
+  Exclude:
+    - 'test/**/*.rb'
+
+# This is still too high, but we'll get there.
+Minitest/MultipleAssertions:
+  Max: 10
+
+Style/DocumentDynamicEvalDefinition:
+  Enabled: true

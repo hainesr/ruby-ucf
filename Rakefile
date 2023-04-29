@@ -34,6 +34,7 @@ require "bundler/gem_tasks"
 require 'minitest/test_task'
 require "rake/testtask"
 require "rdoc/task"
+require 'rubocop/rake_task'
 
 task default: :test
 
@@ -52,3 +53,5 @@ RDoc::Task.new do |r|
   r.options << "-N"
   r.options << "--tab-width=2"
 end
+
+RuboCop::RakeTask.new
