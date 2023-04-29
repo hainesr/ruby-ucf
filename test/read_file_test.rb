@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2015 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,43 +30,39 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require_relative 'test_helper'
 require 'ucf'
 
-class TestReadFile < Test::Unit::TestCase
+class TestReadFile < Minitest::Test
 
   # Check that the null file does not verify.
   def test_verify_null_file
-    assert_raise(ZipContainer::Error) do
+    assert_raises(ZipContainer::Error) do
       UCF::File.verify!($file_null)
     end
 
-    assert_raise(ZipContainer::Error) do
+    assert_raises(ZipContainer::Error) do
       UCF::File.verify?($file_null)
     end
   end
 
   # Check that the empty ucf file does verify.
   def test_verify_empty_ucf
-    assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::Error) do
-      UCF::File.verify!($ucf_empty)
-    end
+    UCF::File.verify!($ucf_empty)
 
     assert(UCF::File.verify?($ucf_empty))
   end
 
   # Check that the example ucf file does verify.
   def test_verify_example_ucf
-    assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::Error) do
-      UCF::File.verify!($ucf_example)
-    end
+    UCF::File.verify!($ucf_example)
 
     assert(UCF::File.verify?($ucf_example))
   end
 
   # Check that the empty zip file does not verify.
   def test_verify_empty_zip
-    assert_raise(ZipContainer::MalformedContainerError) do
+    assert_raises(ZipContainer::MalformedContainerError) do
       UCF::File.verify!($zip_empty)
     end
 
@@ -75,7 +71,7 @@ class TestReadFile < Test::Unit::TestCase
 
   # Check that a compressed mimetype file is detected.
   def test_verify_compressed_mimetype
-    assert_raise(ZipContainer::MalformedContainerError) do
+    assert_raises(ZipContainer::MalformedContainerError) do
       UCF::File.verify!($ucf_compressed_mimetype)
     end
 
@@ -88,31 +84,29 @@ class TestReadFile < Test::Unit::TestCase
     assert_equal("application/epub+zip", empty_ucf[38..57])
 
     compressed_mimetype = File.read($ucf_compressed_mimetype)
-    assert_not_equal("application/epub+zip", compressed_mimetype[38..57])
+    refute_equal("application/epub+zip", compressed_mimetype[38..57])
   end
 
   # Check reading files out of a ucf file and make sure we don't change it.
   def test_read_files_from_ucf
-    assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::Error) do
-      UCF::File.open($ucf_example) do |ucf|
-        assert(ucf.on_disk?)
-        refute(ucf.in_memory?)
+    UCF::File.open($ucf_example) do |ucf|
+      assert(ucf.on_disk?)
+      refute(ucf.in_memory?)
 
-        assert(ucf.file.exists?("greeting.txt"))
+      assert(ucf.file.exists?("greeting.txt"))
 
-        greeting = ucf.file.read("greeting.txt")
-        assert_equal("Hello, World!\n", greeting)
+      greeting = ucf.file.read("greeting.txt")
+      assert_equal("Hello, World!\n", greeting)
 
-        assert(ucf.file.exists?("dir"))
-        assert(ucf.file.directory?("dir"))
+      assert(ucf.file.exists?("dir"))
+      assert(ucf.file.directory?("dir"))
 
-        assert(ucf.file.exists?("dir/code.rb"))
+      assert(ucf.file.exists?("dir/code.rb"))
 
-        assert_equal("This is an example UCF file!", ucf.comment)
+      assert_equal("This is an example UCF file!", ucf.comment)
 
-        refute(ucf.commit_required?)
-        refute(ucf.commit)
-      end
+      refute(ucf.commit_required?)
+      refute(ucf.commit)
     end
   end
 

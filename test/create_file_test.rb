@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2015 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,29 +30,25 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require_relative 'test_helper'
 require 'tmpdir'
 require 'ucf'
 
-class TestCreateFile < Test::Unit::TestCase
+class TestCreateFile < Minitest::Test
 
   # Check creation of standard empty ucf files.
   def test_create_standard_file
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
 
-      assert_nothing_raised do
-        UCF::File.create(filename) do |c|
-          assert(c.on_disk?)
-          refute(c.in_memory?)
+      UCF::File.create(filename) do |c|
+        assert(c.on_disk?)
+        refute(c.in_memory?)
 
-          assert(c.find_entry("mimetype").local_header_offset == 0)
-        end
+        assert(c.find_entry("mimetype").local_header_offset == 0)
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::Error) do
-        UCF::File.verify!(filename)
-      end
+      UCF::File.verify!(filename)
     end
   end
 
@@ -63,20 +59,16 @@ class TestCreateFile < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
 
-      assert_nothing_raised do
-        UCF::File.create(filename, mimetype) do |c|
-          assert(c.on_disk?)
-          refute(c.in_memory?)
+      UCF::File.create(filename, mimetype) do |c|
+        assert(c.on_disk?)
+        refute(c.in_memory?)
 
-          assert(c.find_entry("mimetype").local_header_offset == 0)
+        assert(c.find_entry("mimetype").local_header_offset == 0)
 
-          assert_equal mimetype, c.read("mimetype")
-        end
+        assert_equal(mimetype, c.read("mimetype"))
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::Error) do
-        UCF::File.verify!(filename)
-      end
+      UCF::File.verify!(filename)
     end
   end
 
@@ -86,55 +78,51 @@ class TestCreateFile < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
 
-      assert_nothing_raised do
-        UCF::File.create(filename) do |ucf|
-          assert(ucf.on_disk?)
-          refute(ucf.in_memory?)
+      UCF::File.create(filename) do |ucf|
+        assert(ucf.on_disk?)
+        refute(ucf.in_memory?)
 
-          ucf.file.open("test.txt", "w") do |f|
-            f.print "testing"
-          end
-
-          assert(ucf.commit_required?)
-          assert(ucf.commit)
-          refute(ucf.commit_required?)
-          refute(ucf.commit)
-
-          ucf.dir.mkdir("dir1")
-          ucf.mkdir("dir2")
-
-          assert(ucf.commit_required?)
-          assert(ucf.commit)
-          refute(ucf.commit_required?)
-          refute(ucf.commit)
-
-          ucf.comment = "A comment!"
-
-          assert(ucf.commit_required?)
-          assert(ucf.commit)
-          refute(ucf.commit_required?)
-          refute(ucf.commit)
+        ucf.file.open("test.txt", "w") do |f|
+          f.print "testing"
         end
+
+        assert(ucf.commit_required?)
+        assert(ucf.commit)
+        refute(ucf.commit_required?)
+        refute(ucf.commit)
+
+        ucf.dir.mkdir("dir1")
+        ucf.mkdir("dir2")
+
+        assert(ucf.commit_required?)
+        assert(ucf.commit)
+        refute(ucf.commit_required?)
+        refute(ucf.commit)
+
+        ucf.comment = "A comment!"
+
+        assert(ucf.commit_required?)
+        assert(ucf.commit)
+        refute(ucf.commit_required?)
+        refute(ucf.commit)
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::Error) do
-        UCF::File.open(filename) do |ucf|
-          assert(ucf.on_disk?)
-          refute(ucf.in_memory?)
+      UCF::File.open(filename) do |ucf|
+        assert(ucf.on_disk?)
+        refute(ucf.in_memory?)
 
-          assert(ucf.file.exists?("test.txt"))
-          assert(ucf.file.exists?("dir1"))
-          assert(ucf.file.exists?("dir2"))
-          refute(ucf.file.exists?("dir3"))
+        assert(ucf.file.exists?("test.txt"))
+        assert(ucf.file.exists?("dir1"))
+        assert(ucf.file.exists?("dir2"))
+        refute(ucf.file.exists?("dir3"))
 
-          text = ucf.file.read("test.txt")
-          assert_equal("testing", text)
+        text = ucf.file.read("test.txt")
+        assert_equal("testing", text)
 
-          assert_equal("A comment!", ucf.comment)
+        assert_equal("A comment!", ucf.comment)
 
-          refute(ucf.commit_required?)
-          refute(ucf.commit)
-        end
+        refute(ucf.commit_required?)
+        refute(ucf.commit)
       end
     end
   end

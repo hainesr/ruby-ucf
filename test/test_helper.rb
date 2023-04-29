@@ -1,4 +1,4 @@
-# Copyright (c) 2014, 2015 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,27 +30,18 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
-require 'ucf'
+require 'simplecov'
+require 'minitest/autorun'
 
-class TestReadDir < Test::Unit::TestCase
+Minitest::Test.make_my_diffs_pretty!
 
-  # Check that the empty directory does not verify.
-  def test_verify_empty_directory
-    assert_raise(ZipContainer::MalformedContainerError) do
-      UCF::Dir.verify!($dir_null)
-    end
-
-    refute(UCF::Dir.verify?($dir_null))
-  end
-
-  # Check that the empty container directory does verify.
-  def test_verify_empty_container
-    assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      UCF::Dir.verify!($dir_empty)
-    end
-
-    assert(UCF::Dir.verify?($dir_empty))
-  end
-
-end
+# Example data files and directories.
+$dir_null  = "test/data/dirs/null"
+$dir_empty = "test/data/dirs/empty"
+$dir_mngd  = "test/data/dirs/managed"
+$file_null = "test/data/null.file"
+$ucf_empty = "test/data/empty.ucf"
+$zip_empty = "test/data/empty.zip"
+$ucf_compressed_mimetype = "test/data/compressed_mimetype.ucf"
+$ucf_example = "test/data/example.ucf"
+$meta_inf_dir = "test/data/META-INF"

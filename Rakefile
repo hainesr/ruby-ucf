@@ -31,15 +31,14 @@
 # Author: Robert Haines
 
 require "bundler/gem_tasks"
+require 'minitest/test_task'
 require "rake/testtask"
 require "rdoc/task"
 
-task :default => [:test]
+task default: :test
 
-Rake::TestTask.new do |t|
-  t.libs << "test"
-  t.test_files = FileList['test/ts_ucf.rb']
-  t.verbose = true
+Minitest::TestTask.create do |test|
+  test.test_globs = 'test/**/*_test.rb'
 end
 
 RDoc::Task.new do |r|

@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2015 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require_relative 'test_helper'
 require 'ucf'
 
 # A class to test the overriding of reserved and managed names.
@@ -50,15 +50,13 @@ class NewUCF < UCF::File
 
 end
 
-class TestReservedNames < Test::Unit::TestCase
+class TestReservedNames < Minitest::Test
 
   # Check that the reserved names verify correctly.
   def test_verify_reserved_name
     assert(NewUCF.verify?($ucf_example))
 
-    assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      NewUCF.verify!($ucf_example)
-    end
+    NewUCF.verify!($ucf_example)
   end
 
   # Check the reserved names stuff all works correctly, baring in mind that
@@ -300,16 +298,12 @@ class TestReservedNames < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::ReservedNameClashError) do
-        ucf.file.open("mimetype") do |f|
-          assert_equal("application/epub+zip", f.read)
-        end
+      ucf.file.open("mimetype") do |f|
+        assert_equal("application/epub+zip", f.read)
       end
 
-      assert_nothing_raised(ZipContainer::ReservedNameClashError) do
-        ucf.file.delete("mimetype")
-        assert(ucf.file.exists?("mimetype"))
-      end
+      ucf.file.delete("mimetype")
+      assert(ucf.file.exists?("mimetype"))
     end
   end
 
@@ -329,16 +323,12 @@ class TestReservedNames < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::ReservedNameClashError) do
-        ucf.file.open("mimetype") do |f|
-          assert_equal("application/epub+zip", f.read)
-        end
+      ucf.file.open("mimetype") do |f|
+        assert_equal("application/epub+zip", f.read)
       end
 
-      assert_nothing_raised(ZipContainer::ReservedNameClashError) do
-        ucf.file.delete("mimetype")
-        assert(ucf.file.exists?("mimetype"))
-      end
+      ucf.file.delete("mimetype")
+      assert(ucf.file.exists?("mimetype"))
 
       assert_raises(ZipContainer::ReservedNameClashError) do
         ucf.dir.mkdir("index.html")

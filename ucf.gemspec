@@ -62,9 +62,9 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 2.6"
 
+  s.add_development_dependency 'minitest', '~> 5.16.0'
   s.add_development_dependency "rake", "~> 13.0"
   s.add_development_dependency "rdoc", "~> 6.4.0"
-  s.add_development_dependency "test-unit", "~> 3.0"
   s.add_development_dependency "nokogiri", "~> 1.13.0"
   s.add_development_dependency 'simplecov', '0.18.3'
   s.add_development_dependency 'simplecov-lcov', '~> 0.8.0'

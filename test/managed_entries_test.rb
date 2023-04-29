@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2015 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require_relative 'test_helper'
 require 'tmpdir'
 require 'ucf'
 
@@ -94,7 +94,7 @@ class ExampleUCFDir < UCF::Dir
 
 end
 
-class TestManagedEntries < Test::Unit::TestCase
+class TestManagedEntries < Minitest::Test
 
   # Check that the example UCF document does not validate as a ManagedUCF.
   def test_fail_verification
@@ -109,27 +109,21 @@ class TestManagedEntries < Test::Unit::TestCase
   def test_pass_verification
     assert(ExampleUCF.verify?($ucf_example))
 
-    assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      ExampleUCF.verify!($ucf_example)
-    end
+    ExampleUCF.verify!($ucf_example)
   end
 
   # Check that the example UCF document does validate as an ExampleUCF2.
   def test_pass_verification_2
     assert(ExampleUCF2.verify?($ucf_example))
 
-    assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      ExampleUCF2.verify!($ucf_example)
-    end
+    ExampleUCF2.verify!($ucf_example)
   end
 
   # Check that the example UCF directory validates.
   def test_pass_verification_dir
     assert(ExampleUCFDir.verify?($dir_mngd))
 
-    assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      ExampleUCFDir.verify!($dir_mngd)
-    end
+    ExampleUCFDir.verify!($dir_mngd)
   end
 
   # Check that a standard UCF Container can be created and things within it
@@ -138,22 +132,18 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
 
-      assert_nothing_raised do
-        UCF::File.create(filename) do |c|
-          c.mkdir("META-INF")
-          assert(c.file.exists?("META-INF"))
+      UCF::File.create(filename) do |c|
+        c.mkdir("META-INF")
+        assert(c.file.exists?("META-INF"))
 
-          %w(container.xml manifest.xml).each do |file|
-            full_path = "META-INF/#{file}"
-            c.add(full_path, File.join($meta_inf_dir, file))
-            assert(c.file.exists?(full_path))
-          end
+        %w(container.xml manifest.xml).each do |file|
+          full_path = "META-INF/#{file}"
+          c.add(full_path, File.join($meta_inf_dir, file))
+          assert(c.file.exists?(full_path))
         end
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError) do
-        UCF::File.verify!(filename)
-      end
+      UCF::File.verify!(filename)
     end
   end
 
@@ -162,11 +152,9 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
 
-      assert_nothing_raised do
-        ManagedUCF.create(filename) do |c|
-          assert_raises(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
+      ManagedUCF.create(filename) do |c|
+        assert_raises(ZipContainer::MalformedContainerError) do
+          c.verify!
         end
       end
 
@@ -182,19 +170,15 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
 
-      assert_nothing_raised do
-        ManagedUCF.create(filename) do |c|
-          c.dir.mkdir("src")
-          c.file.open("index.html", "w") do |f|
-            f.puts "<html />"
-          end
+      ManagedUCF.create(filename) do |c|
+        c.dir.mkdir("src")
+        c.file.open("index.html", "w") do |f|
+          f.puts "<html />"
         end
       end
 
       assert(ManagedUCF.verify?(filename))
-      assert_nothing_raised(ZipContainer::MalformedContainerError) do
-        ManagedUCF.verify!(filename)
-      end
+      ManagedUCF.verify!(filename)
     end
   end
 
@@ -204,34 +188,28 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.ucf")
 
-      #assert_nothing_raised do
-        ExampleUCF2.create(filename) do |c|
-          assert_raises(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
-
-          c.file.open("greeting.txt", "w") do |f|
-            f.puts "Goodbye!"
-          end
-
-          assert_raises(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
-
-          c.file.open("greeting.txt", "w") do |f|
-            f.puts "Hello, Y'All!"
-          end
-
-          assert_nothing_raised(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
+      ExampleUCF2.create(filename) do |c|
+        assert_raises(ZipContainer::MalformedContainerError) do
+          c.verify!
         end
-      #end
+
+        c.file.open("greeting.txt", "w") do |f|
+          f.puts "Goodbye!"
+        end
+
+        assert_raises(ZipContainer::MalformedContainerError) do
+          c.verify!
+        end
+
+        c.file.open("greeting.txt", "w") do |f|
+          f.puts "Hello, Y'All!"
+        end
+
+        c.verify!
+      end
 
       assert(ExampleUCF2.verify?(filename))
-      assert_nothing_raised(ZipContainer::MalformedContainerError) do
-        ExampleUCF2.verify!(filename)
-      end
+      ExampleUCF2.verify!(filename)
     end
   end
 
