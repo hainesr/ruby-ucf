@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# Copyright (c) 2013-2015 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -46,7 +46,7 @@ ucffile = ARGV[0]
 
 begin
   UCF::File.verify!(ucffile)
-rescue ZipContainer::MalformedContainerError, ZipContainer::Error => err
-  puts err.to_s
+rescue ZipContainer::MalformedContainerError, ZipContainer::Error => e
+  puts e.to_s
   exit 1
 end
