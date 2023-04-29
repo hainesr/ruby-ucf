@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -47,7 +47,7 @@ RDoc::Task.new do |r|
   lib = Dir.glob("lib/**/*.rb").delete_if do |item|
     item.include?("meta-inf.rb")
   end
-  r.rdoc_files.include("ReadMe.rdoc", "Licence.rdoc", "Changes.rdoc", lib)
+  r.rdoc_files.include("ReadMe.rdoc", "LICENCE", "CHANGES.md", lib)
   r.options << "-t Universal Container Format Ruby Library version " +
     "#{UCF::Version::STRING}"
   r.options << "-N"

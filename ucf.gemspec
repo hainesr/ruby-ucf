@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2018 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -49,17 +49,18 @@ Gem::Specification.new do |s|
     "the EPUB Open Container Format (OCF) "\
     "(http://www.idpf.org/epub/30/spec/epub30-ocf.html)."
   s.license          = "BSD"
-  s.require_path     = "lib"
-  s.files            = `git ls-files`.split($/)
-  s.test_files       = `git ls-files -- test/*`.split($/)
-  s.has_rdoc         = true
-  s.extra_rdoc_files = [ "Changes.rdoc", "Licence.rdoc", "ReadMe.rdoc" ]
-  s.rdoc_options     = ["-N", "--tab-width=2", "--main=ReadMe.rdoc"]
+  s.require_paths    = ["lib"]
+  s.files            = `git ls-files -z`.split("\x0").reject do |f|
+    f.match(%r{^(test|spec|features)/})
+  end
+
   s.required_ruby_version = ">= 1.9.3"
+
   s.add_development_dependency "rake", "~> 13.0"
-  s.add_development_dependency "rdoc", "~> 4.1"
+  s.add_development_dependency "rdoc", "~> 6.4.0"
   s.add_development_dependency "test-unit", "~> 3.0"
   s.add_development_dependency "coveralls"
   s.add_development_dependency "nokogiri", "~> 1.6"
+
   s.add_runtime_dependency "zip-container", "~> 4.0.1"
 end
