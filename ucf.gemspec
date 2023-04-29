@@ -30,13 +30,11 @@
 #
 # Author: Robert Haines
 
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "ucf/version"
+require_relative 'lib/ucf/version'
 
 Gem::Specification.new do |s|
   s.name        = "ucf"
-  s.version     = UCF::Version::STRING
+  s.version     = UCF::VERSION
   s.authors     = ["Robert Haines", "Finn Bacall"]
   s.email       = ["robert.haines@manchester.ac.uk"]
   s.homepage    = "https://github.com/hainesr/ruby-ucf"

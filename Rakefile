@@ -49,7 +49,7 @@ RDoc::Task.new do |r|
   end
   r.rdoc_files.include("ReadMe.rdoc", "LICENCE", "CHANGES.md", lib)
   r.options << "-t Universal Container Format Ruby Library version " +
-    "#{UCF::Version::STRING}"
+    "#{UCF::VERSION}"
   r.options << "-N"
   r.options << "--tab-width=2"
 end

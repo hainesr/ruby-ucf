@@ -30,17 +30,6 @@
 #
 # Author: Robert Haines
 
-require 'yaml'
-
 module UCF
-
-  # Library version information.
-  module Version
-    # Version information in a Hash
-    INFO = YAML.load_file(File.join(File.dirname(__FILE__), "..", "..",
-      "version.yml"))
-
-    # Version number as a String
-    STRING = [:major, :minor, :patch].map {|d| INFO[d]}.compact.join('.')
-  end
+  VERSION = '3.0.0'
 end
