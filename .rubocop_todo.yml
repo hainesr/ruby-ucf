@@ -72,12 +72,6 @@ Layout/SpaceAroundOperators:
   Exclude:
     - 'ucf.gemspec'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Lint/DeprecatedClassMethods:
-  Exclude:
-    - 'examples/create-ucf'
-
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
 Lint/RedundantStringCoercion:

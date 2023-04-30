@@ -44,7 +44,7 @@ usage unless ARGV.length == 1
 
 ucffile = ARGV[0]
 
-if File.exists?(ucffile)
+if File.exist?(ucffile)
   puts "File '#{ucffile}' already exists. Exiting."
   exit 1
 end
