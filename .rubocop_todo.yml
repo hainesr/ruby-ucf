@@ -149,13 +149,6 @@ Minitest/EmptyLineBeforeAssertionMethods:
     - 'test/read_file_test.rb'
     - 'test/reserved_names_test.rb'
 
-# Offense count: 10
-# This cop supports safe autocorrection (--autocorrect).
-Minitest/RefutePredicate:
-  Exclude:
-    - 'test/create_file_test.rb'
-    - 'test/read_file_test.rb'
-
 # Offense count: 1
 # Configuration parameters: ExpectMatchingDefinition, CheckDefinitionPathHierarchy, CheckDefinitionPathHierarchyRoots, Regex, IgnoreExecutableScripts, AllowedAcronyms.
 # CheckDefinitionPathHierarchyRoots: lib, spec, test, src

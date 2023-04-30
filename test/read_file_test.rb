@@ -91,7 +91,7 @@ class TestReadFile < Minitest::Test
   def test_read_files_from_ucf
     UCF::File.open(UCF_EXAMPLE) do |ucf|
       assert(ucf.on_disk?)
-      refute(ucf.in_memory?)
+      refute_predicate(ucf, :in_memory?)
 
       assert(ucf.file.exists?('greeting.txt'))
 
@@ -105,7 +105,7 @@ class TestReadFile < Minitest::Test
 
       assert_equal('This is an example UCF file!', ucf.comment)
 
-      refute(ucf.commit_required?)
+      refute_predicate(ucf, :commit_required?)
       refute(ucf.commit)
     end
   end

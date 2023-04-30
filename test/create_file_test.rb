@@ -43,7 +43,7 @@ class TestCreateFile < Minitest::Test
 
       UCF::File.create(filename) do |c|
         assert(c.on_disk?)
-        refute(c.in_memory?)
+        refute_predicate(c, :in_memory?)
 
         assert_equal(0, c.find_entry('mimetype').local_header_offset)
       end
@@ -61,7 +61,7 @@ class TestCreateFile < Minitest::Test
 
       UCF::File.create(filename, mimetype) do |c|
         assert(c.on_disk?)
-        refute(c.in_memory?)
+        refute_predicate(c, :in_memory?)
 
         assert_equal(0, c.find_entry('mimetype').local_header_offset)
 
@@ -80,7 +80,7 @@ class TestCreateFile < Minitest::Test
 
       UCF::File.create(filename) do |ucf|
         assert(ucf.on_disk?)
-        refute(ucf.in_memory?)
+        refute_predicate(ucf, :in_memory?)
 
         ucf.file.open('test.txt', 'w') do |f|
           f.print 'testing'
@@ -88,7 +88,7 @@ class TestCreateFile < Minitest::Test
 
         assert(ucf.commit_required?)
         assert(ucf.commit)
-        refute(ucf.commit_required?)
+        refute_predicate(ucf, :commit_required?)
         refute(ucf.commit)
 
         ucf.dir.mkdir('dir1')
@@ -96,20 +96,20 @@ class TestCreateFile < Minitest::Test
 
         assert(ucf.commit_required?)
         assert(ucf.commit)
-        refute(ucf.commit_required?)
+        refute_predicate(ucf, :commit_required?)
         refute(ucf.commit)
 
         ucf.comment = 'A comment!'
 
         assert(ucf.commit_required?)
         assert(ucf.commit)
-        refute(ucf.commit_required?)
+        refute_predicate(ucf, :commit_required?)
         refute(ucf.commit)
       end
 
       UCF::File.open(filename) do |ucf|
         assert(ucf.on_disk?)
-        refute(ucf.in_memory?)
+        refute_predicate(ucf, :in_memory?)
 
         assert(ucf.file.exists?('test.txt'))
         assert(ucf.file.exists?('dir1'))
@@ -121,7 +121,7 @@ class TestCreateFile < Minitest::Test
 
         assert_equal('A comment!', ucf.comment)
 
-        refute(ucf.commit_required?)
+        refute_predicate(ucf, :commit_required?)
         refute(ucf.commit)
       end
     end
