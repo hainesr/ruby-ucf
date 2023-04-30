@@ -89,20 +89,12 @@ Minitest/EmptyLineBeforeAssertionMethods:
     - 'test/reserved_names_test.rb'
 
 # Offense count: 1
-# Configuration parameters: ExpectMatchingDefinition, CheckDefinitionPathHierarchy, CheckDefinitionPathHierarchyRoots, Regex, IgnoreExecutableScripts, AllowedAcronyms.
-# CheckDefinitionPathHierarchyRoots: lib, spec, test, src
-# AllowedAcronyms: CLI, DSL, ACL, API, ASCII, CPU, CSS, DNS, EOF, GUID, HTML, HTTP, HTTPS, ID, IP, JSON, LHS, QPS, RAM, RHS, RPC, SLA, SMTP, SQL, SSH, TCP, TLS, TTL, UDP, UI, UID, UUID, URI, URL, UTF8, VM, XML, XMPP, XSRF, XSS
-Naming/FileName:
-  Exclude:
-    - 'lib/ucf/meta-inf.rb'
-
-# Offense count: 1
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
-    - 'lib/ucf/meta-inf.rb'
+    - 'lib/ucf/meta_inf.rb'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
@@ -133,7 +125,7 @@ Style/FrozenStringLiteralComment:
 # SupportedShorthandSyntax: always, never, either, consistent
 Style/HashSyntax:
   Exclude:
-    - 'lib/ucf/meta-inf.rb'
+    - 'lib/ucf/meta_inf.rb'
     - 'test/managed_entries_test.rb'
 
 # Offense count: 3

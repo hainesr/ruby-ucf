@@ -36,7 +36,7 @@ require 'bundler/setup'
 require 'zip-container'
 
 require 'ucf/version'
-require 'ucf/meta-inf'
+require 'ucf/meta_inf'
 require 'ucf/dir'
 require 'ucf/file'
 
