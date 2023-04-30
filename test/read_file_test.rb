@@ -89,7 +89,7 @@ class TestReadFile < Minitest::Test
   # Check reading files out of a ucf file and make sure we don't change it.
   def test_read_files_from_ucf
     UCF::File.open(UCF_EXAMPLE) do |ucf|
-      assert(ucf.on_disk?)
+      assert_predicate(ucf, :on_disk?)
       refute_predicate(ucf, :in_memory?)
 
       assert(ucf.file.exists?('greeting.txt'))

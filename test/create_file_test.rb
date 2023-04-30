@@ -41,7 +41,7 @@ class TestCreateFile < Minitest::Test
       filename = File.join(dir, 'test.ucf')
 
       UCF::File.create(filename) do |c|
-        assert(c.on_disk?)
+        assert_predicate(c, :on_disk?)
         refute_predicate(c, :in_memory?)
 
         assert_equal(0, c.find_entry('mimetype').local_header_offset)
@@ -59,7 +59,7 @@ class TestCreateFile < Minitest::Test
       filename = File.join(dir, 'test.ucf')
 
       UCF::File.create(filename, mimetype) do |c|
-        assert(c.on_disk?)
+        assert_predicate(c, :on_disk?)
         refute_predicate(c, :in_memory?)
 
         assert_equal(0, c.find_entry('mimetype').local_header_offset)
@@ -78,14 +78,14 @@ class TestCreateFile < Minitest::Test
       filename = File.join(dir, 'test.ucf')
 
       UCF::File.create(filename) do |ucf|
-        assert(ucf.on_disk?)
+        assert_predicate(ucf, :on_disk?)
         refute_predicate(ucf, :in_memory?)
 
         ucf.file.open('test.txt', 'w') do |f|
           f.print 'testing'
         end
 
-        assert(ucf.commit_required?)
+        assert_predicate(ucf, :commit_required?)
         assert(ucf.commit)
         refute_predicate(ucf, :commit_required?)
         refute(ucf.commit)
@@ -93,21 +93,21 @@ class TestCreateFile < Minitest::Test
         ucf.dir.mkdir('dir1')
         ucf.mkdir('dir2')
 
-        assert(ucf.commit_required?)
+        assert_predicate(ucf, :commit_required?)
         assert(ucf.commit)
         refute_predicate(ucf, :commit_required?)
         refute(ucf.commit)
 
         ucf.comment = 'A comment!'
 
-        assert(ucf.commit_required?)
+        assert_predicate(ucf, :commit_required?)
         assert(ucf.commit)
         refute_predicate(ucf, :commit_required?)
         refute(ucf.commit)
       end
 
       UCF::File.open(filename) do |ucf|
-        assert(ucf.on_disk?)
+        assert_predicate(ucf, :on_disk?)
         refute_predicate(ucf, :in_memory?)
 
         assert(ucf.file.exists?('test.txt'))

@@ -57,13 +57,6 @@ Layout/SpaceAroundOperators:
 
 # Offense count: 8
 # This cop supports safe autocorrection (--autocorrect).
-Minitest/AssertPredicate:
-  Exclude:
-    - 'test/create_file_test.rb'
-    - 'test/read_file_test.rb'
-
-# Offense count: 8
-# This cop supports safe autocorrection (--autocorrect).
 Minitest/EmptyLineBeforeAssertionMethods:
   Exclude:
     - 'test/create_file_test.rb'
