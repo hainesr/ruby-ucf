@@ -113,7 +113,7 @@ class TestManagedEntries < Minitest::Test
   end
 
   # Check that the example UCF document does validate as an ExampleUCF2.
-  def test_pass_verification_2
+  def test_pass_verification2
     assert(ExampleUCF2.verify?(UCF_EXAMPLE))
 
     ExampleUCF2.verify!(UCF_EXAMPLE)
