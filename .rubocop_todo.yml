@@ -72,12 +72,6 @@ Layout/SpaceAroundOperators:
   Exclude:
     - 'ucf.gemspec'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Minitest/AssertEqual:
-  Exclude:
-    - 'test/create_file_test.rb'
-
 # Offense count: 8
 # This cop supports safe autocorrection (--autocorrect).
 Minitest/AssertPredicate:
