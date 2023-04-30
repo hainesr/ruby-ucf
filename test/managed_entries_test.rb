@@ -72,7 +72,7 @@ class ExampleUCF2 < UCF::File
   def initialize(filename)
     super(filename)
 
-    valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
+    valid = proc { |contents| contents.match(/[Hh]ello/) }
     register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt',
        :required => true, :validation_proc => valid))
   end
@@ -86,7 +86,7 @@ class ExampleUCFDir < UCF::Dir
   def initialize(filename)
     super(filename)
 
-    valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
+    valid = proc { |contents| contents.match(/[Hh]ello/) }
 
     register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt',
        :required => true, :validation_proc => valid))

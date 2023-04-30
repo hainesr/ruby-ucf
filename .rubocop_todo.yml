@@ -229,9 +229,3 @@ Style/MutableConstant:
     - 'lib/ucf/file.rb'
     - 'lib/ucf/version.rb'
     - 'test/**/*.rb'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Style/Proc:
-  Exclude:
-    - 'test/managed_entries_test.rb'
