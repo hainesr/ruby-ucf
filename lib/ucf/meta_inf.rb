@@ -49,21 +49,24 @@ module UCF
     #
     # Create a standard META-INF ManagedDirectory.
     def initialize
-      super('META-INF', :required => false, :entries =>
-        [
-          File.new('container.xml', CONTAINER_SCHEMA),
-          File.new('manifest.xml', MANIFEST_SCHEMA),
-          File.new('metadata.xml'),
-          File.new('signatures.xml'),
-          File.new('encryption.xml'),
-          File.new('rights.xml')
-        ]
+      super(
+        'META-INF',
+        required: false,
+        entries:
+          [
+            File.new('container.xml', CONTAINER_SCHEMA),
+            File.new('manifest.xml', MANIFEST_SCHEMA),
+            File.new('metadata.xml'),
+            File.new('signatures.xml'),
+            File.new('encryption.xml'),
+            File.new('rights.xml')
+          ]
       )
     end
 
     class File < ZipContainer::ManagedFile
       def initialize(name, schema = nil)
-        super(name, :required => false)
+        super(name, required: false)
 
         @schema = nil
         return unless defined?(::Nokogiri)

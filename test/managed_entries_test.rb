@@ -40,12 +40,10 @@ class ManagedUCF < UCF::File
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(ZipContainer::ManagedDirectory.new('src',
-      :required => true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new('src', required: true))
     register_managed_entry(ZipContainer::ManagedDirectory.new('test'))
     register_managed_entry(ZipContainer::ManagedDirectory.new('lib'))
-    register_managed_entry(ZipContainer::ManagedFile.new('index.html',
-      :required => true))
+    register_managed_entry(ZipContainer::ManagedFile.new('index.html', required: true))
   end
 end
 
@@ -54,10 +52,8 @@ class ExampleUCF < UCF::File
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(ZipContainer::ManagedDirectory.new('dir',
-      :required => true))
-    register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt',
-      :required => true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new('dir', required: true))
+    register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt', required: true))
   end
 end
 
@@ -68,8 +64,11 @@ class ExampleUCF2 < UCF::File
     super(filename)
 
     valid = proc { |contents| contents.match(/[Hh]ello/) }
-    register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt',
-       :required => true, :validation_proc => valid))
+    register_managed_entry(
+      ZipContainer::ManagedFile.new(
+        'greeting.txt', required: true, validation_proc: valid
+      )
+    )
   end
 end
 
@@ -81,8 +80,11 @@ class ExampleUCFDir < UCF::Dir
 
     valid = proc { |contents| contents.match(/[Hh]ello/) }
 
-    register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt',
-       :required => true, :validation_proc => valid))
+    register_managed_entry(
+      ZipContainer::ManagedFile.new(
+        'greeting.txt', required: true, validation_proc: valid
+      )
+    )
   end
 end
 
