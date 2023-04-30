@@ -35,7 +35,6 @@ require 'ucf'
 
 # A class to test the overriding of reserved and managed names.
 class NewUCF < UCF::File
-
   private_class_method :new
 
   def initialize(filename)
@@ -47,11 +46,9 @@ class NewUCF < UCF::File
 
     register_reserved_name('reserved_dir')
   end
-
 end
 
 class TestReservedNames < Minitest::Test
-
   # Check that the reserved names verify correctly.
   def test_verify_reserved_name
     assert(NewUCF.verify?(UCF_EXAMPLE))
@@ -379,5 +376,4 @@ class TestReservedNames < Minitest::Test
       end
     end
   end
-
 end

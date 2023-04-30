@@ -34,7 +34,6 @@ require_relative 'test_helper'
 require 'ucf'
 
 class TestReadDir < Minitest::Test
-
   # Check that the empty directory does not verify.
   def test_verify_empty_directory
     assert_raises(ZipContainer::MalformedContainerError) do
@@ -50,5 +49,4 @@ class TestReadDir < Minitest::Test
 
     assert(UCF::Dir.verify?(DIR_EMPTY))
   end
-
 end

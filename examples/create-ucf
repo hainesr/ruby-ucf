@@ -51,7 +51,6 @@ end
 
 begin
   UCF::File.create(ucffile) do |c|
-
     # Add a cheery greeting file from a string.
     c.file.open('greeting.txt', 'w') do |f|
       f.puts 'Hello, World!'

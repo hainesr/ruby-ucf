@@ -36,7 +36,6 @@ require 'ucf'
 
 # Classes to test managed entries.
 class ManagedUCF < UCF::File
-
   private_class_method :new
 
   def initialize(filename)
@@ -48,11 +47,9 @@ class ManagedUCF < UCF::File
     register_managed_entry(ZipContainer::ManagedFile.new('index.html',
       :required => true))
   end
-
 end
 
 class ExampleUCF < UCF::File
-
   private_class_method :new
 
   def initialize(filename)
@@ -62,11 +59,9 @@ class ExampleUCF < UCF::File
     register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt',
       :required => true))
   end
-
 end
 
 class ExampleUCF2 < UCF::File
-
   private_class_method :new
 
   def initialize(filename)
@@ -76,11 +71,9 @@ class ExampleUCF2 < UCF::File
     register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt',
        :required => true, :validation_proc => valid))
   end
-
 end
 
 class ExampleUCFDir < UCF::Dir
-
   private_class_method :new
 
   def initialize(filename)
@@ -91,11 +84,9 @@ class ExampleUCFDir < UCF::Dir
     register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt',
        :required => true, :validation_proc => valid))
   end
-
 end
 
 class TestManagedEntries < Minitest::Test
-
   # Check that the example UCF document does not validate as a ManagedUCF.
   def test_fail_verification
     refute(ManagedUCF.verify?(UCF_EXAMPLE))
@@ -212,5 +203,4 @@ class TestManagedEntries < Minitest::Test
       ExampleUCF2.verify!(filename)
     end
   end
-
 end

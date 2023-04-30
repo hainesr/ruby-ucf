@@ -34,7 +34,6 @@ require_relative 'test_helper'
 require 'ucf'
 
 class TestReadFile < Minitest::Test
-
   # Check that the null file does not verify.
   def test_verify_null_file
     assert_raises(ZipContainer::Error) do
@@ -109,5 +108,4 @@ class TestReadFile < Minitest::Test
       refute(ucf.commit)
     end
   end
-
 end

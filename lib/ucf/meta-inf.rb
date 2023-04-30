@@ -37,11 +37,9 @@ rescue LoadError
 end
 
 module UCF
-
   # This is a subclass of ManagedDirectory to represent the META-INF directory
   # in a basic UCF Document.
   class MetaInf < ZipContainer::ManagedDirectory
-
     SCHEMA_DIR = ::File.join(::File.dirname(__FILE__), 'schema')
     CONTAINER_SCHEMA = ::File.join(SCHEMA_DIR, 'container.rng')
     MANIFEST_SCHEMA = ::File.join(SCHEMA_DIR, 'OpenDocument-manifest-schema-v1.0-os.rng')
@@ -64,7 +62,6 @@ module UCF
     end
 
     class File < ZipContainer::ManagedFile
-
       def initialize(name, schema = nil)
         super(name, :required => false)
 
@@ -80,6 +77,5 @@ module UCF
         @schema.nil? ? true : @schema.validate(Nokogiri::XML(contents)) == []
       end
     end
-
   end
 end

@@ -35,7 +35,6 @@ require 'tmpdir'
 require 'ucf'
 
 class TestCreateFile < Minitest::Test
-
   # Check creation of standard empty ucf files.
   def test_create_standard_file
     Dir.mktmpdir do |dir|
@@ -126,5 +125,4 @@ class TestCreateFile < Minitest::Test
       end
     end
   end
-
 end

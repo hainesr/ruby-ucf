@@ -32,7 +32,6 @@
 
 #
 module UCF
-
   # This class represents a UCF document file - also known as an EPUB and very
   # similar to the
   # {EPUB Open Container Format (OCF)}[http://www.idpf.org/epub/30/spec/epub30-ocf.html].
@@ -47,7 +46,6 @@ module UCF
   #
   # There are code examples available with the source code of this library.
   class File < ZipContainer::File
-
     private_class_method :new
 
     # :stopdoc:
@@ -78,6 +76,5 @@ module UCF
     def self.create(filename, mimetype = DEFAULT_MIMETYPE, &block)
       super(filename, mimetype, &block)
     end
-
   end
 end
