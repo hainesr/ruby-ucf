@@ -44,7 +44,10 @@ end
 
 RDoc::Task.new do |r|
   r.main = 'README.md'
-  r.rdoc_files.include('README.md', 'LICENCE', 'CHANGES.md', 'lib/**/*.rb')
+  r.rdoc_files.include(
+    'README.md', 'LICENCE', 'CODE_OF_CONDUCT.md',
+    'CONTRIBUTING.md', 'CHANGES.md', 'lib/**/*.rb'
+  )
   r.options << "-t Universal Container Format Ruby Library version #{UCF::VERSION}"
   r.options << '--markup=markdown'
   r.options << '--tab-width=2'
