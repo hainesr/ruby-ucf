@@ -55,15 +55,6 @@ Layout/SpaceAroundOperators:
   Exclude:
     - 'ucf.gemspec'
 
-# Offense count: 8
-# This cop supports safe autocorrection (--autocorrect).
-Minitest/EmptyLineBeforeAssertionMethods:
-  Exclude:
-    - 'test/create_file_test.rb'
-    - 'test/managed_entries_test.rb'
-    - 'test/read_file_test.rb'
-    - 'test/reserved_names_test.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowedConstants.
 Style/Documentation:

@@ -80,9 +80,9 @@ class TestReadFile < Minitest::Test
   # Check the raw mimetype bytes
   def test_raw_mimetypes
     empty_ucf = File.read(UCF_EMPTY)
-    assert_equal('application/epub+zip', empty_ucf[38..57])
-
     compressed_mimetype = File.read(UCF_COMPRESSED_MIMETYPE)
+
+    assert_equal('application/epub+zip', empty_ucf[38..57])
     refute_equal('application/epub+zip', compressed_mimetype[38..57])
   end
 
@@ -93,9 +93,7 @@ class TestReadFile < Minitest::Test
       refute_predicate(ucf, :in_memory?)
 
       assert(ucf.file.exists?('greeting.txt'))
-
-      greeting = ucf.file.read('greeting.txt')
-      assert_equal("Hello, World!\n", greeting)
+      assert_equal("Hello, World!\n", ucf.file.read('greeting.txt'))
 
       assert(ucf.file.exists?('dir'))
       assert(ucf.file.directory?('dir'))

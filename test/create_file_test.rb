@@ -115,9 +115,7 @@ class TestCreateFile < Minitest::Test
         assert(ucf.file.exists?('dir2'))
         refute(ucf.file.exists?('dir3'))
 
-        text = ucf.file.read('test.txt')
-        assert_equal('testing', text)
-
+        assert_equal('testing', ucf.file.read('test.txt'))
         assert_equal('A comment!', ucf.comment)
 
         refute_predicate(ucf, :commit_required?)
