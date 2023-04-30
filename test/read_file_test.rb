@@ -38,58 +38,58 @@ class TestReadFile < Minitest::Test
   # Check that the null file does not verify.
   def test_verify_null_file
     assert_raises(ZipContainer::Error) do
-      UCF::File.verify!($file_null)
+      UCF::File.verify!(FILE_NULL)
     end
 
     assert_raises(ZipContainer::Error) do
-      UCF::File.verify?($file_null)
+      UCF::File.verify?(FILE_NULL)
     end
   end
 
   # Check that the empty ucf file does verify.
   def test_verify_empty_ucf
-    UCF::File.verify!($ucf_empty)
+    UCF::File.verify!(UCF_EMPTY)
 
-    assert(UCF::File.verify?($ucf_empty))
+    assert(UCF::File.verify?(UCF_EMPTY))
   end
 
   # Check that the example ucf file does verify.
   def test_verify_example_ucf
-    UCF::File.verify!($ucf_example)
+    UCF::File.verify!(UCF_EXAMPLE)
 
-    assert(UCF::File.verify?($ucf_example))
+    assert(UCF::File.verify?(UCF_EXAMPLE))
   end
 
   # Check that the empty zip file does not verify.
   def test_verify_empty_zip
     assert_raises(ZipContainer::MalformedContainerError) do
-      UCF::File.verify!($zip_empty)
+      UCF::File.verify!(ZIP_EMPTY)
     end
 
-    refute(UCF::File.verify?($zip_empty))
+    refute(UCF::File.verify?(ZIP_EMPTY))
   end
 
   # Check that a compressed mimetype file is detected.
   def test_verify_compressed_mimetype
     assert_raises(ZipContainer::MalformedContainerError) do
-      UCF::File.verify!($ucf_compressed_mimetype)
+      UCF::File.verify!(UCF_COMPRESSED_MIMETYPE)
     end
 
-    refute(UCF::File.verify?($ucf_compressed_mimetype))
+    refute(UCF::File.verify?(UCF_COMPRESSED_MIMETYPE))
   end
 
   # Check the raw mimetype bytes
   def test_raw_mimetypes
-    empty_ucf = File.read($ucf_empty)
+    empty_ucf = File.read(UCF_EMPTY)
     assert_equal('application/epub+zip', empty_ucf[38..57])
 
-    compressed_mimetype = File.read($ucf_compressed_mimetype)
+    compressed_mimetype = File.read(UCF_COMPRESSED_MIMETYPE)
     refute_equal('application/epub+zip', compressed_mimetype[38..57])
   end
 
   # Check reading files out of a ucf file and make sure we don't change it.
   def test_read_files_from_ucf
-    UCF::File.open($ucf_example) do |ucf|
+    UCF::File.open(UCF_EXAMPLE) do |ucf|
       assert(ucf.on_disk?)
       refute(ucf.in_memory?)
 

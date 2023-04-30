@@ -98,32 +98,32 @@ class TestManagedEntries < Minitest::Test
 
   # Check that the example UCF document does not validate as a ManagedUCF.
   def test_fail_verification
-    refute(ManagedUCF.verify?($ucf_example))
+    refute(ManagedUCF.verify?(UCF_EXAMPLE))
 
     assert_raises(ZipContainer::MalformedContainerError) do
-      ManagedUCF.verify!($ucf_example)
+      ManagedUCF.verify!(UCF_EXAMPLE)
     end
   end
 
   # Check that the example UCF document does validate as an ExampleUCF.
   def test_pass_verification
-    assert(ExampleUCF.verify?($ucf_example))
+    assert(ExampleUCF.verify?(UCF_EXAMPLE))
 
-    ExampleUCF.verify!($ucf_example)
+    ExampleUCF.verify!(UCF_EXAMPLE)
   end
 
   # Check that the example UCF document does validate as an ExampleUCF2.
   def test_pass_verification_2
-    assert(ExampleUCF2.verify?($ucf_example))
+    assert(ExampleUCF2.verify?(UCF_EXAMPLE))
 
-    ExampleUCF2.verify!($ucf_example)
+    ExampleUCF2.verify!(UCF_EXAMPLE)
   end
 
   # Check that the example UCF directory validates.
   def test_pass_verification_dir
-    assert(ExampleUCFDir.verify?($dir_mngd))
+    assert(ExampleUCFDir.verify?(DIR_MNGD))
 
-    ExampleUCFDir.verify!($dir_mngd)
+    ExampleUCFDir.verify!(DIR_MNGD)
   end
 
   # Check that a standard UCF Container can be created and things within it
@@ -138,7 +138,7 @@ class TestManagedEntries < Minitest::Test
 
         %w(container.xml manifest.xml).each do |file|
           full_path = "META-INF/#{file}"
-          c.add(full_path, File.join($meta_inf_dir, file))
+          c.add(full_path, File.join(META_INF_DIR, file))
           assert(c.file.exists?(full_path))
         end
       end
