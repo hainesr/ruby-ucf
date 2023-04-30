@@ -47,6 +47,6 @@ ucffile = ARGV[0]
 begin
   UCF::File.verify!(ucffile)
 rescue ZipContainer::MalformedContainerError, ZipContainer::Error => e
-  puts e.to_s
+  puts e
   exit 1
 end

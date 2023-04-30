@@ -72,14 +72,6 @@ Layout/SpaceAroundOperators:
   Exclude:
     - 'ucf.gemspec'
 
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-Lint/RedundantStringCoercion:
-  Exclude:
-    - 'examples/create-ucf'
-    - 'examples/ucfinfo'
-    - 'examples/verify-ucf'
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 Minitest/AssertEqual:

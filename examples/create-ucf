@@ -66,6 +66,6 @@ begin
     c.comment = 'This is an example UCF file!'
   end
 rescue ZipContainer::MalformedContainerError, ZipContainer::Error => e
-  puts e.to_s
+  puts e
   exit 1
 end

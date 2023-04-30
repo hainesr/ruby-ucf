@@ -47,11 +47,11 @@ ucffile = ARGV[0]
 begin
   ucf = UCF::File.open(ucffile)
 rescue ZipContainer::MalformedContainerError, ZipContainer::Error => e
-  puts e.to_s
+  puts e
   exit 1
 end
 
-puts "Archive: #{ucf.to_s}"
+puts "Archive: #{ucf}"
 puts "UCF file size: #{File.size(ucffile)} bytes, number of entries: #{ucf.size}"
 
 total_size = 0
