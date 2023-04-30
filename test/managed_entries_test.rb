@@ -136,7 +136,7 @@ class TestManagedEntries < Minitest::Test
         c.mkdir('META-INF')
         assert(c.file.exists?('META-INF'))
 
-        %w(container.xml manifest.xml).each do |file|
+        %w[container.xml manifest.xml].each do |file|
           full_path = "META-INF/#{file}"
           c.add(full_path, File.join(META_INF_DIR, file))
           assert(c.file.exists?(full_path))

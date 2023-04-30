@@ -243,13 +243,6 @@ Style/MutableConstant:
     - 'lib/ucf/version.rb'
     - 'test/**/*.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'test/managed_entries_test.rb'
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 Style/Proc:
