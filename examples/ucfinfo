@@ -60,7 +60,7 @@ total_comp = 0
 ucf.each do |entry|
   total_size += entry.size
   total_comp += entry.compressed_size
-  comp = entry.compression_method == 0 ? 'stor' : 'defN'
+  comp = entry.compression_method.zero? ? 'stor' : 'defN'
   size = entry.size.to_s.rjust(8)
   puts "#{size} #{comp} #{entry.time} #{entry.name}"
 end

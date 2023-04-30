@@ -45,7 +45,7 @@ class TestCreateFile < Minitest::Test
         assert(c.on_disk?)
         refute(c.in_memory?)
 
-        assert(c.find_entry('mimetype').local_header_offset == 0)
+        assert_equal(0, c.find_entry('mimetype').local_header_offset)
       end
 
       UCF::File.verify!(filename)
@@ -63,7 +63,7 @@ class TestCreateFile < Minitest::Test
         assert(c.on_disk?)
         refute(c.in_memory?)
 
-        assert(c.find_entry('mimetype').local_header_offset == 0)
+        assert_equal(0, c.find_entry('mimetype').local_header_offset)
 
         assert_equal(mimetype, c.read('mimetype'))
       end
