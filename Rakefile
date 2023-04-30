@@ -32,7 +32,6 @@
 
 require 'bundler/gem_tasks'
 require 'minitest/test_task'
-require 'rake/testtask'
 require 'rdoc/task'
 require 'rubocop/rake_task'
 
