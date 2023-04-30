@@ -66,10 +66,17 @@ class TestReservedNames < Minitest::Test
       assert_equal(1, ucf.reserved_names.length)
       assert_equal(['mimetype'], ucf.reserved_names)
       assert_equal(6, ucf.managed_files.length)
-      assert_equal(['META-INF/container.xml',
-        'META-INF/manifest.xml', 'META-INF/metadata.xml',
-        'META-INF/signatures.xml', 'META-INF/encryption.xml',
-        'META-INF/rights.xml'], ucf.managed_file_names)
+      assert_equal(
+        [
+          'META-INF/container.xml',
+          'META-INF/manifest.xml',
+          'META-INF/metadata.xml',
+          'META-INF/signatures.xml',
+          'META-INF/encryption.xml',
+          'META-INF/rights.xml'
+        ],
+        ucf.managed_file_names
+      )
       assert(ucf.reserved_entry?('mimetype'))
       assert(ucf.reserved_entry?('mimetype/'))
       assert(ucf.reserved_entry?('MimeType'))
@@ -86,10 +93,18 @@ class TestReservedNames < Minitest::Test
       refute(ucf.reserved_entry?('META-INF'))
 
       assert_equal(7, ucf.managed_entries.length)
-      assert_equal(['META-INF/container.xml',
-        'META-INF/manifest.xml', 'META-INF/metadata.xml',
-        'META-INF/signatures.xml', 'META-INF/encryption.xml',
-        'META-INF/rights.xml', 'META-INF'], ucf.managed_entry_names)
+      assert_equal(
+        [
+          'META-INF/container.xml',
+          'META-INF/manifest.xml',
+          'META-INF/metadata.xml',
+          'META-INF/signatures.xml',
+          'META-INF/encryption.xml',
+          'META-INF/rights.xml',
+          'META-INF'
+        ],
+        ucf.managed_entry_names
+      )
 
       refute(ucf.managed_entry?('This_should_fail'))
       refute(ucf.managed_entry?('META_INF'))
@@ -103,10 +118,18 @@ class TestReservedNames < Minitest::Test
       assert_equal(2, ucf.reserved_names.length)
       assert_equal(['mimetype', 'reserved_dir'], ucf.reserved_names)
       assert_equal(7, ucf.managed_files.length)
-      assert_equal(['index.html', 'META-INF/container.xml',
-        'META-INF/manifest.xml', 'META-INF/metadata.xml',
-        'META-INF/signatures.xml', 'META-INF/encryption.xml',
-        'META-INF/rights.xml'], ucf.managed_file_names)
+      assert_equal(
+        [
+          'index.html',
+          'META-INF/container.xml',
+          'META-INF/manifest.xml',
+          'META-INF/metadata.xml',
+          'META-INF/signatures.xml',
+          'META-INF/encryption.xml',
+          'META-INF/rights.xml'
+        ],
+        ucf.managed_file_names
+      )
       assert(ucf.reserved_entry?('mimetype'))
       assert(ucf.reserved_entry?('mimetype/'))
       assert(ucf.reserved_entry?('MimeType'))
@@ -115,8 +138,10 @@ class TestReservedNames < Minitest::Test
       refute(ucf.reserved_entry?('index.html'))
 
       assert_equal(4, ucf.managed_directories.length)
-      assert_equal(['META-INF', 'src', 'test', 'lib'],
-        ucf.managed_directory_names)
+      assert_equal(
+        ['META-INF', 'src', 'test', 'lib'],
+        ucf.managed_directory_names
+      )
       assert(ucf.managed_entry?('META-INF'))
       assert(ucf.managed_entry?('META-INF/'))
       assert(ucf.managed_entry?('MeTa-iNf'))
@@ -131,11 +156,22 @@ class TestReservedNames < Minitest::Test
       refute(ucf.reserved_entry?('lib'))
 
       assert_equal(11, ucf.managed_entries.length)
-      assert_equal(['index.html', 'META-INF/container.xml',
-        'META-INF/manifest.xml', 'META-INF/metadata.xml',
-        'META-INF/signatures.xml', 'META-INF/encryption.xml',
-        'META-INF/rights.xml', 'META-INF', 'src', 'test', 'lib'],
-        ucf.managed_entry_names)
+      assert_equal(
+        [
+          'index.html',
+          'META-INF/container.xml',
+          'META-INF/manifest.xml',
+          'META-INF/metadata.xml',
+          'META-INF/signatures.xml',
+          'META-INF/encryption.xml',
+          'META-INF/rights.xml',
+          'META-INF',
+          'src',
+          'test',
+          'lib'
+        ],
+        ucf.managed_entry_names
+      )
 
       refute(ucf.managed_entry?('This_should_fail'))
       refute(ucf.managed_entry?('META_INF'))
