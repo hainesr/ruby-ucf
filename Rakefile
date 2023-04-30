@@ -43,10 +43,10 @@ Minitest::TestTask.create do |test|
 end
 
 RDoc::Task.new do |r|
-  r.main = 'ReadMe.rdoc'
-  r.rdoc_files.include('ReadMe.rdoc', 'LICENCE', 'CHANGES.md', 'lib/**/*.rb')
+  r.main = 'README.md'
+  r.rdoc_files.include('README.md', 'LICENCE', 'CHANGES.md', 'lib/**/*.rb')
   r.options << "-t Universal Container Format Ruby Library version #{UCF::VERSION}"
-  r.options << '-N'
+  r.options << '--markup=markdown'
   r.options << '--tab-width=2'
 end
 
