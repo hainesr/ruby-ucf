@@ -15,14 +15,6 @@ Layout/ArgumentAlignment:
     - 'test/managed_entries_test.rb'
     - 'test/reserved_names_test.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowBorderComment, AllowMarginComment.
-Layout/EmptyComment:
-  Exclude:
-    - 'lib/ucf/dir.rb'
-    - 'lib/ucf/file.rb'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowForAlignment, AllowBeforeTrailingComments, ForceEqualSignAlignment.

@@ -1,4 +1,4 @@
-# Copyright (c) 2014 The University of Manchester, UK.
+# Copyright (c) 2014-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-#
+##
 module UCF
   # This class represents a UCF document - also known as an EPUB and very
   # similar to the
