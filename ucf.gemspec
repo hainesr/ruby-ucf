@@ -40,23 +40,25 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/hainesr/ruby-ucf'
   s.platform    = Gem::Platform::RUBY
   s.summary     = 'Universal Container Format (UCF) Ruby Library'
-  s.description = 'A Ruby library for working with Universal Container '\
-    'Format files - a type of EPUB document. See the UCF specification '\
-    '(https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format) '\
-    'for details. They are very similar, although not as restrictive, as '\
-    'the EPUB Open Container Format (OCF) '\
+  s.description =
+    'A Ruby library for working with Universal Container ' \
+    'Format files - a type of EPUB document. See the UCF specification ' \
+    '(https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format) ' \
+    'for details. They are very similar, although not as restrictive, as ' \
+    'the EPUB Open Container Format (OCF) ' \
     '(http://www.idpf.org/epub/30/spec/epub30-ocf.html).'
-  s.license          = 'BSD'
-  s.require_paths    = ['lib']
-  s.files            = `git ls-files -z`.split("\x0").reject do |f|
+
+  s.license       = 'BSD'
+  s.require_paths = ['lib']
+  s.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
 
-  s.metadata      = {
-    'bug_tracker_uri'       => 'https://github.com/hainesr/ruby-ucf/issues',
-    'changelog_uri'         => "https://github.com/hainesr/ruby-ucf/blob/v#{s.version}/Changelog.md",
-    'documentation_uri'     => 'https://hainesr.github.io/ruby-ucf',
-    'source_code_uri'       => "https://github.com/hainesr/ruby-ucf/tree/v#{s.version}",
+  s.metadata = {
+    'bug_tracker_uri' => 'https://github.com/hainesr/ruby-ucf/issues',
+    'changelog_uri' => "https://github.com/hainesr/ruby-ucf/blob/v#{s.version}/Changelog.md",
+    'documentation_uri' => 'https://hainesr.github.io/ruby-ucf',
+    'source_code_uri' => "https://github.com/hainesr/ruby-ucf/tree/v#{s.version}",
     'rubygems_mfa_required' => 'true'
   }
 
