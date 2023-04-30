@@ -66,5 +66,7 @@ ucf.each do |entry|
 end
 
 ratio = ((total_size - total_comp) / total_size.to_f) * 100
-puts '%d files, %d bytes uncompressed, %d bytes compressed: %.1f%%' %
-  [ucf.size, total_size, total_comp, ratio]
+puts format(
+  '%<num>d files, %<size>d bytes uncompressed, %<comp>d bytes compressed: %<ratio>.1f%%',
+  { num: ucf.size, size: total_size, comp: total_comp, ratio: ratio }
+)
