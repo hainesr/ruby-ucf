@@ -103,7 +103,6 @@ Layout/LineEndStringConcatenationIndentation:
 # SupportedStyles: aligned, indented
 Layout/MultilineOperationIndentation:
   Exclude:
-    - 'Rakefile'
     - 'examples/ucfinfo'
 
 # Offense count: 1
@@ -113,12 +112,6 @@ Layout/MultilineOperationIndentation:
 Layout/SpaceAroundOperators:
   Exclude:
     - 'ucf.gemspec'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Lint/AmbiguousOperatorPrecedence:
-  Exclude:
-    - 'Rakefile'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
@@ -226,12 +219,6 @@ Style/HashSyntax:
     - 'lib/ucf/meta-inf.rb'
     - 'test/managed_entries_test.rb'
 
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/LineEndConcatenation:
-  Exclude:
-    - 'Rakefile'
-
 # Offense count: 3
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle.
@@ -248,16 +235,3 @@ Style/MutableConstant:
 Style/Proc:
   Exclude:
     - 'test/managed_entries_test.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/RedundantInterpolation:
-  Exclude:
-    - 'Rakefile'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: Mode.
-Style/StringConcatenation:
-  Exclude:
-    - 'Rakefile'
