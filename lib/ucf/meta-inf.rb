@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -66,9 +66,9 @@ module UCF
         super(name, :required => false)
 
         @schema = nil
-        if defined?(::Nokogiri)
-          @schema = schema.nil? ? nil : Nokogiri::XML::RelaxNG(::File.open(schema))
-        end
+        return unless defined?(::Nokogiri)
+
+        @schema = schema.nil? ? nil : Nokogiri::XML::RelaxNG(::File.open(schema))
       end
 
       protected
