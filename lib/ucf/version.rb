@@ -31,5 +31,5 @@
 # Author: Robert Haines
 
 module UCF
-  VERSION = '3.0.0'
+  VERSION = '3.0.0' # :nodoc:
 end
