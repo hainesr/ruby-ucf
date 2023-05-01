@@ -30,6 +30,8 @@
 #
 # Author: Robert Haines
 
+##
 module UCF
+  # The current version of the UCF library.
   VERSION = '3.0.0'
 end
