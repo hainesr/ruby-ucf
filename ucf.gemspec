@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2023 The University of Manchester, UK.
+# Copyright (c) 2013-2025 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -62,7 +62,7 @@ Gem::Specification.new do |s|
     'rubygems_mfa_required' => 'true'
   }
 
-  s.required_ruby_version = '>= 2.6'
+  s.required_ruby_version = '>= 2.7'
 
   s.add_development_dependency 'minitest', '~> 5.16.0'
   s.add_development_dependency 'nokogiri', '~> 1.13.0'

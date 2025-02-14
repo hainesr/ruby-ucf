@@ -7,7 +7,7 @@ require:
 
 # Set our base version of ruby and enable all cops.
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.7
   NewCops: enable
 
 # I think 'has_key?' looks better than 'key?'.
