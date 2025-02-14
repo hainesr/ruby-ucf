@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2023 The University of Manchester, UK.
+# Copyright (c) 2013-2025 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,7 +30,6 @@
 #
 # Author: Robert Haines
 
-require 'simplecov'
 require 'minitest/autorun'
 
 Minitest::Test.make_my_diffs_pretty!
