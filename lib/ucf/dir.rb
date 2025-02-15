@@ -1,4 +1,6 @@
-# Copyright (c) 2014-2023 The University of Manchester, UK.
+# frozen_string_literal: true
+
+# Copyright (c) 2014-2025 The University of Manchester, UK.
 #
 # All rights reserved.
 #
