@@ -1,5 +1,30 @@
 # Changes log for the UCF Ruby Gem
 
+## Version 3.0.0
+
+* Update minimum ruby version required to 3.0.
+* Add a code of conduct.
+* Add contributing guidelines.
+* Update to use zip-container v6.
+* Fix various links in the documentation.
+
+### Internal/tooling:
+
+* Ensure CI tests are run with Ruby >=3.1 due to Nokogiri requirements.
+* Update rdoc and convert some rdoc files to md.
+* Update and add metadata in the gemspec.
+* Just use a constant for the gem version string.
+* Add a setup script.
+* Add a script to start IRB with UCF loaded.
+* Switch from Coveralls to Simplecov.
+* Switch to use minitest for unit tests.
+* Switch from Travis CI to GitHub Actions.
+* Add Rubocop.
+* Add a linting GitHub Action.
+* Set Rubocop output to use GitHub format.
+* Add an Action to build the latest documentation.
+* Add a test to ensure our version numbers are sane.
+
 ## Version 2.0.1
 
 * Update zip-container dependency to fix rubyzip security vulnerability.

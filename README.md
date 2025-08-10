@@ -32,6 +32,10 @@ There are some examples of how to use the library provided in the examples direc
 
 The UCF specification requires that files in the META-INF directory are validated against a schema if they are present. If the [nokogiri gem](https://rubygems.org/gems/nokogiri) is available then this library will use it to validate the contents of the `container.xml` and `manifest.xml` files. This functionality is not enforced on the user in case they are not using the META-INF directory and so would not need the extra dependency on nokogiri.
 
+#### Ruby version requirements and nokogiri
+
+When used on its own the UCF library requires Ruby version >=3.0, however, if you are using nokogiri for schema validation then you need to use Ruby version >=3.1 to satisfy its version constraints.
+
 ### What this library can not do yet
 
 The basic requirements of a UCF document are all implemented but there are a number of optional features that are not yet provided.
