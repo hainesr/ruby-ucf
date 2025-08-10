@@ -82,7 +82,16 @@
               <ul class="link-list" role="directory">
                           <li>      <a href="#label-Synopsis">Synopsis</a>
           <li>      <a href="#label-Usage">Usage</a>
-          <li>      <a href="#label-Files+in+the+META-INF+directory">Files in the META-INF directory</a>
+          <li>
+            <details open>
+              <summary>      <a href="#label-Files+in+the+META-INF+directory">Files in the META-INF directory</a>
+</summary>
+              <ul class="link-list" role="directory">
+                          <li>      <a href="#label-Ruby+version+requirements+and+nokogiri">Ruby version requirements and nokogiri</a>
+
+              </ul>
+            </details>
+          </li>
           <li>      <a href="#label-What+this+library+can+not+do+yet">What this library can not do yet</a>
           <li>      <a href="#label-Library+versions">Library versions</a>
           <li>      <a href="#label-Developing+Ruby+UCF">Developing Ruby UCF</a>
@@ -152,6 +161,10 @@
 <h3 id="label-Files+in+the+META-INF+directory">Files in the META-INF directory<span><a href="#label-Files+in+the+META-INF+directory">&para;</a> <a href="#top">&uarr;</a></span></h3>
 
 <p>The <a href="UCF.html"><code>UCF</code></a> specification requires that files in the META-INF directory are validated against a schema if they are present. If the <a href="https://rubygems.org/gems/nokogiri">nokogiri gem</a> is available then this library will use it to validate the contents of the <code>container.xml</code> and <code>manifest.xml</code> files. This functionality is not enforced on the user in case they are not using the META-INF directory and so would not need the extra dependency on nokogiri.</p>
+
+<h4 id="label-Ruby+version+requirements+and+nokogiri">Ruby version requirements and nokogiri<span><a href="#label-Ruby+version+requirements+and+nokogiri">&para;</a> <a href="#top">&uarr;</a></span></h4>
+
+<p>When used on its own the <a href="UCF.html"><code>UCF</code></a> library requires Ruby version &gt;=3.0, however, if you are using nokogiri for schema validation then you need to use Ruby version &gt;=3.1 to satisfy its version constraints.</p>
 
 <h3 id="label-What+this+library+can+not+do+yet">What this library can not do yet<span><a href="#label-What+this+library+can+not+do+yet">&para;</a> <a href="#top">&uarr;</a></span></h3>
 
