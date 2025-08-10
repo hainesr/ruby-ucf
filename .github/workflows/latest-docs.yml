@@ -1,0 +1,29 @@
+name: Latest documentation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout UCF code
+        uses: actions/checkout@v4
+
+      - name: Install and set up ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+
+      - name: Run RDoc
+        run: bundle exec rake rdoc
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: html
+          target-folder: latest
