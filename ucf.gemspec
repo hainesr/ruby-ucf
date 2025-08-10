@@ -64,7 +64,7 @@ Gem::Specification.new do |s|
     'rubygems_mfa_required' => 'true'
   }
 
-  s.required_ruby_version = '>= 2.7'
+  s.required_ruby_version = '>= 3.0'
 
   s.add_development_dependency 'minitest', '~> 5.25'
   s.add_development_dependency 'nokogiri', '~> 1.13.0'
@@ -77,5 +77,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'simplecov', '0.22.0'
   s.add_development_dependency 'simplecov-lcov', '~> 0.8.0'
 
-  s.add_runtime_dependency 'zip-container', '~> 4.0.1'
+  s.add_runtime_dependency 'zip-container', '~> 6.0'
 end
