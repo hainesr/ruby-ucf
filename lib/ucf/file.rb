@@ -42,7 +42,7 @@ module UCF
   # for more details.
   #
   # This class is a specialization of ZipContainer::File so you should see the
-  # {ZipContainer documentation}[http://mygrid.github.io/ruby-zip-container/]
+  # {ZipContainer documentation}[http://hainesr.github.io/ruby-zip-container/]
   # for much more information and a list of all the other methods available in
   # this class. RDoc does not list inherited methods, unfortunately.
   #
@@ -72,7 +72,7 @@ module UCF
     # "application/epub+zip", will be used.
     #
     # Please see the
-    # {ZipContainer documentation}[http://mygrid.github.io/ruby-zip-container/]
+    # {ZipContainer documentation}[http://hainesr.github.io/ruby-zip-container/]
     # for much more information and a list of all the other methods available
     # in this class. RDoc does not list inherited methods, unfortunately.
     def self.create(filename, mimetype = DEFAULT_MIMETYPE, &block)

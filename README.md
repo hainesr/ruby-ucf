@@ -14,7 +14,7 @@ A Ruby library for creating, editing and validating UCF files.
 
 This is a Ruby library for working with UCF documents. See [the specification](https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format) for more details. UCF is a type of EPUB and very similar to the [EPUB Open Container Format (OCF)](http://www.idpf.org/epub/30/spec/epub30-ocf.html).
 
-Most of this library's API is provided by the underlying [zip-container gem](https://rubygems.org/gems/zip-container) so you will need to consult [that documentation as well](http://mygrid.github.io/ruby-zip-container/) in addition to this.
+Most of this library's API is provided by the underlying [zip-container gem](https://rubygems.org/gems/zip-container) so you will need to consult [that documentation as well](http://hainesr.github.io/ruby-zip-container/) in addition to this.
 
 There are some examples of how to use the library provided in the examples directory. See the contents of the tests directory for even more.
 
@@ -22,21 +22,15 @@ There are some examples of how to use the library provided in the examples direc
 
 This library has two entry points.
 
-The main `UCF::File` class is a specialization of [ZipContainer::File](http://mygrid.github.io/ruby-zip-container/3.0.0/ZipContainer/File.html) which largely mimics the rubyzip [Zip::File](http://www.rubydoc.info/gems/rubyzip/1.1.6/Zip/File) and [Zip::FileSystem](http://www.rubydoc.info/gems/rubyzip/1.1.6/Zip/FileSystem) APIs.
+The main `UCF::File` class is a specialization of [ZipContainer::File](https://hainesr.github.io/ruby-zip-container/latest/ZipContainer/File.html) which largely mimics the rubyzip [Zip::File](https://www.rubydoc.info/gems/rubyzip/3.0.1/Zip/File) and [Zip::FileSystem](http://www.rubydoc.info/gems/rubyzip/3.0.1/Zip/FileSystem) APIs.
 
-The `UCF::Dir` class is a based upon the [ZipContainer::Dir](http://mygrid.github.io/ruby-zip-container/3.0.0/ZipContainer/Dir.html) class which mimics, where possible, the core ruby [Dir API](http://ruby-doc.org/core-1.9.3/Dir.html).
+The `UCF::Dir` class is a based upon the [ZipContainer::Dir](https://hainesr.github.io/ruby-zip-container/latest/ZipContainer/Dir.html) class which mimics, where possible, the core ruby [Dir API](https://rubyapi.org/3.0/o/dir).
 
 There are some examples of how to use the library provided in the examples directory. See the contents of the tests directory for even more.
 
 ### Files in the META-INF directory
 
 The UCF specification requires that files in the META-INF directory are validated against a schema if they are present. If the [nokogiri gem](https://rubygems.org/gems/nokogiri) is available then this library will use it to validate the contents of the `container.xml` and `manifest.xml` files. This functionality is not enforced on the user in case they are not using the META-INF directory and so would not need the extra dependency on nokogiri.
-
-### Backwards incompatibility warning!
-
-The `UCF::Container` class is deprecated in favour of `UCF::File`. These classes are functionally identical; it is just a change of name. The new name brings this API into closer alignment with the underlying [zip-container API](http://mygrid.github.io/ruby-zip-container/) (`ZipContainer::File`).
-
-`UCF::Container` is not available from version 1.0.0 onwards.
 
 ### What this library can not do yet
 
