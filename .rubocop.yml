@@ -54,5 +54,10 @@ Metrics/ClassLength:
 Minitest/MultipleAssertions:
   Max: 10
 
+Style/Documentation:
+  Exclude:
+    - 'test/**/*.rb'
+    - 'examples/*'
+
 Style/DocumentDynamicEvalDefinition:
   Enabled: true
